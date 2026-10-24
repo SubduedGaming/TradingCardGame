@@ -154,8 +154,8 @@ Append-only record: `{ id, accountId, type, delta, balanceAfter, refs, createdAt
 7. Server, accounts, ledger, market; ghost armies; live PvP.
 
 ## 11. Types changes needed now
-Implemented in `src/engine/`: `types.ts` (state, actions, events), `game.ts` (`createGame`, `apply`, `observation`, `hashState`), `legal.ts`, `combat.ts`, `turn.ts`, `effects.ts`, `damage.ts`, `stats.ts`, `deck.ts`.
+Implemented in `src/engine/`: `types.ts` (state, actions, events), `game.ts` (`createGame`, `apply`, `observation`, `hashState`), `legal.ts`, `combat.ts`, `turn.ts`, `effects.ts`, `damage.ts`, `stats.ts`, `deck.ts`, `costs.ts` (cost discounts), `doctrine.ts` (nation doctrines), `units.ts` (the one path by which a unit enters play).
 
-Deviations from §3.2: `construct` takes no slot (buildings occupy the next free slot); `Action` carries a `player` field; a `discard` action and a `discard` phase handle the hand limit; units in play carry `fresh`, `grounded`, `hasAttacked`, `redeployed`, `tenacityUsed` and `tempKeywords`.
+Deviations from §3.2: `construct` takes no slot (buildings occupy the next free slot); `Action` carries a `player` field; `deploy` carries `targets` for onDeploy effects; a `discard` action and a `discard` phase handle the hand limit.
 
-Not yet implemented (nothing in the code refers to them): nation doctrines, cost-reduction effects, Reaction Orders, and the card effects whose text needs targets chosen on deploy.
+All 63 set 1 cards are playable. The only rules not implemented are the ones docs/01 §14 defers on purpose: Reaction Orders. Effects that reveal hidden information to one player are also not supported (Enigma Intercept was changed to a random discard for this reason).

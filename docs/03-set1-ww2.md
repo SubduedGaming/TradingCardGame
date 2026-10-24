@@ -132,9 +132,9 @@ Totals: 12 Infantry, 9 Armour, 8 Artillery/Anti-Tank, 7 Air, 3 Support = 39 unit
 | O07 | Naval Bombardment | Neutral | U | 3 Su, 2 Fu | Deal 2 damage to every enemy Front unit. |
 | O08 | Lend-Lease | USA | U | 2 Su | Gain 3 of one resource of your choice. |
 | O09 | Scorched Earth | USSR | U | 1 Su | Destroy one of your own buildings. Deal 3 damage to every enemy unit in one lane. |
-| O10 | Enigma Intercept | UK | R | 2 Su | Look at the opponent's hand. Choose a card; they discard it. |
+| O10 | Enigma Intercept | UK | R | 2 Su | Your opponent discards a random card from their hand. (Changed from "look at their hand and choose": the engine has no way to show a hidden hand mid-order yet.) |
 | O11 | Blitzkrieg | Germany | R | 3 Su | Until end of turn, all your units gain **Blitz** and +1 ATK. |
-| O12 | Operation Overlord | USA | L | 5 Su | Put up to three Infantry cards from your deck onto empty slots (any lanes). They are Fresh. Shuffle your deck. |
+| O12 | Operation Overlord | USA | L | 5 Su | Put up to three Infantry cards from your deck onto empty slots (Front slots first, lane by lane, no choice). They are Fresh. Shuffle your deck. |
 
 ## 6. Mana-curve and resource targets
 

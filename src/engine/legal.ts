@@ -1,7 +1,8 @@
 import type { Action, GameState, PlayerId } from './types';
 import { BUILDING_SLOTS, HAND_LIMIT, LANES, REDEPLOY_COST, ROWS } from './types';
 import { attackTargets } from './combat';
-import { orderTargetCombos } from './effects';
+import { deployTargetCombos, orderTargetCombos } from './effects';
+import { canPlay } from './costs';
 import { hasKw, unitsOf } from './stats';
 import { canAfford } from './zones';
 import { stableStringify } from './util';
@@ -27,15 +28,19 @@ export function legalActions(state: GameState, player: PlayerId): Action[] {
 
   if (state.phase === 'main') {
     p.hand.forEach((card, cardIndex) => {
-      if (!canAfford(p.resources, card.cost)) return;
+      if (!canPlay(state, player, card)) return;
       if (card.type === 'building') {
         if (!p.constructedThisTurn && p.buildings.length < BUILDING_SLOTS) {
           out.push({ type: 'construct', player, cardIndex });
         }
       } else if (card.type === 'unit') {
+        const combos = deployTargetCombos(state, player, card);
         for (const lane of LANES) {
           for (const row of ROWS) {
-            if (!p.lanes[lane][row]) out.push({ type: 'deploy', player, cardIndex, lane, row });
+            if (p.lanes[lane][row]) continue;
+            for (const targets of combos) {
+              out.push({ type: 'deploy', player, cardIndex, lane, row, targets });
+            }
           }
         }
       } else {

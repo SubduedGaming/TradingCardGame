@@ -15,6 +15,7 @@ import type {
   UnitInPlay,
 } from './types';
 import { apply, createGame } from './game';
+import type { GameConfig } from './game';
 import { emptyResources } from './zones';
 import { buildStarterDeck } from '../cards/ww2';
 
@@ -69,9 +70,13 @@ export function orderCard(over: Partial<OrderCard> = {}): OrderCard {
 }
 
 /** A started game: both mulligans kept, player 0 (or `first`) in the Main phase of turn 1. */
-export function newGame(seed = 1, first: PlayerId = 0): GameState {
-  const decks: [Card[], Card[]] = [buildStarterDeck(), buildStarterDeck()];
-  let state = createGame({ seed, decks, first });
+export function newGame(
+  seed = 1,
+  first: PlayerId = 0,
+  decks: [Card[], Card[]] = [buildStarterDeck(), buildStarterDeck()],
+  doctrines?: GameConfig['doctrines'],
+): GameState {
+  let state = createGame({ seed, decks, first, doctrines });
   state = apply(state, { type: 'mulligan', player: 0, keep: true }).state;
   state = apply(state, { type: 'mulligan', player: 1, keep: true }).state;
   return state;
@@ -98,6 +103,8 @@ export function put(
     grounded: false,
     tenacityUsed: false,
     tempKeywords: [],
+    extraKeywords: [],
+    tempAttack: 0,
     ...over,
   };
   state.players[player].lanes[lane][row] = unit;

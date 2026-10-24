@@ -52,7 +52,7 @@ describe('deploy', () => {
     let s = newGame(1, 0);
     setHand(s, 0, [RIFLE_SQUAD]);
     setResources(s, 0, { manpower: 3 });
-    const r = step(s, { type: 'deploy', player: 0, cardIndex: 0, lane: 2, row: 'rear' });
+    const r = step(s, { type: 'deploy', player: 0, cardIndex: 0, lane: 2, row: 'rear', targets: [] });
     s = r.state;
     const u = s.players[0].lanes[2].rear!;
     expect(u.card.id).toBe(RIFLE_SQUAD.id);
@@ -82,7 +82,7 @@ describe('deploy', () => {
     });
     setHand(s, 0, [scout]);
     setResources(s, 0, { manpower: 1 });
-    s = step(s, { type: 'deploy', player: 0, cardIndex: 0, lane: 0, row: 'front' }).state;
+    s = step(s, { type: 'deploy', player: 0, cardIndex: 0, lane: 0, row: 'front', targets: [] }).state;
     expect(s.players[0].hand).toHaveLength(1);
   });
 });

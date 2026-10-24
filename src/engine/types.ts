@@ -52,31 +52,59 @@ export type ChosenKind =
   | 'enemyUnit'
   | 'friendlyUnit'
   | 'enemyBuilding'
+  | 'friendlyBuilding'
   | 'enemyUnitOrBuilding'
   | 'friendlyLane'
-  | 'enemyLane';
+  | 'enemyLane'
+  | 'resource';
 
 export type TargetSpec =
   | { kind: 'self' }
   | { kind: 'chosen'; of: ChosenKind }
   /** Friendly unit with the most missing HP, in the source's lane or anywhere. */
   | { kind: 'autoAlly'; scope: 'lane' | 'any' }
-  | { kind: 'allEnemyFrontUnits' };
+  | { kind: 'allEnemyFrontUnits' }
+  | { kind: 'allFriendlyUnits' };
 
 export type EffectOp =
+  /** A chosen lane target damages every enemy unit in that lane. */
   | { do: 'damage'; target: TargetSpec; amount: number; ignoresArmour?: boolean }
   | { do: 'heal'; target: TargetSpec; amount: number }
   | { do: 'draw'; count: number }
   | { do: 'gain'; resource: ResourceType; amount: number }
+  /** Gain `amount` of the resource the player chose (chosen target of 'resource'). */
+  | { do: 'gainChosen'; target: TargetSpec; amount: number }
   /** Permanently raises max HP (and current HP). */
   | { do: 'addMaxHp'; target: TargetSpec; amount: number }
+  /** Raises ATK until end of turn. */
+  | { do: 'modifyAttack'; target: TargetSpec; amount: number }
   /** Grants a keyword until end of turn. */
   | { do: 'grantKeyword'; target: TargetSpec; keyword: Keyword }
   | { do: 'destroyBuilding'; target: TargetSpec; maxHp?: number }
   /** Enemy Ranged units cannot attack into the chosen lane until the caster's next turn. */
-  | { do: 'smoke'; target: TargetSpec };
+  | { do: 'smoke'; target: TargetSpec }
+  /** The opponent discards `count` random cards from their hand. */
+  | { do: 'discardRandom'; count: number }
+  /**
+   * Puts up to `count` cards of `role` from the top of the deck onto empty slots
+   * (Front slots first, lane by lane), then shuffles the deck. Summoned units are Fresh.
+   */
+  | { do: 'summonFromDeck'; role: Role; count: number };
 
 export type Effect = { trigger: Trigger } & EffectOp;
+
+/**
+ * Reduces the cost of cards its owner plays while the source is in play. A discount never takes a
+ * card's total cost below 1 resource. `oncePerTurn` discounts apply to the first matching card only.
+ */
+export interface CostDiscount {
+  applies: 'order' | 'building' | { role: Role };
+  resource: ResourceType;
+  amount: number;
+  oncePerTurn: boolean;
+  /** Only while the owner controls at least this many units. */
+  minUnits?: number;
+}
 
 // -------------------------------------------------------------------- cards
 
@@ -98,6 +126,7 @@ export interface BuildingCard extends CardBase {
   keywords: Keyword[];
   /** AA X: damages an enemy Flying unit at the start of the opponent's Combat phase. */
   aa?: number;
+  discounts?: CostDiscount[];
   effects?: Effect[];
 }
 
@@ -112,6 +141,7 @@ export interface UnitCard extends CardBase {
   /** Paid at Upkeep; if unpaid the unit is Grounded for the turn. */
   upkeep?: Partial<Resources>;
   keywords: Keyword[];
+  discounts?: CostDiscount[];
   effects?: Effect[];
 }
 
@@ -138,6 +168,10 @@ export interface UnitInPlay {
   tenacityUsed: boolean;
   /** Keywords granted until end of turn. */
   tempKeywords: Keyword[];
+  /** Keywords granted for the rest of the game (e.g. by a doctrine). */
+  extraKeywords: Keyword[];
+  /** ATK bonus until end of turn. */
+  tempAttack: number;
 }
 
 export interface BuildingInPlay {
@@ -166,6 +200,12 @@ export interface PlayerState {
   /** smoke[l] is true while enemy Ranged units may not attack into this player's lane l. */
   smoke: [boolean, boolean, boolean];
   mulliganDone: boolean;
+  /** Active nation doctrine (docs/02 section 4), or null. Fixed when the game is created. */
+  doctrine: Nation | null;
+  /** Keys of once-per-turn cost discounts already used this turn. */
+  discountsUsed: string[];
+  /** Combined Arms (Germany) has already granted Blitz this turn. */
+  combinedArmsUsed: boolean;
 }
 
 export type Phase = 'mulligan' | 'main' | 'combat' | 'discard' | 'ended';
@@ -190,12 +230,14 @@ export type TargetRef =
   | { kind: 'unit'; uid: string }
   | { kind: 'building'; uid: string }
   | { kind: 'hq'; player: PlayerId }
-  | { kind: 'lane'; lane: LaneIndex };
+  | { kind: 'lane'; lane: LaneIndex }
+  | { kind: 'resource'; resource: ResourceType };
 
 export type Action =
   | { type: 'mulligan'; player: PlayerId; keep: boolean }
   | { type: 'construct'; player: PlayerId; cardIndex: number }
-  | { type: 'deploy'; player: PlayerId; cardIndex: number; lane: LaneIndex; row: Row }
+  /** `targets` fills the unit's chosen onDeploy effects (empty if it has none or none are possible). */
+  | { type: 'deploy'; player: PlayerId; cardIndex: number; lane: LaneIndex; row: Row; targets: TargetRef[] }
   | { type: 'order'; player: PlayerId; cardIndex: number; targets: TargetRef[] }
   | { type: 'redeploy'; player: PlayerId; unitUid: string; lane: LaneIndex; row: Row }
   | { type: 'attack'; player: PlayerId; unitUid: string; target: TargetRef }

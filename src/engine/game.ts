@@ -5,9 +5,9 @@ import type {
   GameEvent,
   GameState,
   Lane,
+  Nation,
   PlayerId,
   PlayerState,
-  UnitInPlay,
 } from './types';
 import {
   HAND_LIMIT,
@@ -19,6 +19,9 @@ import {
 } from './types';
 import { nextInt, shuffle } from './rng';
 import { addResources, drawOne, emptyResources, newUid, other, pay } from './zones';
+import { quoteCost, payQuote } from './costs';
+import { chooseDoctrine } from './doctrine';
+import { enterBoard } from './units';
 import { checkState, endGame } from './damage';
 import { resolveEffects } from './effects';
 import { resolveAttack } from './combat';
@@ -42,13 +45,18 @@ export interface GameConfig {
   dataVersion?: string;
   /** Forces who goes first. Omit to decide with the seeded coin flip. */
   first?: PlayerId;
+  /**
+   * Each player's chosen doctrine (null for none). Omit an entry to use the deck's automatic
+   * doctrine: its majority nation with 10+ cards, if not tied (see `chooseDoctrine`).
+   */
+  doctrines?: [Nation | null | undefined, Nation | null | undefined];
 }
 
 function emptyLane(): Lane {
   return { front: null, rear: null };
 }
 
-function newPlayer(deck: Card[]): PlayerState {
+function newPlayer(deck: Card[], doctrine: Nation | null): PlayerState {
   return {
     hq: HQ_HP,
     resources: emptyResources(),
@@ -61,6 +69,9 @@ function newPlayer(deck: Card[]): PlayerState {
     fatigue: 0,
     smoke: [false, false, false],
     mulliganDone: false,
+    doctrine,
+    discountsUsed: [],
+    combinedArmsUsed: false,
   };
 }
 
@@ -73,7 +84,10 @@ export function createGame(config: GameConfig): GameState {
     first: 0,
     active: 0,
     phase: 'mulligan',
-    players: [newPlayer(config.decks[0]), newPlayer(config.decks[1])],
+    players: [
+      newPlayer(config.decks[0], chooseDoctrine(config.decks[0], config.doctrines?.[0])),
+      newPlayer(config.decks[1], chooseDoctrine(config.decks[1], config.doctrines?.[1])),
+    ],
     winner: null,
     nextUid: 1,
   };
@@ -112,25 +126,6 @@ function applyMulligan(ctx: Ctx, player: PlayerId, keep: boolean): void {
   if (s.players[0].mulliganDone && s.players[1].mulliganDone) startTurn(ctx);
 }
 
-function placeUnit(ctx: Ctx, player: PlayerId, card: Card, lane: 0 | 1 | 2, row: 'front' | 'rear'): UnitInPlay {
-  if (card.type !== 'unit') throw new Error('placeUnit requires a unit card');
-  const unit: UnitInPlay = {
-    uid: newUid(ctx.state),
-    owner: player,
-    card,
-    hp: card.hp,
-    maxHp: card.hp,
-    fresh: true,
-    hasAttacked: false,
-    redeployed: false,
-    grounded: false,
-    tenacityUsed: false,
-    tempKeywords: [],
-  };
-  ctx.state.players[player].lanes[lane][row] = unit;
-  return unit;
-}
-
 /**
  * Applies an action and returns the new state plus the events it produced.
  * The input state is never mutated. Throws IllegalActionError for illegal actions.
@@ -151,7 +146,7 @@ export function apply(state: GameState, action: Action): { state: GameState; eve
     case 'construct': {
       const card = removeFromHand(s, player, action.cardIndex);
       if (card.type !== 'building') throw new Error('unreachable: legal construct of non-building');
-      pay(p.resources, card.cost);
+      payQuote(s, player, quoteCost(state, player, card));
       const uid = newUid(s);
       p.buildings.push({ uid, owner: player, card, hp: card.hp, maxHp: card.hp });
       p.constructedThisTurn = true;
@@ -162,18 +157,14 @@ export function apply(state: GameState, action: Action): { state: GameState; eve
     case 'deploy': {
       const card = removeFromHand(s, player, action.cardIndex);
       if (card.type !== 'unit') throw new Error('unreachable: legal deploy of non-unit');
-      pay(p.resources, card.cost);
-      const unit = placeUnit(ctx, player, card, action.lane, action.row);
-      ctx.events.push({
-        type: 'unitDeployed',
-        player,
-        uid: unit.uid,
-        cardId: card.id,
-        lane: action.lane,
-        row: action.row,
-      });
+      payQuote(s, player, quoteCost(state, player, card));
+      const unit = enterBoard(ctx, player, card, action.lane, action.row);
       if (card.effects) {
-        resolveEffects(ctx, card.effects, 'onDeploy', { player, sourceUid: unit.uid, chosen: [] });
+        resolveEffects(ctx, card.effects, 'onDeploy', {
+          player,
+          sourceUid: unit.uid,
+          chosen: action.targets,
+        });
       }
       break;
     }
@@ -181,7 +172,7 @@ export function apply(state: GameState, action: Action): { state: GameState; eve
     case 'order': {
       const card = removeFromHand(s, player, action.cardIndex);
       if (card.type !== 'order') throw new Error('unreachable: legal order of non-order');
-      pay(p.resources, card.cost);
+      payQuote(s, player, quoteCost(state, player, card));
       ctx.events.push({ type: 'orderPlayed', player, cardId: card.id });
       resolveEffects(ctx, card.effects, 'onPlay', { player, chosen: action.targets });
       p.discard.push(card);

@@ -51,7 +51,7 @@ Rarity changes *complexity and flair*, not raw stats per cost alone. A rare is n
 
 ## 4. Nation doctrines
 
-A **doctrine** is a passive bonus unlocked when a deck contains at least **10 cards of one nation** (neutral cards don't count). Only one doctrine is active per deck: the nation with the most cards, ties broken by the player's selection at deck save.
+A **doctrine** is a passive bonus unlocked when a deck contains at least **10 cards of one nation** (neutral cards don't count). Only one doctrine is active per deck: the nation with the most cards. If two nations tie for the most, no doctrine is active until the player picks one explicitly (`GameConfig.doctrines`); choosing a nation the deck does not qualify for is an error.
 
 | Nation | Doctrine | Effect | Fantasy |
 |---|---|---|---|

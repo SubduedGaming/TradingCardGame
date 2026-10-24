@@ -21,6 +21,8 @@ export function startTurn(ctx: Ctx): void {
     unit.grounded = false;
   }
   p.constructedThisTurn = false;
+  p.discountsUsed = [];
+  p.combinedArmsUsed = false;
   p.smoke = [false, false, false];
   for (const lane of LANES) {
     const l = p.lanes[lane];
@@ -84,7 +86,10 @@ export function endTurn(ctx: Ctx): void {
 
   runTriggers(ctx, 'endOfTurn', pid);
   for (const player of [0, 1] as const) {
-    for (const { unit } of unitsOf(s, player)) unit.tempKeywords = [];
+    for (const { unit } of unitsOf(s, player)) {
+      unit.tempKeywords = [];
+      unit.tempAttack = 0;
+    }
   }
   checkState(ctx);
   if (s.phase === 'ended') return;

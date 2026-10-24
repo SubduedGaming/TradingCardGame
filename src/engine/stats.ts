@@ -9,7 +9,7 @@ const IMPLIES: Partial<Record<Keyword, Keyword[]>> = {
 
 export function keywordsOf(unit: UnitInPlay): Set<Keyword> {
   const set = new Set<Keyword>();
-  for (const k of [...unit.card.keywords, ...unit.tempKeywords]) {
+  for (const k of [...unit.card.keywords, ...unit.extraKeywords, ...unit.tempKeywords]) {
     set.add(k);
     for (const implied of IMPLIES[k] ?? []) set.add(implied);
   }
@@ -49,7 +49,7 @@ export function locateUnit(state: GameState, uid: string): UnitLocation | null {
 
 /** ATK after Mass and Rally. */
 export function effectiveAttack(state: GameState, unit: UnitInPlay): number {
-  let attack = unit.card.attack;
+  let attack = unit.card.attack + unit.tempAttack;
   if (hasKw(unit, 'mass') && unitsOf(state, unit.owner).length >= 3) attack += 1;
   if (unit.card.role === 'infantry') {
     const loc = locateUnit(state, unit.uid);

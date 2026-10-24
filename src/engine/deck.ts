@@ -26,13 +26,25 @@ function effectErrors(card: Card, effects: Effect[]): string[] {
   const isOrder = card.type === 'order';
   const isUnit = card.type === 'unit';
   for (const e of effects) {
-    if (!('target' in e)) continue;
-    const t = e.target;
-    if (t.kind === 'chosen' && e.trigger !== 'onPlay') {
-      errors.push(`${card.id}: chosen targets are only supported on onPlay effects`);
-    }
     if (e.trigger === 'onPlay' && !isOrder) {
       errors.push(`${card.id}: onPlay effects are only supported on orders`);
+    }
+    if (e.trigger === 'onDeploy' && !isUnit) {
+      errors.push(`${card.id}: onDeploy effects are only supported on units`);
+    }
+    if (isOrder && e.trigger !== 'onPlay') {
+      errors.push(`${card.id}: orders only have onPlay effects`);
+    }
+    if (!('target' in e)) continue;
+    const t = e.target;
+    if (t.kind === 'chosen' && e.trigger !== 'onPlay' && e.trigger !== 'onDeploy') {
+      errors.push(`${card.id}: chosen targets are only supported on onPlay and onDeploy effects`);
+    }
+    if (t.kind === 'chosen' && (t.of === 'resource') !== (e.do === 'gainChosen')) {
+      errors.push(`${card.id}: only gainChosen takes a chosen resource, and it requires one`);
+    }
+    if (e.do === 'gainChosen' && t.kind !== 'chosen') {
+      errors.push(`${card.id}: gainChosen needs a chosen resource target`);
     }
     if (t.kind === 'self' && isOrder) {
       errors.push(`${card.id}: orders have no source for a self target`);
@@ -75,6 +87,11 @@ export function validateCard(card: Card): string[] {
   }
   if (card.type === 'order' && !card.effects.some((e) => e.trigger === 'onPlay')) {
     errors.push(`${card.id}: orders need an onPlay effect`);
+  }
+  if (card.type !== 'order') {
+    for (const d of card.discounts ?? []) {
+      if (d.amount < 1) errors.push(`${card.id}: discounts must reduce cost by at least 1`);
+    }
   }
   errors.push(...effectErrors(card, card.type === 'order' ? card.effects : (card.effects ?? [])));
   return errors;
