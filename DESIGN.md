@@ -1,73 +1,43 @@
-# WW2 Army Card Game — Design Draft v0.1
+# WW2 Army Card Game — Design Index
 
-A digital, single-player-first card game. Build an army of buildings and units, win matches against AI, earn currency, open packs, trade on a market. Set 1 is World War II.
+A digital, single-player-first card game. Build an army of buildings and units, win matches against AI, earn War Bonds, open packs and trade on a market. Set 1 is World War II with historical nations (USA, UK, USSR, Germany, Japan). Later: ghost armies and live PvP, with AI filling any empty seat.
 
-## 1. Pillars
-1. **Economy on the board.** Resources come from Building cards you place, not from a land/mana deck.
-2. **Army identity.** Your collection is an army; composition (nations, roles) defines how you play.
-3. **Data-driven sets.** New sets are data files, not engine changes.
-4. **Never wait for an opponent.** AI (later: ghost armies) fills every seat.
+## Documents
 
-## 2. Match rules (baseline)
-- 2 players. Each starts with a **Command Post** (HQ, 20 HP) and a 30-card deck, 5-card opening hand.
-- **Win:** reduce the enemy Command Post to 0 HP.
-- **Board:** 3 lanes. Each player has a front slot per lane for units, plus up to 6 building slots behind the lines.
-- **Turn:** (1) draw, (2) collect resources from buildings, (3) play cards (max 1 Building per turn, any number of Units/Orders you can afford), (4) combat, (5) end.
-- **Resources are banked**, cap 10 per type.
-- **Combat:** each unit attacks the opposing unit in its lane; if none, it hits the building/HQ per its targeting rules. Units have Attack, HP, and a Role.
-
-## 3. Resources
-| Resource | Typical source | Typical use |
+| # | Doc | Contents |
 |---|---|---|
-| Manpower | Barracks, Recruitment Office | Infantry |
-| Steel | Steel Mill, Foundry | Armour, artillery, defences |
-| Fuel | Oil Derrick, Refinery | Vehicles, aircraft |
-| Supplies | Depot, Rail Yard | Support units, Orders |
+| 01 | [Core rules](docs/01-core-rules.md) | Zones, setup, turn phases, resources, lanes, combat, targeting, timing, end conditions, tunable constants |
+| 02 | [Cards and keywords](docs/02-cards-and-keywords.md) | Card anatomy, roles, rarity, nation doctrines, deck rules, keyword glossary, effect system |
+| 03 | [Set 1: WW2](docs/03-set1-ww2.md) | Starter army and the full 63-card list |
+| 04 | [Economy](docs/04-economy.md) | War Bonds, packs, pity, NPC buyback, player market, anti-abuse |
+| 05 | [AI and matchmaking](docs/05-ai-and-matchmaking.md) | Difficulty tiers, evaluation, ghost armies, queue/filler logic, balance simulation |
+| 06 | [Technical architecture](docs/06-technical-architecture.md) | Engine API, effect interpreter, services, server, testing, build order |
+| 07 | [UI / UX](docs/07-ui-ux.md) | Screens, match layout, card frame, deck builder, accessibility |
 
-## 4. Card types
-- **Building:** produces resources and/or has a passive (Bunker, Anti-Air, Radar, Hospital).
-- **Unit:** costs resources, has Role, Attack, HP, keywords.
-- **Order:** one-shot effect (Airstrike, Smoke Screen, Sabotage).
+## Core design in one paragraph
+Each player has a Command Post (20 HP). Buildings produce four banked resources (Manpower, Steel, Fuel, Supplies); units cost those resources and fight in three lanes, each with a Front and Rear slot. Armour, Piercing, Ranged, Flying and Anti-Air create a readable counter web. Units that find an empty lane break through to hit the HQ or a building. Win by destroying the enemy Command Post.
 
-### Roles and counters
-Infantry > Artillery > (static defences) ; Armour > Infantry ; Anti-Tank/Air > Armour ; Fighters > Bombers. Exact numbers come from playtesting.
+## Decisions made (see docs for detail)
+- Combat model: army on a 3-lane board, Front/Rear slots, banked resources, one Building per turn.
+- Win condition: destroy the enemy Command Post.
+- Air units: Flying, ignore lanes/Guard, pay Fuel Upkeep.
+- Army cap: 100 points, 30–40 cards, copy limits by rarity.
+- Orders: Main phase only; no reactions in set 1.
+- Currency: soft currency only (War Bonds); no real-money purchases.
+- Content: historical equipment and military units; no Nazi party symbols or hate iconography.
 
-## 5. Nations (set 1)
-United States, United Kingdom, Soviet Union, Germany, Japan. Each card has a nation tag.
-- Decks are not locked to one nation in v1 (nation = flavour + synergy keywords), so the collection stays flexible.
-- Presentation: historical military units, equipment and unit insignia only. **No Nazi party symbols or hate iconography**; keep the framing as a military/strategy game. Check regional rules (e.g. Germany) before any release.
+## Open questions
+- Final numbers: HQ HP, costs, stats and drop rates all need simulation (doc 05 §9).
+- Whether to add Reaction Orders in set 2 (doc 01 §14).
+- Art pipeline (generated, commissioned or stylised vector).
+- Server hosting and whether to import offline progress when accounts launch (doc 06 §6).
+- Regional compliance review for WW2 content before any public release.
 
-## 6. Economy
-- **Earn:** win = full payout, loss = reduced payout, bonus for harder AI.
-- **Spend:** booster packs (fixed price, rarity table), player market (later), unit upgrades.
-- **Sinks:** pack prices, 5–10% market tax, upgrades. Without sinks, currency inflates.
-- **Duplicates:** sell to the system at a fixed floor price per rarity.
-- **Army cap:** a points cost per card limits deck strength regardless of collection depth.
-- All inventory/currency operations go through an `InventoryService` interface (local first, server later).
-
-## 7. AI and matchmaking
-1. Heuristic AI at 3 difficulty levels (score = economy + board + HQ HP).
-2. Later: **ghost armies** — saved snapshots of player decks piloted by AI.
-3. Later: live PvP; fall back to a ghost after ~10s with no match.
-
-## 8. Technical plan
-- TypeScript, web. Pure deterministic engine (`state + action -> state + events`), seeded RNG, no UI/IO.
-- Cards: data files (JSON/TS) built from effect primitives + triggers. Sets are modules registered at startup.
-- Local persistence in IndexedDB at first; the server implements the same `InventoryService` later.
-- Server must re-run the engine to validate results before paying out currency.
-
-## 9. Roadmap
-1. Engine types + rules + tests (text-mode game).
-2. Set 1 card data (~60 cards: 12 buildings, 36 units, 12 orders).
-3. Heuristic AI; AI-vs-AI simulations for balance.
-4. Web UI: match view, army builder.
-5. Local economy: rewards, packs, selling.
-6. Server, accounts, market, ghost armies.
+## Roadmap
+1. Engine: state, phases, resources, lanes, combat, keywords, with tests.
+2. Set 1 data and validator.
+3. AI (Recruit, Veteran) and simulation harness; first balance pass.
+4. Web UI: match view, deck builder, shop.
+5. Local economy loop.
+6. Server, accounts, ledger, market, ghost armies.
 7. Live PvP with AI fallback.
-
-## 10. Open questions
-- Exact army size/points cap.
-- Air units: lane-ignoring or restricted to hitting specific targets?
-- Does each unit also require upkeep (Supplies per turn)?
-- Order cards: draw from the same deck or a separate order hand?
-- Art pipeline (generated vs commissioned vs stylised vector).

@@ -1,7 +1,7 @@
 export type ResourceType = 'manpower' | 'steel' | 'fuel' | 'supplies';
 export type Resources = Record<ResourceType, number>;
 
-export type Nation = 'usa' | 'uk' | 'ussr' | 'germany' | 'japan';
+export type Nation = 'usa' | 'uk' | 'ussr' | 'germany' | 'japan' | 'neutral';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'legendary';
 export type Role = 'infantry' | 'armour' | 'artillery' | 'air' | 'support';
 
