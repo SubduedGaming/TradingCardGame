@@ -54,8 +54,8 @@ A turn has six phases, in order. The active player is the only one who may take 
    - **Deploy:** play a **Unit** into a free Front or Rear slot in any lane. Pay its cost. It is **Fresh** (cannot attack this turn) unless it has **Blitz**.
    - **Order:** play an **Order**, pay its cost, resolve its effect, put it in the discard.
    - **Redeploy:** pay **1 Supplies**, move one of your non-Fresh, non-Heavy units to a free slot in a different lane (any row). The unit cannot attack this turn. Once per unit per turn.
-6. **Combat phase** — the active player may make **Assaults** (§8). Each ready, non-Fresh, non-Grounded, non-Suppressed unit may attack **once**. The player may skip combat.
-7. **End phase** — "at the end of your turn" triggers resolve; "until end of turn" effects expire; **Suppressed** status on the active player's units is removed; discard down to 8 cards (player's choice).
+6. **Combat phase** — the active player may make **Assaults** (§8). Each ready, non-Fresh, non-Grounded unit may attack **once**. The player may skip combat.
+7. **End phase** — "at the end of your turn" triggers resolve; "until end of turn" effects expire; discard down to 8 cards (player's choice).
 
 > Main-phase actions after combat: the Main phase is *before* Combat. There is no second Main phase. Deploy first, then fight.
 

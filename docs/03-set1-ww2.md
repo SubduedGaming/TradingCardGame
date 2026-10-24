@@ -20,14 +20,19 @@ Set size: **12 Buildings, 39 Units, 12 Orders = 63 cards.** Rarity split: C 24 Â
 | 2 | Supply Depot | Building |
 | 2 | Steel Mill | Building |
 | 1 | Oil Derrick | Building |
-| 5 | Rifle Squad | Unit |
-| 4 | Light Tank | Unit |
+| 1 | Bunker | Building |
+| 3 | Rifle Squad | Unit |
+| 3 | Light Tank | Unit |
 | 3 | Mortar Team | Unit |
 | 3 | Anti-Tank Gun | Unit |
 | 3 | Field Medic | Unit |
 | 2 | Reinforcements | Order |
 | 1 | Forced March | Order |
 | 1 | Smoke Screen | Order |
+| 1 | Dig In | Order |
+| 1 | Air Raid | Order |
+
+9 buildings, 15 units, 6 orders. No card exceeds the 3-copy limit for commons, so the Starter Army obeys the same deck rules as every other army.
 
 Players can sell any starter card for credit and build on the free market from there. The starter army must be good enough to beat Easy AI ~70% of the time and Normal AI ~45%.
 
@@ -110,7 +115,7 @@ All Air units have **Flying** and **Upkeep (Fuel 1)** unless noted.
 |---|---|---|---|---|---|---|
 | U37 | Field Medic | Neutral | C | 1 Mp, 1 Su | 1/2 | End of your turn: heal 1 to a friendly unit in this lane. |
 | U38 | Field Radio Operator | UK | U | 1 Mp, 1 Su | 1/2 | Your first Order each turn costs 1 less Supplies (min 1 total). |
-| U39 | Commissar | USSR | R | 2 Mp | 2/3 | **Rally**. Friendly units in this lane cannot be Suppressed. |
+| U39 | Commissar | USSR | R | 2 Mp | 2/3 | **Rally**. |
 
 Totals: 12 Infantry, 9 Armour, 8 Artillery/Anti-Tank, 7 Air, 3 Support = 39 units. The first balance pass may cut or merge cards.
 

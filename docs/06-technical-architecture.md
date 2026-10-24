@@ -154,4 +154,8 @@ Append-only record: `{ id, accountId, type, delta, balanceAfter, refs, createdAt
 7. Server, accounts, ledger, market; ghost armies; live PvP.
 
 ## 11. Types changes needed now
-`src/engine/types.ts` is a first sketch. Planned changes: add `neutral` to `Nation`; add `phase` to `GameState`; replace the sketch `Action` with §3.2; add `Lane { front, rear }` for unit slots; add `status` flags (`fresh`, `grounded`, `suppressed`) and `keywords` on units in play.
+Implemented in `src/engine/`: `types.ts` (state, actions, events), `game.ts` (`createGame`, `apply`, `observation`, `hashState`), `legal.ts`, `combat.ts`, `turn.ts`, `effects.ts`, `damage.ts`, `stats.ts`, `deck.ts`.
+
+Deviations from §3.2: `construct` takes no slot (buildings occupy the next free slot); `Action` carries a `player` field; a `discard` action and a `discard` phase handle the hand limit; units in play carry `fresh`, `grounded`, `hasAttacked`, `redeployed`, `tenacityUsed` and `tempKeywords`.
+
+Not yet implemented (nothing in the code refers to them): nation doctrines, cost-reduction effects, Reaction Orders, and the card effects whose text needs targets chosen on deploy.

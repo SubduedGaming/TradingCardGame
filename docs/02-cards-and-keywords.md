@@ -113,8 +113,6 @@ Example: 12 Common (24) + 10 Uncommon (30) + 6 Rare (30) + 2 Legendary (16) = 10
 |---|---|---|
 | **Fresh** | Cannot attack. | End of the owner's turn. |
 | **Grounded** | Cannot attack (unpaid Upkeep). | Next Upkeep. |
-| **Suppressed** | Cannot attack. | End of its owner's next turn. |
-| **Entrenched** | Cannot be Redeployed. | When it attacks. (reserved for future sets) |
 
 ## 7. Effect system
 
