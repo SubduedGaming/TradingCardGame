@@ -77,7 +77,25 @@ Per batch:
 
 ## 7. What is not covered yet
 
-- **Art generation.** The ComfyUI server at 192.168.1.70 did not respond (no ping reply, nothing listening on the usual ports), so no art has been generated. Art also needs a style and a model chosen first.
+- **Art for later batches.** Batch 1 art is generated (section 8). Each later batch needs its prompts written and run the same way.
 - **Art.** 420 cards means 420 pieces of art per set. This is not needed for the engine, but it is the largest cost of the project once the UI starts, so decide the art pipeline before the UI.
 - **Matchup balance.** The budget only keeps cards cost-efficient. Balance between nations and roles needs the AI and the simulator.
 - **Collection size.** A full 420-card collection takes thousands of packs. The economy (docs/04) leans on the NPC buyback and the player market for this; tune with telemetry.
+
+## 8. Art pipeline
+
+Art is generated locally on a ComfyUI server (the project's machine at 192.168.1.70, RTX 5070 Ti) with the Z-Image Turbo model, in one consistent style: 1940s wartime illustration, gouache with bold flat shapes and a muted olive, sepia and steel-blue palette. The content rules in docs/02 section 9 apply: no flags, national insignia, roundels, crosses or readable lettering.
+
+- `art/style.json` holds the shared style prefix and suffix, image size (1024x768), model and sampler settings.
+- `art/<set>-<scope>-prompts.json` maps each card id to a short description of the scene.
+- `tools/generate-art.mjs` sends each prompt to ComfyUI, downloads the result, trims any white border (`tools/trim_border.py`), converts it to WebP (about 100 KB) and saves `assets/<set>/<card id>.webp`. Existing files are skipped unless `--force` is passed. Each card has a fixed seed derived from its id; `--variant N` re-rolls it.
+- `art/provenance.json` records the variant, seed, model and style/prompt hashes of every image. Images made with the original style wording are marked `legacy-v1`: regenerating them with the current style gives a different picture.
+- `npm run art:neutral` runs the neutral batch.
+- `src/cards/art.test.ts` checks that every card in the batch has a prompt and an image, that every prompt belongs to a real card, that prompts and style avoid unwanted content, and that provenance is complete.
+
+**Lessons from batch 1 (all 50 images were reviewed by eye on contact sheets):**
+1. The model ignores negative prompts. Writing "no roundels, no crosses" in the style made it draw crosses and roundels on most images, so the style is now written only in positive terms (a test enforces this).
+2. Even so, about a quarter of first results carried a stray marking (a tail roundel, a letter, a shoulder patch, a small flag) or a white border. Every batch needs a visual review, and bad results are re-rolled with `--variant`.
+3. Ten of the 50 images needed a second or third attempt.
+
+Generated images are committed (WebP at about 100 KB, so roughly 40 MB for a 420-card set).

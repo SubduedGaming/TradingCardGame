@@ -1,0 +1,10 @@
+{
+  "prefix": "1940s wartime illustration, painted in gouache with bold flat shapes and visible brush texture, muted olive, sepia and steel-blue palette, dramatic low-angle light, strong silhouette, ",
+  "suffix": ", wide composition, plain solid olive-drab and grey painted surfaces, clean unadorned uniforms and vehicles, a single clear subject, full-bleed painting",
+  "width": 1024,
+  "height": 768,
+  "steps": 8,
+  "model": "z_image_turbo_bf16.safetensors",
+  "textEncoder": "qwen_3_4b.safetensors",
+  "vae": "ae.safetensors"
+}

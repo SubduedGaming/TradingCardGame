@@ -1,0 +1,352 @@
+{
+  "ww2.building.ammunition-factory": {
+    "variant": 0,
+    "seed": 13934403086019,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "024d12c277"
+  },
+  "ww2.building.armoury": {
+    "variant": 0,
+    "seed": 108465384128018,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "e36897eba5"
+  },
+  "ww2.building.command-bunker": {
+    "variant": 1,
+    "seed": 21811897330655,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7d06b83bd7"
+  },
+  "ww2.building.flak-tower": {
+    "variant": 0,
+    "seed": 238484264997997,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e938a23e54"
+  },
+  "ww2.building.fuel-depot": {
+    "variant": 0,
+    "seed": 265781346744521,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "c0881c6123"
+  },
+  "ww2.building.pillbox": {
+    "variant": 0,
+    "seed": 207708612530656,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "6cd9559ec3"
+  },
+  "ww2.building.rail-terminus": {
+    "variant": 0,
+    "seed": 137424196993653,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "370b39f9fc"
+  },
+  "ww2.building.workshop": {
+    "variant": 0,
+    "seed": 163150822361538,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "65eb188c99"
+  },
+  "ww2.order.counter-battery-fire": {
+    "variant": 0,
+    "seed": 122934086040213,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "66a54529d1"
+  },
+  "ww2.order.emergency-draft": {
+    "variant": 0,
+    "seed": 195174534673788,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7e5e26e9ec"
+  },
+  "ww2.order.rapid-repair": {
+    "variant": 0,
+    "seed": 47017631473327,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "24f3dd3eaf"
+  },
+  "ww2.unit.armoured-car": {
+    "variant": 0,
+    "seed": 232343615142836,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "10aa314355"
+  },
+  "ww2.unit.assault-gun": {
+    "variant": 0,
+    "seed": 26155136988310,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2210d9e32a"
+  },
+  "ww2.unit.bazooka-team": {
+    "variant": 0,
+    "seed": 277285031013226,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "8bc1e00f9c"
+  },
+  "ww2.unit.combat-surgeon": {
+    "variant": 0,
+    "seed": 111646686833939,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "aac95e7966"
+  },
+  "ww2.unit.commando-squad": {
+    "variant": 0,
+    "seed": 182195292762414,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "87b22e1c9d"
+  },
+  "ww2.unit.dive-bomber": {
+    "variant": 2,
+    "seed": 135086090098768,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e5bc133dec"
+  },
+  "ww2.unit.field-gun": {
+    "variant": 0,
+    "seed": 203400332723011,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "50680e842d"
+  },
+  "ww2.unit.field-kitchen": {
+    "variant": 0,
+    "seed": 28546531703596,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "664602e1f0"
+  },
+  "ww2.unit.fighter-bomber": {
+    "variant": 1,
+    "seed": 234722858014996,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "eaa65998ca"
+  },
+  "ww2.unit.flak-battery": {
+    "variant": 0,
+    "seed": 267472495562586,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "24c232a52a"
+  },
+  "ww2.unit.flame-tank": {
+    "variant": 0,
+    "seed": 123519942266438,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "d95915fd37"
+  },
+  "ww2.unit.flamethrower-team": {
+    "variant": 0,
+    "seed": 172099670920293,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "531f0a80d5"
+  },
+  "ww2.unit.half-track": {
+    "variant": 0,
+    "seed": 183651231795640,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "561689e393"
+  },
+  "ww2.unit.heavy-bomber": {
+    "variant": 0,
+    "seed": 216576595170882,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "bba347e2aa"
+  },
+  "ww2.unit.heavy-field-gun": {
+    "variant": 0,
+    "seed": 91576934669537,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "c3e25ea0cd"
+  },
+  "ww2.unit.heavy-mortar": {
+    "variant": 0,
+    "seed": 185543179371510,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "7688e1bd2f"
+  },
+  "ww2.unit.heavy-tank": {
+    "variant": 0,
+    "seed": 163977039543138,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "33b424af90"
+  },
+  "ww2.unit.light-aa-gun": {
+    "variant": 0,
+    "seed": 255470237802421,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "d9361e32d2"
+  },
+  "ww2.unit.light-bomber": {
+    "variant": 1,
+    "seed": 254503790479897,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f0ff50e7b0"
+  },
+  "ww2.unit.machine-gun-team": {
+    "variant": 0,
+    "seed": 54516202673641,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "112037fb5c"
+  },
+  "ww2.unit.mechanic": {
+    "variant": 0,
+    "seed": 1988134192306,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "f576ceba51"
+  },
+  "ww2.unit.medium-tank": {
+    "variant": 0,
+    "seed": 235335664777517,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e3f62e1238"
+  },
+  "ww2.unit.militia": {
+    "variant": 0,
+    "seed": 169986423662296,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fe1954ee51"
+  },
+  "ww2.unit.mountain-gun": {
+    "variant": 0,
+    "seed": 96030786234858,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "f5b9f465ad"
+  },
+  "ww2.unit.night-fighter": {
+    "variant": 0,
+    "seed": 146457629240892,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "7f7529cc3c"
+  },
+  "ww2.unit.pioneers": {
+    "variant": 2,
+    "seed": 56654707128243,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "cde3333cc3"
+  },
+  "ww2.unit.radio-truck": {
+    "variant": 0,
+    "seed": 246714494435485,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a083d7b84c"
+  },
+  "ww2.unit.raiders": {
+    "variant": 0,
+    "seed": 106403514000463,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "60f216169d"
+  },
+  "ww2.unit.ranger-company": {
+    "variant": 0,
+    "seed": 181505039312129,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "1dcdba8e40"
+  },
+  "ww2.unit.recon-plane": {
+    "variant": 0,
+    "seed": 228170012551288,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "18e07c6e2d"
+  },
+  "ww2.unit.rocket-launcher": {
+    "variant": 0,
+    "seed": 49509347816202,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "98cee07d60"
+  },
+  "ww2.unit.scout-patrol": {
+    "variant": 0,
+    "seed": 274097568179832,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "8e90855af3"
+  },
+  "ww2.unit.self-propelled-gun": {
+    "variant": 0,
+    "seed": 39571999018716,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "46f680466f"
+  },
+  "ww2.unit.siege-howitzer": {
+    "variant": 0,
+    "seed": 58615335998837,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "6b61b62a33"
+  },
+  "ww2.unit.sniper-team": {
+    "variant": 0,
+    "seed": 102206974963944,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "3f32645d98"
+  },
+  "ww2.unit.spy-network": {
+    "variant": 0,
+    "seed": 81335684805257,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "5ee4e32e3e"
+  },
+  "ww2.unit.staff-officer": {
+    "variant": 1,
+    "seed": 72494854068923,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "369eda6f8a"
+  },
+  "ww2.unit.supply-truck": {
+    "variant": 0,
+    "seed": 129193388202850,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "6139e4a413"
+  },
+  "ww2.unit.tankette": {
+    "variant": 0,
+    "seed": 187207068805881,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "legacy-v1",
+    "promptHash": "11b920e340"
+  }
+}
