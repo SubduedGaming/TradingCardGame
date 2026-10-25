@@ -139,7 +139,7 @@ export const RAIL_YARD = building('rail-yard', 'Rail Yard', 'ussr', 'uncommon', 
   manpower: 1,
 });
 
-export const RADAR_STATION = building('radar-station', 'Radar Station', 'uk', 'rare', { supplies: 2, steel: 1 }, 3, {}, {
+export const RADAR_STATION = building('radar-station', 'Radar Station', 'uk', 'rare', { supplies: 1, steel: 1 }, 5, {}, {
   discounts: [{ applies: { role: 'air' }, resource: 'fuel', amount: 1, oncePerTurn: true }],
 });
 export const MOTOR_POOL = building('motor-pool', 'Motor Pool', 'usa', 'rare', { supplies: 3, steel: 2 }, 5, {
@@ -260,13 +260,13 @@ export const M10_WOLVERINE = unit('m10-wolverine', 'M10 Wolverine', 'usa', 'unco
 export const FLAK_88 = unit('88mm-flak', '88mm Flak', 'germany', 'rare', 'antiTank', { steel: 3, supplies: 1 }, 4, 3, {
   keywords: ['ranged', 'piercing', 'antiAir'],
 });
-export const KATYUSHA = unit('katyusha', 'Katyusha', 'ussr', 'rare', 'artillery', { steel: 3, supplies: 2 }, 3, 1, {
+export const KATYUSHA = unit('katyusha', 'Katyusha', 'ussr', 'rare', 'artillery', { steel: 3, supplies: 2 }, 3, 3, {
   keywords: ['ranged', 'indirect', 'salvo'],
 });
 
 // Air
 export const BF_109 = aircraft('bf-109', 'Bf 109', 'germany', 'common', { fuel: 2 }, 3, 1, ['fighter']);
-export const SPITFIRE = aircraft('spitfire', 'Spitfire', 'uk', 'uncommon', { fuel: 2, steel: 1 }, 3, 2, ['fighter']);
+export const SPITFIRE = aircraft('spitfire', 'Spitfire', 'uk', 'uncommon', { fuel: 2, steel: 1 }, 3, 3, ['fighter']);
 export const STUKA = aircraft('stuka', 'Stuka', 'germany', 'uncommon', { fuel: 2, steel: 1 }, 3, 2, [], { siege: 3 });
 export const IL_2_STURMOVIK = aircraft('il-2-sturmovik', 'Il-2 Sturmovik', 'ussr', 'uncommon', { fuel: 2, steel: 2 }, 3, 4, [], {
   armour: 1,
@@ -274,7 +274,7 @@ export const IL_2_STURMOVIK = aircraft('il-2-sturmovik', 'Il-2 Sturmovik', 'ussr
 });
 export const A6M_ZERO = aircraft('a6m-zero', 'A6M Zero', 'japan', 'rare', { fuel: 3 }, 4, 2, ['fighter', 'blitz']);
 export const P_51_MUSTANG = aircraft('p-51-mustang', 'P-51 Mustang', 'usa', 'rare', { fuel: 3 }, 4, 3, ['fighter']);
-export const B_17_FLYING_FORTRESS = aircraft('b-17-flying-fortress', 'B-17 Flying Fortress', 'usa', 'legendary', { fuel: 4, steel: 2 }, 5, 6, [], {
+export const B_17_FLYING_FORTRESS = aircraft('b-17-flying-fortress', 'B-17 Flying Fortress', 'usa', 'legendary', { fuel: 4, steel: 2 }, 6, 8, [], {
   siege: 3,
   upkeep: { fuel: 2 },
 });
@@ -316,7 +316,7 @@ export const NAVAL_BOMBARDMENT = order('naval-bombardment', 'Naval Bombardment',
 export const LEND_LEASE = order('lend-lease', 'Lend-Lease', 'usa', 'uncommon', { supplies: 2 }, [
   { trigger: 'onPlay', do: 'gainChosen', target: { kind: 'chosen', of: 'resource' }, amount: 3 },
 ]);
-export const SCORCHED_EARTH = order('scorched-earth', 'Scorched Earth', 'ussr', 'uncommon', { supplies: 1 }, [
+export const SCORCHED_EARTH = order('scorched-earth', 'Scorched Earth', 'ussr', 'uncommon', { supplies: 2 }, [
   { trigger: 'onPlay', do: 'destroyBuilding', target: { kind: 'chosen', of: 'friendlyBuilding' } },
   { trigger: 'onPlay', do: 'damage', target: { kind: 'chosen', of: 'enemyLane' }, amount: 3 },
 ]);

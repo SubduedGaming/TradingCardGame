@@ -325,7 +325,7 @@ describe('Scorched Earth', () => {
     put(s, 1, 1, 'rear', unitCard({ hp: 5, armour: 2 }));
     put(s, 1, 2, 'front', unitCard({ hp: 5 }));
     setHand(s, 0, [SCORCHED_EARTH]);
-    setResources(s, 0, { supplies: 1 });
+    setResources(s, 0, { supplies: 2 });
     expect(legalActions(s, 0).filter((a) => a.type === 'order')).toHaveLength(3); // 1 building x 3 lanes
     s = step(
       s,
@@ -344,7 +344,7 @@ describe('Scorched Earth', () => {
   it('is unplayable without a building of your own', () => {
     const s = newGame(1, 0);
     setHand(s, 0, [SCORCHED_EARTH]);
-    setResources(s, 0, { supplies: 1 });
+    setResources(s, 0, { supplies: 2 });
     expect(legalActions(s, 0).filter((a) => a.type === 'order')).toHaveLength(0);
   });
 });

@@ -13,7 +13,7 @@ Every card has:
 | `set` | Set code, e.g. `ww2`. |
 | `type` | `building`, `unit`, or `order`. |
 | `nation` | `usa`, `uk`, `ussr`, `germany`, `japan`, or `neutral`. |
-| `rarity` | `common`, `uncommon`, `rare`, `legendary`. |
+| `rarity` | `common`, `uncommon`, `rare`, `epic`, `legendary`. |
 | `points` | Army-cap cost (see §5). |
 | `cost` | Resources to play (buildings, units, orders). |
 | `text` | Rules text, generated from keywords and effects where possible. |
@@ -40,14 +40,17 @@ Rock-paper-scissors tendencies (not hard rules): Infantry beat Artillery (rush i
 
 ## 3. Rarity
 
-| Rarity | Pack frequency | Typical power | Copy limit in a deck |
-|---|---|---|---|
-| Common | high | Efficient, simple | 3 |
-| Uncommon | medium | Tactical keywords | 3 |
-| Rare | low | Strong, unusual effects | 2 |
-| Legendary | very low | Game-defining | 1 |
+Five tiers, each much scarcer than the one below: Legendary is the hardest to get, then Epic, Rare, Uncommon and Common. The scarcity applies both to how many cards of that tier exist (docs/08) and to how often they drop from packs (docs/04).
 
-Rarity changes *complexity and flair*, not raw stats per cost alone. A rare is not strictly better than a common, but it unlocks plays commons can't.
+| Rarity | Cards in a 420-card set | Pack drop (per card slot) | Points | Copy limit | Typical power |
+|---|---|---|---|---|---|
+| Common | 190 | very frequent | 2 | 3 | Efficient, simple |
+| Uncommon | 115 | frequent | 3 | 3 | Tactical keywords |
+| Rare | 65 | uncommon | 5 | 2 | Strong, unusual effects |
+| Epic | 35 | rare | 7 | 2 | Build-around effects |
+| Legendary | 15 | very rare | 10 | 1 | Game-defining |
+
+Rarity changes *complexity and flair* and gets a larger power budget (`RARITY_PREMIUM` in `src/cards/budget.ts`), but a higher tier is not strictly better than a lower one: it unlocks plays commons can't.
 
 ## 4. Nation doctrines
 
@@ -74,9 +77,9 @@ Doctrines are chosen to make a nation's deck play differently without locking it
 | Order count | max 10 |
 | Starter army | 30 cards, 60 points, all Neutral |
 
-Each card has a `points` value: Common 2, Uncommon 3, Rare 5, Legendary 8. A 30-card deck of all Commons costs 60 points; the cap makes it impossible to run a full deck of rares and legendaries, so collection depth increases *options*, not just raw power.
+Each card has a `points` value by rarity (table in §3). A 30-card deck of all Commons costs 60 points; the cap makes it impossible to run a full deck of rares, epics and legendaries, so collection depth increases *options*, not just raw power.
 
-Example: 12 Common (24) + 10 Uncommon (30) + 6 Rare (30) + 2 Legendary (16) = 100 points, 30 cards.
+Example: 13 Common (26) + 10 Uncommon (30) + 4 Rare (20) + 2 Epic (14) + 1 Legendary (10) = 100 points, 30 cards.
 
 ## 6. Keyword glossary
 

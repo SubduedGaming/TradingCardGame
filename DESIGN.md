@@ -8,11 +8,12 @@ A digital, single-player-first card game. Build an army of buildings and units, 
 |---|---|---|
 | 01 | [Core rules](docs/01-core-rules.md) | Zones, setup, turn phases, resources, lanes, combat, targeting, timing, end conditions, tunable constants |
 | 02 | [Cards and keywords](docs/02-cards-and-keywords.md) | Card anatomy, roles, rarity, nation doctrines, deck rules, keyword glossary, effect system |
-| 03 | [Set 1: WW2](docs/03-set1-ww2.md) | Starter army and the full 63-card list |
+| 03 | [Set 1: WW2](docs/03-set1-ww2.md) | Starter army and the 63-card launch core (the set grows to 420, see 08) |
 | 04 | [Economy](docs/04-economy.md) | War Bonds, packs, pity, NPC buyback, player market, anti-abuse |
 | 05 | [AI and matchmaking](docs/05-ai-and-matchmaking.md) | Difficulty tiers, evaluation, ghost armies, queue/filler logic, balance simulation |
 | 06 | [Technical architecture](docs/06-technical-architecture.md) | Engine API, effect interpreter, services, server, testing, build order |
 | 07 | [UI / UX](docs/07-ui-ux.md) | Screens, match layout, card frame, deck builder, accessibility |
+| 08 | [Set plan](docs/08-set-plan.md) | 420 cards per set, five-tier rarity pyramid, quotas, power budget, batches |
 
 ## Core design in one paragraph
 Each player has a Command Post (20 HP). Buildings produce four banked resources (Manpower, Steel, Fuel, Supplies); units cost those resources and fight in three lanes, each with a Front and Rear slot. Armour, Piercing, Ranged, Flying and Anti-Air create a readable counter web. Units that find an empty lane break through to hit the HQ or a building. Win by destroying the enemy Command Post.

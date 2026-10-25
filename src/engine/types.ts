@@ -5,7 +5,9 @@ export type Resources = Record<ResourceType, number>;
 export const RESOURCE_TYPES: readonly ResourceType[] = ['manpower', 'steel', 'fuel', 'supplies'];
 
 export type Nation = 'usa' | 'uk' | 'ussr' | 'germany' | 'japan' | 'neutral';
-export type Rarity = 'common' | 'uncommon' | 'rare' | 'legendary';
+export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
+/** Lowest to highest. Each tier is scarcer than the one below it. */
+export const RARITIES: readonly Rarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
 export type Role = 'infantry' | 'armour' | 'artillery' | 'antiTank' | 'air' | 'support';
 
 /** Boolean keywords. Parameterised keywords (Armour X, Siege X, Upkeep, AA X) are numeric card fields. */

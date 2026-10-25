@@ -42,14 +42,15 @@ A **Standard Pack** has **5 cards**:
 | Slot | Distribution |
 |---|---|
 | 1–3 | Common (100%) |
-| 4 | Uncommon 85% · Rare 14.5% · Legendary 0.5% |
-| 5 (wildcard) | Common 55% · Uncommon 32% · Rare 11.5% · Legendary 1.5% |
+| 4 | Uncommon 78% · Rare 18% · Epic 3.5% · Legendary 0.5% |
+| 5 (wildcard) | Common 55% · Uncommon 30% · Rare 11.5% · Epic 3% · Legendary 0.5% |
 
-Expected per pack: ~3.5 Commons, ~1.1 Uncommon, ~0.25 Rare, ~0.02 Legendary.
+Expected per pack: 3.55 Commons, 1.08 Uncommons, 0.295 Rares, 0.065 Epics, 0.01 Legendaries. That is a Legendary roughly once per 100 packs and an Epic once per ~15. Within a tier every card is equally likely, so one specific Legendary of the 15 is about 1 in 1,500 packs without pity.
 
 **Pity rules** (per player, per pack type):
-- At least one **Rare or better** in every 10 packs.
-- At least one **Legendary** in every 60 packs.
+- At least one **Rare or better** in every 8 packs.
+- At least one **Epic or better** in every 40 packs.
+- At least one **Legendary** in every 120 packs.
 - A pack never contains duplicates of a Legendary the player already owns until they've seen all Legendaries in the set (soft "dupe protection").
 
 Pack contents are generated with a seeded RNG recorded in the player's ledger so results are verifiable server-side.
@@ -63,7 +64,8 @@ Pack contents are generated with a seeded RNG recorded in the player's ledger so
 | Common | 5 WB |
 | Uncommon | 15 WB |
 | Rare | 50 WB |
-| Legendary | 200 WB |
+| Epic | 150 WB |
+| Legendary | 500 WB |
 
 Starter Army cards are marked `starter: true`; selling the *last copy* of a starter card is allowed (players may rebuild), but they sell at half value to discourage "sell starter → buy packs" loops on day one.
 
@@ -78,7 +80,8 @@ Starter Army cards are marked `starter: true`; selling the *last copy* of a star
 | Common | 8 | 60 |
 | Uncommon | 25 | 200 |
 | Rare | 80 | 800 |
-| Legendary | 300 | 4000 |
+| Epic | 300 | 2500 |
+| Legendary | 1000 | 10000 |
 
   The floor is above NPC sell value so selling to players always beats selling to the system; the ceiling stops runaway scarcity speculation.
 - Max **20 active listings** per player.

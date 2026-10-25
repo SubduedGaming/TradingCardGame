@@ -2,7 +2,7 @@
 
 Status: draft v0.2. Stats are first-pass and must be tuned by simulation (doc 05). Costs: **Mp** Manpower, **St** Steel, **Fu** Fuel, **Su** Supplies.
 
-Set size: **12 Buildings, 39 Units, 12 Orders = 63 cards.** Rarity split: C 24 · U 22 · R 13 · L 4 (see §7).
+Set size: **target 420 cards** (see [docs/08](08-set-plan.md) for the plan and quotas). The 63 cards below are the launch core; the tables in this document list the core only. They have since been balance-checked against the power budget (`src/cards/budget.ts`), which changed five cards: Spitfire 3/2 to 3/3, Katyusha 3/1 to 3/3, B-17 5/6 to 6/8, Radar Station now costs 1 Su + 1 St with 5 HP, and Scorched Earth now costs 2 Su.
 
 ## 1. Design goals for the set
 1. Four resources, each with a clear job; Fuel and Steel scarce, Manpower plentiful.
@@ -49,7 +49,7 @@ Players can sell any starter card for credit and build on the free market from t
 | B07 | Refinery | Neutral | U | 3 Su, 1 St | 4 | +2 Fu |
 | B08 | Anti-Aircraft Battery | Neutral | U | 2 St, 1 Su | 4 | **AA 2** |
 | B09 | Rail Yard | USSR | U | 2 Su, 1 St | 5 | +1 Su, +1 Mp |
-| B10 | Radar Station | UK | R | 2 Su, 1 St | 3 | Your first Air unit each turn costs 1 less Fuel (min 1 total). |
+| B10 | Radar Station | UK | R | 1 Su, 1 St | 5 | Your first Air unit each turn costs 1 less Fuel (min 1 total). |
 | B11 | Motor Pool | USA | R | 3 Su, 2 St | 5 | +1 Fu, +1 St |
 | B12 | Tankograd Works | USSR | L | 4 Su, 3 St | 8 | +2 St, +1 Mp. Armour units you deploy cost 1 less Steel (min 1). |
 
@@ -96,19 +96,19 @@ Format: cost · ATK/HP · keywords. Nation icon implies doctrine synergy, not de
 | U26 | M10 Wolverine | USA | U | 3 St, 1 Fu | 3/3 | **Armour 1**, **Piercing** |
 | U27 | Type 96 AA Gun | Japan | C | 2 St, 1 Su | 2/2 | **Ranged**, **Anti-Air** |
 | U28 | 88mm Flak | Germany | R | 3 St, 1 Su | 4/3 | **Ranged**, **Piercing**, **Anti-Air** |
-| U29 | Katyusha | USSR | R | 3 St, 2 Su | 3/1 | **Ranged**, **Indirect**, **Salvo** |
+| U29 | Katyusha | USSR | R | 3 St, 2 Su | 3/3 | **Ranged**, **Indirect**, **Salvo** |
 
 ### Air (7)
 All Air units have **Flying** and **Upkeep (Fuel 1)** unless noted.
 | ID | Name | Nation | Rar | Cost | ATK/HP | Keywords |
 |---|---|---|---|---|---|---|
 | U30 | Bf 109 | Germany | C | 2 Fu | 3/1 | **Fighter** |
-| U31 | Spitfire | UK | U | 2 Fu, 1 St | 3/2 | **Fighter** |
+| U31 | Spitfire | UK | U | 2 Fu, 1 St | 3/3 | **Fighter** |
 | U32 | Stuka | Germany | U | 2 Fu, 1 St | 3/2 | **Siege 3** |
 | U33 | Il-2 Sturmovik | USSR | U | 2 Fu, 2 St | 3/4 | **Armour 1**, **Siege 2** |
 | U34 | A6M Zero | Japan | R | 3 Fu | 4/2 | **Fighter**, **Blitz** |
 | U35 | P-51 Mustang | USA | R | 3 Fu | 4/3 | **Fighter** |
-| U36 | B-17 Flying Fortress | USA | L | 4 Fu, 2 St | 5/6 | **Siege 3**, **Upkeep (Fuel 2)** |
+| U36 | B-17 Flying Fortress | USA | L | 4 Fu, 2 St | 6/8 | **Siege 3**, **Upkeep (Fuel 2)** |
 
 ### Support (3)
 | ID | Name | Nation | Rar | Cost | ATK/HP | Keywords / text |
@@ -131,7 +131,7 @@ Totals: 12 Infantry, 9 Armour, 8 Artillery/Anti-Tank, 7 Air, 3 Support = 39 unit
 | O06 | Sabotage | Neutral | U | 2 Su | Destroy target enemy building with 4 HP or less. |
 | O07 | Naval Bombardment | Neutral | U | 3 Su, 2 Fu | Deal 2 damage to every enemy Front unit. |
 | O08 | Lend-Lease | USA | U | 2 Su | Gain 3 of one resource of your choice. |
-| O09 | Scorched Earth | USSR | U | 1 Su | Destroy one of your own buildings. Deal 3 damage to every enemy unit in one lane. |
+| O09 | Scorched Earth | USSR | U | 2 Su | Destroy one of your own buildings. Deal 3 damage to every enemy unit in one lane. |
 | O10 | Enigma Intercept | UK | R | 2 Su | Your opponent discards a random card from their hand. (Changed from "look at their hand and choose": the engine has no way to show a hidden hand mid-order yet.) |
 | O11 | Blitzkrieg | Germany | R | 3 Su | Until end of turn, all your units gain **Blitz** and +1 ATK. |
 | O12 | Operation Overlord | USA | L | 5 Su | Put up to three Infantry cards from your deck onto empty slots (Front slots first, lane by lane, no choice). They are Fresh. Shuffle your deck. |
@@ -143,7 +143,7 @@ Totals: 12 Infantry, 9 Armour, 8 Artillery/Anti-Tank, 7 Air, 3 Support = 39 unit
 - A well-built deck reaches its first 3-building economy by turn 4.
 - Fuel is the scarcest: any deck of 5+ Air/Armour units must run an Oil Derrick or Refinery.
 
-## 7. Rarity totals (target)
+## 7. Rarity totals (launch core only)
 
 | Rarity | Buildings | Units | Orders | Total |
 |---|---|---|---|---|

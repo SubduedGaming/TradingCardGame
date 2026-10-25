@@ -37,7 +37,7 @@ describe('validateDeck', () => {
 
   it('enforces the 100 point cap', () => {
     const legends: Card[] = Array.from({ length: 12 }, (_, i) =>
-      unitCard({ id: `test.unit.legend-${i}`, rarity: 'legendary', points: 8 }),
+      unitCard({ id: `test.unit.legend-${i}`, rarity: 'legendary', points: 10 }),
     );
     const deck = [...legends, ...buildStarterDeck().slice(0, 18)];
     expect(deck).toHaveLength(30);

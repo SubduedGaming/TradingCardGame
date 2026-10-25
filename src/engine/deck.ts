@@ -11,13 +11,15 @@ export const POINTS_BY_RARITY: Record<Rarity, number> = {
   common: 2,
   uncommon: 3,
   rare: 5,
-  legendary: 8,
+  epic: 7,
+  legendary: 10,
 };
 
 export const COPY_LIMIT_BY_RARITY: Record<Rarity, number> = {
   common: 3,
   uncommon: 3,
   rare: 2,
+  epic: 2,
   legendary: 1,
 };
 
