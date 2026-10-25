@@ -208,6 +208,7 @@ export interface PlayerState {
   discountsUsed: string[];
   /** Combined Arms (Germany) has already granted Blitz this turn. */
   combinedArmsUsed: boolean;
+  resilienceUsed: boolean;
 }
 
 export type Phase = 'mulligan' | 'main' | 'combat' | 'discard' | 'ended';

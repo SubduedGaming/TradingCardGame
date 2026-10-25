@@ -31,20 +31,23 @@ export function enterBoard(
   p.lanes[lane][row] = unit;
 
   switch (p.doctrine) {
-    case 'uk': // Resolve: +1 HP when deployed while your HQ has 10 HP or less.
-      if (p.hq <= 10) {
+    case 'uk': // Resolve: +1 HP when deployed while your HQ has 14 HP or less.
+      if (p.hq <= 14) {
         unit.hp += 1;
         unit.maxHp += 1;
       }
       break;
-    case 'germany': // Combined Arms: the first Armour unit each turn gains Blitz.
-      if (card.role === 'armour' && !p.combinedArmsUsed) {
+    case 'germany': // Combined Arms: the first Armour or Air unit each turn gains Blitz.
+      if ((card.role === 'armour' || card.role === 'air') && !p.combinedArmsUsed) {
         unit.tempKeywords.push('blitz');
         p.combinedArmsUsed = true;
       }
       break;
-    case 'japan': // Spirit of Resilience: units gain Tenacity.
-      if (!card.keywords.includes('tenacity')) unit.extraKeywords.push('tenacity');
+    case 'japan': // Spirit of Resilience: the first Infantry costing 2 or less each turn gains Tenacity.
+      if (card.role === 'infantry' && Object.values(card.cost).reduce((a, b) => a + b, 0) <= 2 && !p.resilienceUsed && !card.keywords.includes('tenacity')) {
+        unit.extraKeywords.push('tenacity');
+        p.resilienceUsed = true;
+      }
       break;
     default:
       break;

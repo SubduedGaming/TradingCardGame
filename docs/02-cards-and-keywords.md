@@ -59,10 +59,10 @@ A **doctrine** is a passive bonus unlocked when a deck contains at least **10 ca
 | Nation | Doctrine | Effect | Fantasy |
 |---|---|---|---|
 | USA | **Industrial Might** | Your first Building each turn costs 1 less Supplies (min 0 Su, still ≥1 total). | Production and logistics |
-| UK | **Resolve** | Units start with +1 HP when deployed while your HQ has ≤ 10 HP. | Stubborn defence, intelligence |
+| UK | **Resolve** | Units start with +1 HP when deployed while your HQ has ≤ 14 HP. | Stubborn defence, intelligence |
 | USSR | **Mass Mobilisation** | Your Infantry cost 1 less Manpower if you control 3+ units (min 1). | Swarms and attrition |
-| Germany | **Combined Arms** | Your first Armour unit deployed each turn gains Blitz. | Fast, tight combos |
-| Japan | **Spirit of Resilience** | Units gain Tenacity if they don't already have it, once per game each. | Fight-to-the-end durability |
+| Germany | **Combined Arms** | Your first Armour or Air unit deployed each turn gains Blitz. | Fast, tight combos |
+| Japan | **Spirit of Resilience** | Your first Infantry costing 2 or less deployed each turn gains Tenacity (if it lacks it). | Fight-to-the-end durability |
 
 Doctrines are chosen to make a nation's deck play differently without locking it to a single colour. Mixed-nation decks are allowed, and doctrines are the reward for focusing.
 

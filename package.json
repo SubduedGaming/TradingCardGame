@@ -6,6 +6,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "balance": "BALANCE=1 vitest run src/ai/balance.report.test.ts",
     "art:core": "node tools/generate-art.mjs art/ww2-core-prompts.json",
     "art:neutral": "node tools/generate-art.mjs art/ww2-neutral-prompts.json",
     "art:usa": "node tools/generate-art.mjs art/ww2-usa-prompts.json",

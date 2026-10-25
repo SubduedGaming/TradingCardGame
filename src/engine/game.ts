@@ -72,6 +72,7 @@ function newPlayer(deck: Card[], doctrine: Nation | null): PlayerState {
     doctrine,
     discountsUsed: [],
     combinedArmsUsed: false,
+    resilienceUsed: false,
   };
 }
 

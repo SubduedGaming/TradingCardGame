@@ -23,6 +23,7 @@ export function startTurn(ctx: Ctx): void {
   p.constructedThisTurn = false;
   p.discountsUsed = [];
   p.combinedArmsUsed = false;
+  p.resilienceUsed = false;
   p.smoke = [false, false, false];
   for (const lane of LANES) {
     const l = p.lanes[lane];

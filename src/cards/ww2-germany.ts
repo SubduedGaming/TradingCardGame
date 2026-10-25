@@ -103,7 +103,7 @@ const VOLKSGRENADIERS = unit('volksgrenadiers', 'Volksgrenadiers', 'germany', 'c
 const MG_42_TEAM = unit('mg-42-team', 'MG 42 Team', 'germany', 'common', 'infantry', { manpower: 2 }, 3, 2, { keywords: ['ranged'] });
 const LANDSER_SQUAD = unit('landser-squad', 'Landser Squad', 'germany', 'common', 'infantry', { manpower: 2 }, 3, 3);
 const PIONIER_SQUAD = unit('pionier-squad', 'Pionier Squad', 'germany', 'common', 'infantry', { manpower: 1, steel: 1 }, 1, 3, { siege: 2 });
-const KRADSCHUTZEN = unit('kradschutzen', 'Kradschuetzen', 'germany', 'common', 'infantry', { manpower: 1 }, 2, 1, { keywords: ['blitz'] });
+const KRADSCHUTZEN = unit('kradschutzen', 'Kradschuetzen', 'germany', 'common', 'infantry', { manpower: 1 }, 2, 2, { keywords: ['blitz'] });
 const GEBIRGSJAGER = unit('gebirgsjager', 'Gebirgsjaeger', 'germany', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 4, 3, {
   keywords: ['tenacity'],
 });
@@ -119,7 +119,7 @@ const GROSSDEUTSCHLAND = unit('grossdeutschland-division', 'Grossdeutschland Div
 
 // ------------------------------------------------------------------- armour
 
-const PANZER_II = unit('panzer-ii', 'Panzer II', 'germany', 'common', 'armour', { steel: 1, fuel: 1 }, 2, 2, { keywords: ['blitz'] });
+const PANZER_II = unit('panzer-ii', 'Panzer II', 'germany', 'common', 'armour', { steel: 1, fuel: 1 }, 3, 2, { keywords: ['blitz'] });
 const PANZER_38T = unit('panzer-38t', 'Panzer 38(t)', 'germany', 'common', 'armour', { steel: 1, fuel: 1 }, 2, 3, { armour: 1 });
 const SDKFZ_222 = unit('sdkfz-222', 'Sd.Kfz. 222', 'germany', 'common', 'armour', { steel: 1, fuel: 1 }, 1, 3, { keywords: ['blitz'] });
 const PANZER_III = unit('panzer-iii', 'Panzer III', 'germany', 'uncommon', 'armour', { steel: 2, fuel: 1 }, 3, 4, { armour: 1 });

@@ -106,5 +106,13 @@ Glicko-2 per player, separate ratings for PvE-ladder (vs AI) and PvP. New player
 ### 9.3 Tuning loop
 1. Simulate. 2. Identify outliers. 3. Adjust card data or constants. 4. Re-simulate with the same seeds. 5. Update `dataVersion`. Never tune by feel alone.
 
+### 9.4 Implemented (v0.1)
+
+- **Agents** (`src/ai/agents.ts`): Recruit (random legal play with a bias and 15% mistakes) and Veteran (greedy 1-ply by `src/ai/evaluate.ts`). Both read only their own hand and public state. Commander and Marshal are not built yet.
+- **Simulator** (`src/ai/sim.ts`): `playMatch`, `playSeries` (seats alternate), deterministic per seed. **Decks** (`src/ai/decks.ts`): legal single-nation decks that reach the doctrine threshold.
+- **Harness** (`src/ai/balance.ts`): `npm run balance` (`GAMES=300` per pair, `NODOCTRINE=1`, `NATIONS=japan,...` for card outliers).
+- **Findings and changes.** The first sweep showed doctrines as a large imbalance source (Japan +9.6 points). Tuned: UK Resolve only at HQ 14 or less, Germany Combined Arms also covers Air, Japan Tenacity only for the first Infantry costing 2 or less each turn; nerfs to Pavlov's House, Siberian Division, Shock Regiment, Kwantung Army Regiment, Jungle Fighters and Type 99 LMG Team; buffs to Panzer II and Kradschuetzen.
+- **Latest result** (3000 games, Veteran mirror): first player 49.0%, USA 50.8, UK 46.3, USSR 51.8, Germany 45.2, Japan 55.8; turn-limit rate 17.4%. Japan and Germany are still outside 45-55%, and the turn-limit rate is above the 15% target. The Veteran is greedy and undervalues armour, air and orders, so further tuning should wait for the Commander tier.
+
 ## 10. Tutorial AI
 Three scripted opponents that teach: (1) economy and deploying, (2) lanes and combat/Armour, (3) Orders and Air. They play deliberately weak, fixed lines and explain each step in on-screen prompts.

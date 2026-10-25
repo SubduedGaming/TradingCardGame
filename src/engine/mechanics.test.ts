@@ -201,14 +201,16 @@ describe('nation doctrines in play', () => {
     expect(quoteCost(s, 0, LIGHT_TANK).cost).toEqual({ steel: 2, fuel: 1 });
   });
 
-  it('UK Resolve: units deployed while the HQ has 10 HP or less get +1 HP', () => {
+  it('UK Resolve: units deployed while the HQ has 14 HP or less get +1 HP', () => {
     const s = newGame(1, 0, [Array.from({ length: 30 }, () => ukCard()), buildStarterDeck()]);
     expect(s.players[0].doctrine).toBe('uk');
     setHand(s, 0, [RIFLE_SQUAD, RIFLE_SQUAD]);
     setResources(s, 0, RICH);
     const healthy = step(s, deployAction(0, 0)).state.players[0].lanes[0].front!;
     expect(healthy.hp).toBe(2);
-    s.players[0].hq = 10;
+    s.players[0].hq = 15;
+    expect(step(s, deployAction(0, 0)).state.players[0].lanes[0].front!.hp).toBe(2);
+    s.players[0].hq = 14;
     const hurt = step(s, deployAction(0, 0)).state.players[0].lanes[0].front!;
     expect(hurt.hp).toBe(3);
     expect(hurt.maxHp).toBe(3);
@@ -230,6 +232,15 @@ describe('nation doctrines in play', () => {
     expect(legalActions(s, 0).some((x) => x.type === 'attack' && x.unitUid === b!.uid)).toBe(false);
   });
 
+  it('Germany Combined Arms also covers the first Air unit, once per turn between Armour and Air', () => {
+    let s = newGame(1, 0, [Array.from({ length: 30 }, () => germanTank()), buildStarterDeck()]);
+    setHand(s, 0, [unitCard({ role: 'air', keywords: ['flying'] }), LIGHT_TANK]);
+    setResources(s, 0, RICH);
+    s = step(s, deployAction(0, 0), deployAction(0, 1)).state;
+    expect(hasKw(s.players[0].lanes[0].front!, 'blitz')).toBe(true);
+    expect(hasKw(s.players[0].lanes[1].front!, 'blitz')).toBe(false);
+  });
+
   it('Germany Combined Arms resets each turn', () => {
     let s = newGame(1, 0, [Array.from({ length: 30 }, () => germanTank()), buildStarterDeck()]);
     setHand(s, 0, [LIGHT_TANK]);
@@ -241,7 +252,7 @@ describe('nation doctrines in play', () => {
     expect(s.players[0].combinedArmsUsed).toBe(false);
   });
 
-  it('Japan Spirit of Resilience: deployed units gain Tenacity', () => {
+  it('Japan Spirit of Resilience: the first Infantry costing 2 or less each turn gains Tenacity, other units do not', () => {
     let s = newGame(1, 0, [deckWith(IMPERIAL_INFANTRY, 12), buildStarterDeck()]);
     expect(s.players[0].doctrine).toBe('japan');
     setHand(s, 0, [RIFLE_SQUAD, IMPERIAL_INFANTRY]);
@@ -251,6 +262,15 @@ describe('nation doctrines in play', () => {
     expect(plain.extraKeywords).toEqual(['tenacity']);
     expect(hasKw(plain, 'tenacity')).toBe(true);
     expect(s.players[0].lanes[1].front!.extraKeywords).toEqual([]); // already had it
+
+    setHand(s, 0, [unitCard({ role: 'armour' }), unitCard({ role: 'infantry', cost: { manpower: 3 } })]);
+    s = step(s, deployAction(0, 2), deployAction(0, 2, 'rear')).state;
+    expect(s.players[0].lanes[2].front!.extraKeywords).toEqual([]); // not Infantry
+    expect(s.players[0].lanes[2].rear!.extraKeywords).toEqual([]); // costs more than 2
+
+    setHand(s, 0, [RIFLE_SQUAD]);
+    s = step(s, deployAction(0, 0, 'rear')).state;
+    expect(s.players[0].lanes[0].rear!.extraKeywords).toEqual([]); // only the first each turn
   });
 
   it('the opponent\'s doctrine never affects the other player', () => {

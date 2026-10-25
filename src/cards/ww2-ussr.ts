@@ -96,10 +96,10 @@ const NAVAL_INFANTRY = unit('naval-infantry', 'Naval Infantry', 'ussr', 'uncommo
 const ZAITSEV_SNIPER = unit('zaitsev-sniper', 'Zaitsev\'s Sniper', 'ussr', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 4, 1, {
   keywords: ['precision'],
 });
-const SIBERIAN_DIVISION = unit('siberian-division', 'Siberian Division', 'ussr', 'rare', 'infantry', { manpower: 4, supplies: 1 }, 5, 5, {
+const SIBERIAN_DIVISION = unit('siberian-division', 'Siberian Division', 'ussr', 'rare', 'infantry', { manpower: 4, supplies: 1 }, 5, 4, {
   keywords: ['dugIn', 'tenacity'],
 });
-const PAVLOVS_HOUSE = unit('pavlovs-house', 'Pavlov\'s House Garrison', 'ussr', 'epic', 'infantry', { manpower: 3, supplies: 2 }, 4, 7, {
+const PAVLOVS_HOUSE = unit('pavlovs-house', 'Pavlov\'s House Garrison', 'ussr', 'epic', 'infantry', { manpower: 3, supplies: 2 }, 4, 6, {
   keywords: ['dugIn', 'tenacity', 'rally'],
 });
 

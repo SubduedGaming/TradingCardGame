@@ -101,7 +101,7 @@ const BATTLE_OF_MIDWAY = order('battle-of-midway', 'The Battle of Midway', 'japa
 // ----------------------------------------------------------------- infantry
 
 const TYPE_38_SQUAD = unit('type-38-rifle-squad', 'Type 38 Rifle Squad', 'japan', 'common', 'infantry', { manpower: 1 }, 1, 2, { keywords: ['mass'] });
-const JUNGLE_FIGHTERS = unit('jungle-fighters', 'Jungle Fighters', 'japan', 'common', 'infantry', { manpower: 2 }, 3, 2, { keywords: ['blitz'] });
+const JUNGLE_FIGHTERS = unit('jungle-fighters', 'Jungle Fighters', 'japan', 'common', 'infantry', { manpower: 2 }, 2, 2, { keywords: ['blitz'] });
 const TUNNEL_DEFENDERS = unit('tunnel-defenders', 'Tunnel Defenders', 'japan', 'common', 'infantry', { manpower: 2 }, 2, 3, { keywords: ['dugIn'] });
 const BAMBOO_SPEAR_MILITIA = unit('bamboo-spear-militia', 'Bamboo Spear Militia', 'japan', 'common', 'infantry', { manpower: 1 }, 2, 1, {
   keywords: ['tenacity'],
@@ -109,16 +109,16 @@ const BAMBOO_SPEAR_MILITIA = unit('bamboo-spear-militia', 'Bamboo Spear Militia'
 const JUNGLE_SNIPER = unit('jungle-sniper', 'Jungle Sniper', 'japan', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 4, 1, {
   keywords: ['precision'],
 });
-const TYPE_99_MG_TEAM = unit('type-99-lmg-team', 'Type 99 LMG Team', 'japan', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 4, 2, {
+const TYPE_99_MG_TEAM = unit('type-99-lmg-team', 'Type 99 LMG Team', 'japan', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 3, 2, {
   keywords: ['ranged'],
 });
 const IMPERIAL_GUARDS = unit('imperial-guards', 'Imperial Guards', 'japan', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 3, 4, {
   keywords: ['tenacity'],
 });
 const KWANTUNG_REGIMENT = unit('kwantung-army-regiment', 'Kwantung Army Regiment', 'japan', 'rare', 'infantry', { manpower: 4, supplies: 1 }, 5, 5, {
-  keywords: ['tenacity', 'blitz'],
+  keywords: ['tenacity'],
 });
-const SHOCK_REGIMENT = unit('shock-regiment', 'Shock Regiment', 'japan', 'epic', 'infantry', { manpower: 3, supplies: 2 }, 7, 4, {
+const SHOCK_REGIMENT = unit('shock-regiment', 'Shock Regiment', 'japan', 'epic', 'infantry', { manpower: 3, supplies: 2 }, 6, 4, {
   keywords: ['blitz', 'tenacity'],
 });
 
