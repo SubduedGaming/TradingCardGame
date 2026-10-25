@@ -1,6 +1,7 @@
 import type { Card } from '../engine/types';
 import { aircraft, building, order, unit } from './builders';
 import { NEUTRAL_CARDS } from './ww2-neutral';
+import { USA_CARDS } from './ww2-usa';
 
 // ---------------------------------------------------------------- buildings
 
@@ -263,4 +264,4 @@ export function buildStarterDeck(): Card[] {
 }
 
 /** Every card in set 1. Grows batch by batch towards the 420-card plan (docs/08). */
-export const WW2_CARDS: Card[] = [...CORE_CARDS, ...NEUTRAL_CARDS];
+export const WW2_CARDS: Card[] = [...CORE_CARDS, ...NEUTRAL_CARDS, ...USA_CARDS];
