@@ -31,8 +31,8 @@ export function enterBoard(
   p.lanes[lane][row] = unit;
 
   switch (p.doctrine) {
-    case 'uk': // Resolve: +1 HP when deployed while your HQ has 14 HP or less.
-      if (p.hq <= 14) {
+    case 'uk': // Resolve: +1 HP when deployed while your HQ has 16 HP or less.
+      if (p.hq <= 16) {
         unit.hp += 1;
         unit.maxHp += 1;
       }

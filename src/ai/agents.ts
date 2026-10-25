@@ -29,7 +29,7 @@ function discardChoice(state: GameState, player: PlayerId): Action {
 }
 
 /** Phase decisions shared by every agent; returns null when the phase needs a real choice. */
-function forcedChoice(state: GameState, player: PlayerId): Action | null {
+export function forcedChoice(state: GameState, player: PlayerId): Action | null {
   if (state.phase === 'mulligan') return mulliganChoice(state, player);
   if (state.phase === 'discard') return discardChoice(state, player);
   return null;

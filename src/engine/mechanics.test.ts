@@ -201,16 +201,16 @@ describe('nation doctrines in play', () => {
     expect(quoteCost(s, 0, LIGHT_TANK).cost).toEqual({ steel: 2, fuel: 1 });
   });
 
-  it('UK Resolve: units deployed while the HQ has 14 HP or less get +1 HP', () => {
+  it('UK Resolve: units deployed while the HQ has 16 HP or less get +1 HP', () => {
     const s = newGame(1, 0, [Array.from({ length: 30 }, () => ukCard()), buildStarterDeck()]);
     expect(s.players[0].doctrine).toBe('uk');
     setHand(s, 0, [RIFLE_SQUAD, RIFLE_SQUAD]);
     setResources(s, 0, RICH);
     const healthy = step(s, deployAction(0, 0)).state.players[0].lanes[0].front!;
     expect(healthy.hp).toBe(2);
-    s.players[0].hq = 15;
+    s.players[0].hq = 17;
     expect(step(s, deployAction(0, 0)).state.players[0].lanes[0].front!.hp).toBe(2);
-    s.players[0].hq = 14;
+    s.players[0].hq = 16;
     const hurt = step(s, deployAction(0, 0)).state.players[0].lanes[0].front!;
     expect(hurt.hp).toBe(3);
     expect(hurt.maxHp).toBe(3);

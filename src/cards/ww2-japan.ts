@@ -115,10 +115,10 @@ const TYPE_99_MG_TEAM = unit('type-99-lmg-team', 'Type 99 LMG Team', 'japan', 'u
 const IMPERIAL_GUARDS = unit('imperial-guards', 'Imperial Guards', 'japan', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 3, 4, {
   keywords: ['tenacity'],
 });
-const KWANTUNG_REGIMENT = unit('kwantung-army-regiment', 'Kwantung Army Regiment', 'japan', 'rare', 'infantry', { manpower: 4, supplies: 1 }, 5, 5, {
+const KWANTUNG_REGIMENT = unit('kwantung-army-regiment', 'Kwantung Army Regiment', 'japan', 'rare', 'infantry', { manpower: 4, supplies: 1 }, 5, 4, {
   keywords: ['tenacity'],
 });
-const SHOCK_REGIMENT = unit('shock-regiment', 'Shock Regiment', 'japan', 'epic', 'infantry', { manpower: 3, supplies: 2 }, 6, 4, {
+const SHOCK_REGIMENT = unit('shock-regiment', 'Shock Regiment', 'japan', 'epic', 'infantry', { manpower: 3, supplies: 2 }, 5, 4, {
   keywords: ['blitz', 'tenacity'],
 });
 

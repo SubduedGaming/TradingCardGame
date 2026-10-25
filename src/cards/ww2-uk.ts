@@ -98,7 +98,7 @@ const HOME_GUARD = unit('home-guard', 'Home Guard', 'uk', 'common', 'infantry', 
 const BREN_GUN_TEAM = unit('bren-gun-team', 'Bren Gun Team', 'uk', 'common', 'infantry', { manpower: 2 }, 2, 3, { keywords: ['ranged'] });
 const PALS_BATTALION = unit('pals-battalion', 'Pals Battalion', 'uk', 'common', 'infantry', { manpower: 3 }, 3, 3, { keywords: ['mass'] });
 const DISPATCH_RIDER = unit('dispatch-rider', 'Dispatch Rider', 'uk', 'common', 'infantry', { manpower: 1 }, 1, 1, { keywords: ['blitz'] });
-const ROYAL_ENGINEERS = unit('royal-engineers', 'Royal Engineers', 'uk', 'common', 'infantry', { manpower: 1, steel: 1 }, 1, 3, { siege: 2 });
+const ROYAL_ENGINEERS = unit('royal-engineers', 'Royal Engineers', 'uk', 'common', 'infantry', { manpower: 1, steel: 1 }, 2, 3, { siege: 2 });
 const GURKHA_RIFLEMEN = unit('gurkha-riflemen', 'Gurkha Riflemen', 'uk', 'uncommon', 'infantry', { manpower: 2, supplies: 1 }, 4, 3, {
   keywords: ['tenacity'],
 });
@@ -114,12 +114,12 @@ const FIRST_AIRBORNE = unit('first-airborne-division', '1st Airborne Division', 
 
 // ------------------------------------------------------------------- armour
 
-const VICKERS_LIGHT_TANK = unit('vickers-light-tank', 'Vickers Light Tank', 'uk', 'common', 'armour', { steel: 1, fuel: 1 }, 2, 2, {
+const VICKERS_LIGHT_TANK = unit('vickers-light-tank', 'Vickers Light Tank', 'uk', 'common', 'armour', { steel: 1, fuel: 1 }, 2, 3, {
   armour: 1,
 });
 const DAIMLER_DINGO = unit('daimler-dingo', 'Daimler Dingo', 'uk', 'common', 'armour', { steel: 1, fuel: 1 }, 1, 3, { keywords: ['blitz'] });
 const MATILDA_II = unit('matilda-ii', 'Matilda II', 'uk', 'common', 'armour', { steel: 2, fuel: 1 }, 2, 4, { armour: 2 });
-const VALENTINE = unit('valentine', 'Valentine Tank', 'uk', 'common', 'armour', { steel: 2, fuel: 1 }, 3, 3, { armour: 1 });
+const VALENTINE = unit('valentine', 'Valentine Tank', 'uk', 'common', 'armour', { steel: 2, fuel: 1 }, 3, 4, { armour: 1 });
 const CROMWELL = unit('cromwell', 'Cromwell', 'uk', 'uncommon', 'armour', { steel: 3, fuel: 1 }, 4, 4, { armour: 1, keywords: ['blitz'] });
 const CHURCHILL_CROCODILE = unit('churchill-crocodile', 'Churchill Crocodile', 'uk', 'rare', 'armour', { steel: 3, fuel: 2 }, 4, 5, {
   armour: 2,

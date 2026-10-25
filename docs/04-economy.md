@@ -121,3 +121,11 @@ Duplicates beyond the deck copy limit are surfaced in the collection screen with
 - Win rates per card, per nation, per archetype.
 - Market: listings, average sale time, price-to-floor ratio.
 - Match length, first-player win rate, concede rate.
+
+## 12. Implemented (local, v0.1)
+
+`src/economy` (pure logic, tested) and `src/web` (shop, army ownership, rewards). The profile lives in the browser (`localStorage`) and keeps an append-only ledger (last 500 entries).
+
+- **Done:** War Bonds income per AI tier, first win of the day (+50%, rounded up), daily login (+20), anti-farm decay (x0.5 after 10 wins in an hour, x0.25 after 20); Standard Pack with the documented slot odds, pity (Rare 8, Epic 40, Legendary 120) and Legendary dupe protection; each pack stores its seed in the ledger and replays to the same cards; NPC buyback by rarity with starter copies at half value; "sell extras" beyond the deck copy limit; starter army (30 cards of a chosen nation), 200 WB and one free pack; armies can only use owned cards; a simulated market with a daily rotating stock (prices within the rarity bounds and above buyback).
+- **Not built:** player-to-player listings and the 8% tax (needs the server), deck slots beyond 3, cosmetic upgrades, daily contracts, the AI-tier ladder bonus, collection milestones, tutorial matches and set-targeted / "All Sets" packs (only set 1 exists).
+- **Note:** a conceded match pays the loss reward (15 WB); leaving a match from the menu pays nothing.

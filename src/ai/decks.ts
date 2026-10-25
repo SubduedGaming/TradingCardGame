@@ -9,7 +9,7 @@ import { WW2_CARDS } from '../cards/ww2';
  * them produce every resource, then fills with units and orders within the copy limits, the point cap and
  * the order limit. Used for balance simulation and as the seed for AI opponent decks (docs/05 section 6).
  */
-export function buildNationDeck(nation: Nation, rng: { rng: number }, pool: Card[] = WW2_CARDS): Card[] {
+export function buildNationDeck(nation: Nation, rng: { rng: number }, pool: Card[] = WW2_CARDS, owned?: Record<string, number>): Card[] {
   const cards = pool.filter((c) => c.nation === nation || c.nation === 'neutral');
   const deck: Card[] = [];
   const copies = new Map<string, number>();
@@ -18,7 +18,7 @@ export function buildNationDeck(nation: Nation, rng: { rng: number }, pool: Card
 
   const tryAdd = (card: Card): boolean => {
     const n = copies.get(card.id) ?? 0;
-    if (n >= COPY_LIMIT_BY_RARITY[card.rarity]) return false;
+    if (n >= Math.min(COPY_LIMIT_BY_RARITY[card.rarity], owned ? (owned[card.id] ?? 0) : Infinity)) return false;
     const slotsLeft = Math.max(0, DECK_MIN - deck.length - 1);
     if (points + card.points + slotsLeft * 2 > POINTS_CAP) return false;
     if (card.type === 'order' && orders >= ORDERS_MAX) return false;

@@ -5,6 +5,7 @@ import { validateDeck } from '../engine/deck';
 import { chooseDoctrine } from '../engine/doctrine';
 import { NATIONS } from '../cards/plan';
 import { recruitAgent, veteranAgent } from './agents';
+import { commanderAgent } from './commander';
 import { evaluate } from './evaluate';
 import { buildNationDeck } from './decks';
 import { actingSeat, playMatch, playSeries } from './sim';
@@ -12,7 +13,7 @@ import { actingSeat, playMatch, playSeries } from './sim';
 const starter = () => buildStarterDeck();
 
 describe('agents', () => {
-  for (const agent of [recruitAgent(), veteranAgent()]) {
+  for (const agent of [recruitAgent(), veteranAgent(), commanderAgent()]) {
     it(`${agent.name} only ever chooses legal actions and finishes the game`, () => {
       for (let seed = 1; seed <= 6; seed++) {
         let s = createGame({ seed, decks: [starter(), starter()] });
@@ -62,6 +63,16 @@ describe('difficulty tiers (docs/05 section 3)', () => {
   it('Veteran clearly beats Recruit with the same deck, seats swapped', () => {
     const r = playSeries(60, 500, { deck: starter(), agent: veteranAgent() }, { deck: starter(), agent: recruitAgent() });
     expect(r.wins[0] / r.games).toBeGreaterThan(0.7);
+  });
+
+  it('Commander beats Veteran with the same deck, seats swapped', () => {
+    const r = playSeries(60, 2000, { deck: starter(), agent: commanderAgent() }, { deck: starter(), agent: veteranAgent() });
+    expect(r.wins[0] / (r.games - r.draws)).toBeGreaterThan(0.55);
+  });
+
+  it('Commander is deterministic', () => {
+    const run = () => playMatch(11, [{ deck: starter(), agent: commanderAgent() }, { deck: starter(), agent: veteranAgent() }]);
+    expect(run().actions).toBe(run().actions);
   });
 
   it('in a Veteran mirror the first player has only a small edge', () => {

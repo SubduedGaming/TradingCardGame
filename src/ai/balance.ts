@@ -1,6 +1,7 @@
 import type { Card, Nation } from '../engine/types';
 import { chooseDoctrine } from '../engine/doctrine';
 import { veteranAgent } from './agents';
+import { commanderAgent } from './commander';
 import { buildNationDeck } from './decks';
 import { playMatch } from './sim';
 import { NATIONS } from '../cards/plan';
@@ -30,11 +31,16 @@ export interface BalanceReport {
 }
 
 /**
- * Nation-vs-nation balance sweep: Veteran against Veteran, a fresh random deck per game and seat,
+ * Nation-vs-nation balance sweep: the chosen tier (Veteran by default) against itself, a fresh random deck per game and seat,
  * seats alternating so first-player advantage cancels. `gamesPerPair` counts games per nation pair.
  */
-export function runBalance(gamesPerPair: number, baseSeed = 1, useDoctrines = true): BalanceReport {
-  const agent = veteranAgent();
+export function runBalance(
+  gamesPerPair: number,
+  baseSeed = 1,
+  useDoctrines = true,
+  tier: 'veteran' | 'commander' = 'veteran',
+): BalanceReport {
+  const agent = tier === 'commander' ? commanderAgent() : veteranAgent();
   const matrix: BalanceReport['matrix'] = {};
   for (const a of NATIONS) {
     matrix[a] = {};

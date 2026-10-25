@@ -1,10 +1,10 @@
 import { describe, it } from 'vitest';
 import { formatReport, nationCardRates, runBalance } from './balance';
 
-/** Balance sweep. Slow, so it only runs on request: BALANCE=1 [GAMES=300] npm run balance */
+/** Balance sweep. Slow, so it only runs on request: BALANCE=1 [GAMES=300] [TIER=commander] npm run balance */
 describe.skipIf(!process.env.BALANCE)('balance report', () => {
   it('prints the nation matrix and card outliers', () => {
-    const report = runBalance(Number(process.env.GAMES ?? 300), 1, process.env.NODOCTRINE !== '1');
+    const report = runBalance(Number(process.env.GAMES ?? 300), 1, process.env.NODOCTRINE !== '1', process.env.TIER === 'commander' ? 'commander' : 'veteran');
     console.log('\n' + formatReport(report));
     for (const nation of (process.env.NATIONS ?? '').split(',').filter(Boolean) as ('usa' | 'uk' | 'ussr' | 'germany' | 'japan')[]) {
       const rates = nationCardRates(report, nation);

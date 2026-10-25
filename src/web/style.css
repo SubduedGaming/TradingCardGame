@@ -235,3 +235,31 @@ select, input[type='search'], input.deck-name { background: var(--panel2); borde
   .hq { width: 52px; }
   .hq-hp { font-size: 18px; }
 }
+
+/* ---------- welcome / shop ---------- */
+.nation-grid { display: grid; gap: 10px; text-align: left; }
+.nation-card { display: grid; gap: 3px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; text-align: left; }
+.nation-card:hover { border-color: var(--accent); }
+.wallet { display: inline-flex; gap: 6px; align-items: baseline; padding: 4px 12px; border: 1px solid var(--accent); border-radius: 16px; color: var(--accent); font-weight: 700; }
+.shop { max-width: 1100px; margin: 0 auto; padding: 14px 20px 40px; display: grid; gap: 14px; }
+.shop-head { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.shop-head h1 { font-size: 26px; color: var(--accent); margin-right: auto; }
+.tabs { display: flex; gap: 6px; }
+.tabs .btn.on { border-color: var(--accent); background: #3a4426; }
+.pack-box { display: grid; gap: 12px; justify-items: center; padding: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.pack-art { width: 150px; height: 200px; border-radius: 10px; background: linear-gradient(160deg, #5b6b34, #2a3318); border: 2px solid var(--accent); display: grid; place-items: center; font-family: Georgia, serif; font-size: 20px; color: var(--accent); text-align: center; box-shadow: 0 6px 18px #0008; }
+.reveal { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.reveal .card { animation: flip 0.5s both; }
+.reveal .card:nth-child(2) { animation-delay: 0.15s; }
+.reveal .card:nth-child(3) { animation-delay: 0.3s; }
+.reveal .card:nth-child(4) { animation-delay: 0.45s; }
+.reveal .card:nth-child(5) { animation-delay: 0.6s; }
+@keyframes flip { from { transform: rotateY(90deg) scale(0.8); opacity: 0; } }
+.new-tag { position: absolute; top: 4px; right: 4px; background: var(--accent); color: #111; font-weight: 800; font-size: 11px; padding: 1px 7px; border-radius: 9px; z-index: 2; }
+.market-grid, .sell-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.listing { display: grid; gap: 6px; justify-items: center; }
+.listing .price { font-weight: 700; color: var(--accent); }
+.sell-row { display: flex; gap: 6px; align-items: center; justify-content: space-between; font-size: 12px; }
+.ctile.unowned { opacity: 0.4; }
+.rewards { background: var(--panel2); border-radius: 8px; padding: 8px 14px; color: var(--accent); }
+.rewards p { margin: 3px 0; }

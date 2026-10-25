@@ -4,7 +4,7 @@ import { BUILDINGS_MAX, BUILDINGS_MIN, COPY_LIMIT_BY_RARITY, DECK_MAX, DECK_MIN,
 import { chooseDoctrine, nationCounts, DOCTRINE_MIN_CARDS } from '../engine/doctrine';
 import { WW2_CARDS } from '../cards/ww2';
 import { buildNationDeck } from '../ai/decks';
-import { CARD_BY_ID, deleteDeck, loadDecks, resolveDeck, saveDeck, type SavedDeck } from './storage';
+import { CARD_BY_ID, deleteDeck, loadDecks, loadProfile, resolveDeck, saveDeck, type SavedDeck } from './storage';
 import { costPips, inspectOnHover, inspector } from './cardview';
 import { clear, h } from './dom';
 import { DOCTRINE_INFO, NATION_LABEL, RARITY_LABEL, artUrl, cardTypeLine } from './text';
@@ -26,6 +26,8 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
       a.name.localeCompare(b.name),
   );
 
+  const collection = loadProfile()?.collection ?? {};
+  const ownedOf = (c: Card) => collection[c.id] ?? 0;
   let deckId = startId ?? newId();
   const existing = loadDecks().find((d) => d.id === deckId);
   let deckName = existing?.name ?? 'New army';
@@ -34,7 +36,7 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
   let dirty = false;
   let message = '';
 
-  const filters = { nation: 'all', type: 'all', rarity: 'all', search: '', onlyInDeck: false };
+  const filters = { nation: 'all', type: 'all', rarity: 'all', search: '', onlyInDeck: false, ownedOnly: true };
 
   const deckCards = (): Card[] =>
     [...counts.entries()].flatMap(([id, n]) => {
@@ -44,8 +46,13 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
 
   function add(card: Card): void {
     const n = counts.get(card.id) ?? 0;
-    if (n >= COPY_LIMIT_BY_RARITY[card.rarity]) return;
+    if (n >= Math.min(COPY_LIMIT_BY_RARITY[card.rarity], ownedOf(card))) {
+      message = ownedOf(card) === 0 ? `You don't own ${card.name}. Open packs in the Shop to find it.` : `${card.name}: you own ${ownedOf(card)} and can use ${Math.min(COPY_LIMIT_BY_RARITY[card.rarity], ownedOf(card))}.`;
+      renderDeck();
+      return;
+    }
     if (deckCards().length >= DECK_MAX) return;
+    message = '';
     counts.set(card.id, n + 1);
     dirty = true;
     refresh();
@@ -68,20 +75,21 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
         (filters.nation === 'all' || c.nation === filters.nation) &&
         (filters.type === 'all' || c.type === filters.type) &&
         (filters.rarity === 'all' || c.rarity === filters.rarity) &&
+        (!filters.ownedOnly || ownedOf(c) > 0) &&
         (!filters.onlyInDeck || counts.has(c.id)) &&
         (q === '' || c.name.toLowerCase().includes(q)),
     );
     for (const card of shown) {
       const n = counts.get(card.id) ?? 0;
-      const limit = COPY_LIMIT_BY_RARITY[card.rarity];
+      const limit = Math.min(COPY_LIMIT_BY_RARITY[card.rarity], ownedOf(card));
       const tile = h(
         'div',
-        { class: `ctile rarity-${card.rarity} ${n > 0 ? 'in-deck' : ''}`, onclick: () => add(card) },
+        { class: `ctile rarity-${card.rarity} ${n > 0 ? 'in-deck' : ''} ${ownedOf(card) === 0 ? 'unowned' : ''}`, onclick: () => add(card) },
         h('img', { src: artUrl(card.id), loading: 'lazy', alt: '' }),
         h('div', { class: 'ctile-name' }, card.name),
         h('div', { class: 'ctile-meta' }, costPips(card.cost), h('span', { class: 'pts' }, `${card.points}p`)),
         h('div', { class: 'ctile-type' }, cardTypeLine(card).replace('Unit — ', '')),
-        n > 0 ? h('div', { class: 'count-badge' }, `${n}/${limit}`) : null,
+        n > 0 || ownedOf(card) > 0 ? h('div', { class: 'count-badge' }, n > 0 ? `${n}/${limit}` : `own ${ownedOf(card)}`) : null,
       );
       listEl.append(inspectOnHover(tile, card));
     }
@@ -96,6 +104,10 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
     clear(deckEl);
     const cards = deckCards();
     const errors = validateDeck(cards);
+    for (const [id, n] of counts) {
+      const c = CARD_BY_ID.get(id);
+      if (c && n > ownedOf(c)) errors.push(`${c.name}: you own ${ownedOf(c)} of the ${n} in this army`);
+    }
     const points = cards.reduce((a, c) => a + c.points, 0);
     const buildings = cards.filter((c) => c.type === 'building').length;
     const orders = cards.filter((c) => c.type === 'order').length;
@@ -265,6 +277,7 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
     select('nation', [['all', 'All nations'], ...NATIONS.map((n): [string, string] => [n, NATION_LABEL[n]])]),
     select('type', [['all', 'All types'], ['building', 'Buildings'], ['unit', 'Units'], ['order', 'Orders']]),
     select('rarity', [['all', 'All rarities'], ...RARITIES.map((r: Rarity): [string, string] => [r, RARITY_LABEL[r]])]),
+    h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: true, onchange: (e: Event) => { filters.ownedOnly = (e.target as HTMLInputElement).checked; renderList(); } }), 'Owned only'),
     h('label', { class: 'check' }, h('input', { type: 'checkbox', onchange: (e: Event) => { filters.onlyInDeck = (e.target as HTMLInputElement).checked; renderList(); } }), 'In army'),
     countEl,
   );
@@ -283,7 +296,14 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
         title: 'Replace the army with a random legal army of the chosen nation',
         onclick: () => {
           const nation = (nationSelect as HTMLSelectElement).value as Nation;
-          const cards = buildNationDeck(nation, { rng: (Math.random() * 2 ** 31) | 0 });
+          let cards: Card[];
+          try {
+            cards = buildNationDeck(nation, { rng: (Math.random() * 2 ** 31) | 0 }, WW2_CARDS, collection);
+          } catch {
+            message = `You don't own enough ${NATION_LABEL[nation]} and neutral cards for a full army yet. Open more packs.`;
+            renderDeck();
+            return;
+          }
           counts.clear();
           for (const c of cards) counts.set(c.id, (counts.get(c.id) ?? 0) + 1);
           dirty = true;

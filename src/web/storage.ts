@@ -1,5 +1,6 @@
 import type { Card } from '../engine/types';
 import { WW2_CARDS } from '../cards/ww2';
+import type { Profile } from '../economy/profile';
 
 export interface SavedDeck {
   id: string;
@@ -58,7 +59,7 @@ export function deleteDeck(id: string): void {
 export interface Settings {
   deckId: string;
   opponent: string;
-  level: 'recruit' | 'veteran';
+  level: 'recruit' | 'veteran' | 'commander';
   fast: boolean;
 }
 
@@ -68,4 +69,20 @@ export function loadSettings(): Settings {
 
 export function saveSettings(s: Settings): void {
   write(SETTINGS_KEY, s);
+}
+
+const PROFILE_KEY = 'frontline.profile.v1';
+let profileMemory: Profile | null | undefined;
+
+export function loadProfile(): Profile | null {
+  if (profileMemory === undefined) {
+    const p = read<Profile | null>(PROFILE_KEY, null);
+    profileMemory = p && p.version === 1 ? p : null;
+  }
+  return profileMemory;
+}
+
+export function saveProfile(profile: Profile): void {
+  profileMemory = profile;
+  write(PROFILE_KEY, profile);
 }

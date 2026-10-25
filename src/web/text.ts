@@ -46,7 +46,7 @@ export const KEYWORD_INFO: Record<Keyword, { name: string; text: string }> = {
 
 export const DOCTRINE_INFO: Record<Exclude<Nation, 'neutral'>, { name: string; text: string }> = {
   usa: { name: 'Industrial Might', text: 'Your first Building each turn costs 1 less Supplies.' },
-  uk: { name: 'Resolve', text: 'Units start with +1 HP when deployed while your HQ has 14 HP or less.' },
+  uk: { name: 'Resolve', text: 'Units start with +1 HP when deployed while your HQ has 16 HP or less.' },
   ussr: { name: 'Mass Mobilisation', text: 'Your Infantry cost 1 less Manpower while you control 3+ units.' },
   germany: { name: 'Combined Arms', text: 'Your first Armour or Air unit deployed each turn gains Blitz.' },
   japan: { name: 'Spirit of Resilience', text: 'Your first Infantry costing 2 or less deployed each turn gains Tenacity.' },

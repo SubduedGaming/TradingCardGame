@@ -114,5 +114,16 @@ Glicko-2 per player, separate ratings for PvE-ladder (vs AI) and PvP. New player
 - **Findings and changes.** The first sweep showed doctrines as a large imbalance source (Japan +9.6 points). Tuned: UK Resolve only at HQ 14 or less, Germany Combined Arms also covers Air, Japan Tenacity only for the first Infantry costing 2 or less each turn; nerfs to Pavlov's House, Siberian Division, Shock Regiment, Kwantung Army Regiment, Jungle Fighters and Type 99 LMG Team; buffs to Panzer II and Kradschuetzen.
 - **Latest result** (3000 games, Veteran mirror): first player 49.0%, USA 50.8, UK 46.3, USSR 51.8, Germany 45.2, Japan 55.8; turn-limit rate 17.4%. Japan and Germany are still outside 45-55%, and the turn-limit rate is above the 15% target. The Veteran is greedy and undervalues armour, air and orders, so further tuning should wait for the Commander tier.
 
+### 9.5 Commander (implemented)
+
+`src/ai/commander.ts`: beam search (width 10) over whole-turn action sequences, replayed one action at a time. Each finished turn is scored after the opponent's best counter-attack with the units they already have on the board (greedy, from public information only; their hand is never read). It takes about 0.25 s per full match headless.
+
+- Measured against Veteran with identical decks across all five nations (200 games, seats alternating): Commander wins 63%. A wider beam (24) gave 64%, so width 10 is used.
+- `TIER=commander npm run balance` sweeps nation balance with Commander in both seats.
+- Commander sweep (1500 games, before the third tuning pass): USA 50.7, UK 44.5, USSR 53.8, Germany 48.2, Japan 52.8, first player 49.0%, turn-limit rate 18.9%.
+- Third tuning pass (from the Commander sweep): UK Resolve now applies at HQ 16 or less; Vickers Light Tank, Valentine, Royal Engineers and the 25-pounder gained a point of HP or ATK; Shock Regiment, Naval Landing Force and Kwantung Army Regiment lost a point.
+- After the third pass (1500 games): USA 51.0, UK 45.4, USSR 53.6, Germany 48.1, Japan 51.9, first player 49.0%, turn-limit rate 19.4%. All five nations are inside the 45-55% target; UK and USSR sit at its edges and each has one lopsided matchup (UK loses 38% to USSR).
+- Known gap: turn-limit rate stays near 19-20%, above the 15% target, so games are slightly too grindy. Marshal (ISMCTS) is not built.
+
 ## 10. Tutorial AI
 Three scripted opponents that teach: (1) economy and deploying, (2) lanes and combat/Armour, (3) Orders and Air. They play deliberately weak, fixed lines and explain each step in on-screen prompts.

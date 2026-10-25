@@ -2,37 +2,38 @@ import type { Card, Nation } from '../engine/types';
 import { validateDeck } from '../engine/deck';
 import { chooseDoctrine } from '../engine/doctrine';
 import { buildNationDeck } from '../ai/decks';
-import { loadDecks, loadSettings, resolveDeck, saveSettings } from './storage';
+import { claimDaily, distinctOwned, missingCards } from '../economy/profile';
+import { WW2_CARDS } from '../cards/ww2';
+import { CARD_BY_ID, loadDecks, loadProfile, loadSettings, resolveDeck, saveProfile, saveSettings } from './storage';
 import { clear, h } from './dom';
 import { DOCTRINE_INFO, NATION_LABEL } from './text';
 import type { MatchConfig } from './match';
 
+const LEVEL_NAME = { recruit: 'Recruit', veteran: 'Veteran', commander: 'Commander' } as const;
 const PLAYABLE: Exclude<Nation, 'neutral'>[] = ['usa', 'uk', 'ussr', 'germany', 'japan'];
 
 export interface MenuActions {
   play: (cfg: MatchConfig) => void;
   army: (deckId?: string) => void;
-}
-
-/** Each nation's ready-made starter army; fixed seeds make it the same deck every time. */
-function presetDeck(nation: Nation): Card[] {
-  return buildNationDeck(nation, { rng: 1000 + PLAYABLE.indexOf(nation as never) });
+  shop: () => void;
 }
 
 export function mountMenu(root: HTMLElement, actions: MenuActions): void {
   const settings = loadSettings();
-  const saved = loadDecks();
+  let profile = loadProfile()!;
+  const daily = claimDaily(profile, Date.now());
+  if (daily.amount > 0) {
+    profile = daily.profile;
+    saveProfile(profile);
+  }
 
-  const deckOptions: Array<{ id: string; label: string; cards: Card[]; custom: boolean }> = [
-    ...PLAYABLE.map((n) => ({ id: `preset:${n}`, label: `${NATION_LABEL[n]} (starter army)`, cards: presetDeck(n), custom: false })),
-    ...saved.map((d) => ({ id: d.id, label: `${d.name} (yours)`, cards: resolveDeck(d.cardIds), custom: true })),
-  ];
-  if (!deckOptions.some((o) => o.id === settings.deckId)) settings.deckId = deckOptions[0]!.id;
+  const decks = loadDecks().map((d) => ({ id: d.id, label: d.name, ids: d.cardIds, cards: resolveDeck(d.cardIds) }));
+  if (decks.length > 0 && !decks.some((o) => o.id === settings.deckId)) settings.deckId = decks[0]!.id;
 
   const deckSel = h(
     'select',
     { id: 'deck', onchange: () => { settings.deckId = (deckSel as HTMLSelectElement).value; update(); } },
-    ...deckOptions.map((o) => h('option', { value: o.id, selected: o.id === settings.deckId }, o.label)),
+    ...decks.map((o) => h('option', { value: o.id, selected: o.id === settings.deckId }, o.label)),
   );
   const foeSel = h(
     'select',
@@ -42,34 +43,50 @@ export function mountMenu(root: HTMLElement, actions: MenuActions): void {
   );
   const levelSel = h(
     'select',
-    { id: 'level', onchange: () => { settings.level = (levelSel as HTMLSelectElement).value as 'recruit' | 'veteran'; saveSettings(settings); } },
-    h('option', { value: 'recruit', selected: settings.level === 'recruit' }, 'Recruit — forgiving, makes mistakes'),
-    h('option', { value: 'veteran', selected: settings.level === 'veteran' }, 'Veteran — plays the best move it sees'),
+    { id: 'level', onchange: () => { settings.level = (levelSel as HTMLSelectElement).value as typeof settings.level; saveSettings(settings); update(); } },
+    h('option', { value: 'recruit', selected: settings.level === 'recruit' }, 'Recruit — forgiving, makes mistakes (win: 40 WB)'),
+    h('option', { value: 'veteran', selected: settings.level === 'veteran' }, 'Veteran — plays the best move it sees (win: 60 WB)'),
+    h('option', { value: 'commander', selected: settings.level === 'commander' }, 'Commander — plans whole turns and guards its HQ (win: 90 WB)'),
   );
 
   const info = h('div', { class: 'deck-info' });
   const playBtn = h('button', { class: 'btn primary big', onclick: start }, 'Play match');
-  const editBtn = h('button', { class: 'btn', onclick: () => actions.army(settings.deckId.startsWith('preset:') ? undefined : settings.deckId) }, 'Edit armies');
 
   function current() {
-    return deckOptions.find((o) => o.id === settings.deckId)!;
+    return decks.find((o) => o.id === settings.deckId);
+  }
+
+  function problems(): string[] {
+    const opt = current();
+    if (!opt) return ['You have no saved army. Open Armies to build one.'];
+    const errors = validateDeck(opt.cards);
+    for (const m of missingCards(profile, opt.ids)) {
+      errors.push(`${CARD_BY_ID.get(m.id)?.name ?? m.id}: you own ${m.have} of the ${m.need} in this army`);
+    }
+    return errors;
   }
 
   function update(): void {
     saveSettings(settings);
     const opt = current();
-    const errors = validateDeck(opt.cards);
-    const doctrine = chooseDoctrine(opt.cards);
+    const errors = problems();
     clear(info);
-    info.append(
-      h('p', null, `${opt.cards.length} cards`, doctrine && doctrine !== 'neutral' ? ` · Doctrine: ${DOCTRINE_INFO[doctrine].name} — ${DOCTRINE_INFO[doctrine].text}` : ' · No doctrine'),
-    );
-    if (errors.length > 0) info.append(h('ul', { class: 'errors' }, ...errors.map((e) => h('li', null, e))));
+    if (opt) {
+      const doctrine = chooseDoctrine(opt.cards);
+      info.append(h('p', null, `${opt.cards.length} cards`, doctrine && doctrine !== 'neutral' ? ` · Doctrine: ${DOCTRINE_INFO[doctrine].name} — ${DOCTRINE_INFO[doctrine].text}` : ' · No doctrine'));
+    }
+    if (errors.length > 0) {
+      const shown = errors.slice(0, 3);
+      info.append(
+        h('ul', { class: 'errors' }, ...shown.map((e) => h('li', null, e)), errors.length > shown.length ? h('li', null, `…and ${errors.length - shown.length} more. Open Armies to fix this army.`) : null),
+      );
+    }
     (playBtn as HTMLButtonElement).disabled = errors.length > 0;
   }
 
   function start(): void {
     const opt = current();
+    if (!opt || problems().length > 0) return;
     const nation = (settings.opponent === 'random' ? PLAYABLE[Math.floor(Math.random() * PLAYABLE.length)]! : settings.opponent) as Nation;
     const seed = (Math.random() * 2 ** 31) | 0;
     actions.play({
@@ -78,7 +95,7 @@ export function mountMenu(root: HTMLElement, actions: MenuActions): void {
       level: settings.level,
       fast: settings.fast,
       seed,
-      opponentName: `${NATION_LABEL[nation]} (${settings.level === 'veteran' ? 'Veteran' : 'Recruit'})`,
+      opponentName: `${NATION_LABEL[nation]} (${LEVEL_NAME[settings.level]})`,
     });
   }
 
@@ -91,12 +108,26 @@ export function mountMenu(root: HTMLElement, actions: MenuActions): void {
       h('p', { class: 'tag' }, 'A World War II army card game. Build an army, deploy across three lanes, break the enemy Command Post.'),
       h(
         'div',
+        { class: 'row', style: 'justify-content:center;margin-bottom:14px' },
+        h('span', { class: 'wallet' }, `${profile.wb} WB`),
+        h('span', { class: 'muted' }, `${distinctOwned(profile)} of ${WW2_CARDS.length} cards`),
+        profile.freePacks > 0 ? h('span', { class: 'notice' }, 'Free pack waiting!') : null,
+      ),
+      daily.amount > 0 ? h('p', { class: 'notice' }, `Daily login bonus: +${daily.amount} WB`) : null,
+      h(
+        'div',
         { class: 'panel' },
         h('label', null, 'Your army', deckSel),
         info,
         h('label', null, 'Opponent', foeSel),
         h('label', null, 'Difficulty', levelSel),
-        h('div', { class: 'row' }, playBtn, editBtn),
+        h(
+          'div',
+          { class: 'row' },
+          playBtn,
+          h('button', { class: 'btn', onclick: () => actions.army(current()?.id) }, 'Armies'),
+          h('button', { class: 'btn', onclick: actions.shop }, 'Shop'),
+        ),
       ),
       h('p', { class: 'muted small' }, 'Set 1 · 420 cards · single player'),
     ),

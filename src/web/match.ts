@@ -4,6 +4,7 @@ import { apply, createGame, legalActions } from '../engine/game';
 import { canPlay } from '../engine/costs';
 import { effectiveArmour, effectiveAttack, locateUnit } from '../engine/stats';
 import { recruitAgent, veteranAgent, type Agent } from '../ai/agents';
+import { commanderAgent } from '../ai/commander';
 import { actingSeat } from '../ai/sim';
 import { CARD_BY_ID } from './storage';
 import { buildingTile, cardFace, inspectOnHover, inspector, unitTile } from './cardview';
@@ -13,7 +14,7 @@ import { DOCTRINE_INFO, NATION_LABEL, RESOURCE_LABEL, RESOURCE_SHORT } from './t
 export interface MatchConfig {
   humanDeck: Card[];
   aiDeck: Card[];
-  level: 'recruit' | 'veteran';
+  level: 'recruit' | 'veteran' | 'commander';
   fast: boolean;
   seed: number;
   opponentName: string;
@@ -159,9 +160,16 @@ function whyNot(state: GameState, card: Card): string {
   return 'No legal target';
 }
 
-export function mountMatch(root: HTMLElement, cfg: MatchConfig, onExit: () => void, onRematch: () => void): () => void {
+export function mountMatch(
+  root: HTMLElement,
+  cfg: MatchConfig,
+  onExit: () => void,
+  onRematch: () => void,
+  /** Called once when the match ends; returns the reward lines to show on the result screen. */
+  onFinished: (result: 'win' | 'loss' | 'draw') => string[] = () => [],
+): () => void {
   let state = createGame({ seed: cfg.seed, decks: [cfg.humanDeck, cfg.aiDeck] });
-  const agent: Agent = cfg.level === 'veteran' ? veteranAgent() : recruitAgent();
+  const agent: Agent = cfg.level === 'commander' ? commanderAgent() : cfg.level === 'veteran' ? veteranAgent() : recruitAgent();
   const aiRng = { rng: (cfg.seed * 2654435761 + 12345) | 0 };
   let sel: Sel = { kind: 'none' };
   let notice = '';
@@ -172,6 +180,7 @@ export function mountMatch(root: HTMLElement, cfg: MatchConfig, onExit: () => vo
   let timer: number | undefined;
   let disposed = false;
   let logEl: HTMLElement | null = null;
+  let rewardLines: string[] | null = null;
 
   const doctrineOf = (p: PlayerId) => state.players[p].doctrine;
 
@@ -429,7 +438,10 @@ export function mountMatch(root: HTMLElement, cfg: MatchConfig, onExit: () => vo
     if (logEl) logEl.scrollTop = logEl.scrollHeight;
 
     if (yourTurn && state.phase === 'mulligan') root.append(mulliganOverlay());
-    if (state.winner !== null) root.append(resultOverlay());
+    if (state.winner !== null) {
+      rewardLines ??= onFinished(state.winner === 'draw' ? 'draw' : state.winner === HUMAN ? 'win' : 'loss');
+      root.append(resultOverlay());
+    }
   }
 
   function mulliganOverlay(): HTMLElement {
@@ -464,6 +476,7 @@ export function mountMatch(root: HTMLElement, cfg: MatchConfig, onExit: () => vo
         { class: `modal result ${w === HUMAN ? 'win' : w === 'draw' ? 'draw' : 'loss'}` },
         h('h2', null, title),
         h('p', null, last),
+        rewardLines && rewardLines.length > 0 ? h('div', { class: 'rewards' }, ...rewardLines.map((l) => h('p', null, l))) : null,
         h('p', { class: 'muted' }, `Ended on turn ${state.turn}. Your HQ: ${state.players[HUMAN].hq}. Enemy HQ: ${state.players[AI].hq}.`),
         h(
           'div',

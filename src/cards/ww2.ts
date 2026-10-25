@@ -95,7 +95,7 @@ export const SHOCK_TROOPS = unit('shock-troops', 'Shock Troops', 'germany', 'unc
 export const GUARDS_RIFLE_DIVISION = unit('guards-rifle-division', 'Guards Rifle Division', 'ussr', 'rare', 'infantry', { manpower: 3, supplies: 1 }, 4, 5, {
   keywords: ['dugIn', 'rally'],
 });
-export const NAVAL_LANDING_FORCE = unit('naval-landing-force', 'Naval Landing Force', 'japan', 'rare', 'infantry', { manpower: 3, supplies: 1 }, 4, 4, {
+export const NAVAL_LANDING_FORCE = unit('naval-landing-force', 'Naval Landing Force', 'japan', 'rare', 'infantry', { manpower: 3, supplies: 1 }, 3, 4, {
   keywords: ['blitz', 'tenacity'],
 });
 
@@ -143,7 +143,7 @@ export const ANTI_TANK_GUN = unit('anti-tank-gun', 'Anti-Tank Gun', 'neutral', '
 export const TYPE_96_AA_GUN = unit('type-96-aa-gun', 'Type 96 AA Gun', 'japan', 'common', 'artillery', { steel: 2, supplies: 1 }, 2, 2, {
   keywords: ['ranged', 'antiAir'],
 });
-export const QF_25_POUNDER = unit('25-pounder', '25-pounder', 'uk', 'uncommon', 'artillery', { steel: 2, supplies: 1 }, 3, 2, {
+export const QF_25_POUNDER = unit('25-pounder', '25-pounder', 'uk', 'uncommon', 'artillery', { steel: 2, supplies: 1 }, 3, 3, {
   keywords: ['ranged', 'indirect'],
 });
 export const HOWITZER_105MM = unit('105mm-howitzer', '105mm Howitzer', 'usa', 'uncommon', 'artillery', { steel: 3, supplies: 1 }, 4, 2, {
