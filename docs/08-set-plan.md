@@ -59,14 +59,14 @@ The budget test runs for every card, so a weak or broken card cannot land. It ch
 
 Cards are written and checked in batches by nation, so each batch is small enough to review.
 
-| Batch | Scope | New cards | Already in set 1 |
-|---|---|---|---|
-| 1 | Neutral | 50 | 20 |
-| 2 | USA | 59 | 11 |
-| 3 | UK | 61 | 9 |
-| 4 | USSR | 60 | 10 |
-| 5 | Germany | 62 | 8 |
-| 6 | Japan | 65 | 5 |
+| Batch | Scope | New cards | Already in set 1 | Status |
+|---|---|---|---|---|
+| 1 | Neutral | 50 | 20 | **Done** (`src/cards/ww2-neutral.ts`; quota filled exactly) |
+| 2 | USA | 59 | 11 | Not started |
+| 3 | UK | 61 | 9 | Not started |
+| 4 | USSR | 60 | 10 | Not started |
+| 5 | Germany | 62 | 8 | Not started |
+| 6 | Japan | 65 | 5 | Not started |
 
 Per batch:
 1. Check the remaining quota per tier, type and role (`remaining()` in `plan.ts`).
@@ -77,6 +77,7 @@ Per batch:
 
 ## 7. What is not covered yet
 
+- **Art generation.** The ComfyUI server at 192.168.1.70 did not respond (no ping reply, nothing listening on the usual ports), so no art has been generated. Art also needs a style and a model chosen first.
 - **Art.** 420 cards means 420 pieces of art per set. This is not needed for the engine, but it is the largest cost of the project once the UI starts, so decide the art pipeline before the UI.
 - **Matchup balance.** The budget only keeps cards cost-efficient. Balance between nations and roles needs the AI and the simulator.
 - **Collection size.** A full 420-card collection takes thousands of packs. The economy (docs/04) leans on the NPC buyback and the player market for this; tune with telemetry.

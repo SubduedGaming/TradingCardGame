@@ -33,11 +33,11 @@ const KEYWORD_VALUE: Record<Keyword, number> = {
   blitz: 1,
   piercing: 1,
   ranged: 1,
-  indirect: 0.8,
-  precision: 0.8,
+  indirect: 1.8, // includes ranged (1)
+  precision: 1.8, // includes ranged (1)
   flying: 2,
   antiAir: 0.7,
-  fighter: 0.8,
+  fighter: 3.5, // includes flying (2) and antiAir (0.7)
   tenacity: 1,
   dugIn: 0.7,
   heavy: -0.7,

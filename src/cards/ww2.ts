@@ -1,114 +1,6 @@
-import type {
-  BuildingCard,
-  Card,
-  Effect,
-  Keyword,
-  Nation,
-  OrderCard,
-  Rarity,
-  Resources,
-  Role,
-  UnitCard,
-} from '../engine/types';
-import { POINTS_BY_RARITY } from '../engine/deck';
-
-const SET = 'ww2';
-
-type Cost = Partial<Resources>;
-
-function building(
-  slug: string,
-  name: string,
-  nation: Nation,
-  rarity: Rarity,
-  cost: Cost,
-  hp: number,
-  produces: Cost,
-  extra: Partial<BuildingCard> = {},
-): BuildingCard {
-  return {
-    id: `${SET}.building.${slug}`,
-    name,
-    set: SET,
-    nation,
-    rarity,
-    points: POINTS_BY_RARITY[rarity],
-    type: 'building',
-    cost,
-    hp,
-    produces,
-    keywords: [],
-    ...extra,
-  };
-}
-
-function unit(
-  slug: string,
-  name: string,
-  nation: Nation,
-  rarity: Rarity,
-  role: Role,
-  cost: Cost,
-  attack: number,
-  hp: number,
-  extra: Partial<UnitCard> = {},
-): UnitCard {
-  return {
-    id: `${SET}.unit.${slug}`,
-    name,
-    set: SET,
-    nation,
-    rarity,
-    points: POINTS_BY_RARITY[rarity],
-    type: 'unit',
-    role,
-    cost,
-    attack,
-    hp,
-    keywords: [],
-    ...extra,
-  };
-}
-
-/** Air units are Flying and pay Fuel upkeep (1 unless stated). */
-function aircraft(
-  slug: string,
-  name: string,
-  nation: Nation,
-  rarity: Rarity,
-  cost: Cost,
-  attack: number,
-  hp: number,
-  keywords: Keyword[],
-  extra: Partial<UnitCard> = {},
-): UnitCard {
-  return unit(slug, name, nation, rarity, 'air', cost, attack, hp, {
-    keywords: ['flying', ...keywords],
-    upkeep: { fuel: 1 },
-    ...extra,
-  });
-}
-
-function order(
-  slug: string,
-  name: string,
-  nation: Nation,
-  rarity: Rarity,
-  cost: Cost,
-  effects: Effect[],
-): OrderCard {
-  return {
-    id: `${SET}.order.${slug}`,
-    name,
-    set: SET,
-    nation,
-    rarity,
-    points: POINTS_BY_RARITY[rarity],
-    type: 'order',
-    cost,
-    effects,
-  };
-}
+import type { Card } from '../engine/types';
+import { aircraft, building, order, unit } from './builders';
+import { NEUTRAL_CARDS } from './ww2-neutral';
 
 // ---------------------------------------------------------------- buildings
 
@@ -331,7 +223,8 @@ export const OPERATION_OVERLORD = order('operation-overlord', 'Operation Overlor
   { trigger: 'onPlay', do: 'summonFromDeck', role: 'infantry', count: 3 },
 ]);
 
-export const WW2_CARDS: Card[] = [
+/** The 63-card launch core described in docs/03. */
+export const CORE_CARDS: Card[] = [
   BARRACKS, STEEL_MILL, OIL_DERRICK, SUPPLY_DEPOT, BUNKER,
   FIELD_HOSPITAL, REFINERY, ANTI_AIRCRAFT_BATTERY, RAIL_YARD,
   RADAR_STATION, MOTOR_POOL, TANKOGRAD_WORKS,
@@ -368,3 +261,6 @@ export const STARTER_ARMY: readonly [Card, number][] = [
 export function buildStarterDeck(): Card[] {
   return STARTER_ARMY.flatMap(([card, n]) => Array.from({ length: n }, () => card));
 }
+
+/** Every card in set 1. Grows batch by batch towards the 420-card plan (docs/08). */
+export const WW2_CARDS: Card[] = [...CORE_CARDS, ...NEUTRAL_CARDS];

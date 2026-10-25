@@ -3,21 +3,21 @@ import { apply, hashState, isTerminal, legalActions } from './game';
 import { validateCard, validateDeck } from './deck';
 import type { Card, GameState, Nation } from './types';
 import { RESOURCE_CAP, RESOURCE_TYPES } from './types';
-import { BARRACKS, WW2_CARDS, buildStarterDeck } from '../cards/ww2';
+import { BARRACKS, CORE_CARDS, WW2_CARDS, buildStarterDeck } from '../cards/ww2';
 import { newGame, put, addBuilding, buildingCard, setHand, setResources, unitCard } from './testkit';
 import { playRandomGame, randomDeck } from './simkit';
 
 describe('set integrity', () => {
-  it('has the 63 cards from docs/03: 12 buildings, 39 units, 12 orders', () => {
-    expect(WW2_CARDS).toHaveLength(63);
-    expect(WW2_CARDS.filter((c) => c.type === 'building')).toHaveLength(12);
-    expect(WW2_CARDS.filter((c) => c.type === 'unit')).toHaveLength(39);
-    expect(WW2_CARDS.filter((c) => c.type === 'order')).toHaveLength(12);
+  it('has the 63-card launch core from docs/03: 12 buildings, 39 units, 12 orders', () => {
+    expect(CORE_CARDS).toHaveLength(63);
+    expect(CORE_CARDS.filter((c) => c.type === 'building')).toHaveLength(12);
+    expect(CORE_CARDS.filter((c) => c.type === 'unit')).toHaveLength(39);
+    expect(CORE_CARDS.filter((c) => c.type === 'order')).toHaveLength(12);
   });
 
-  it('matches the documented rarity split', () => {
+  it('matches the documented rarity split of the launch core', () => {
     const count = (type: Card['type'], rarity: Card['rarity']) =>
-      WW2_CARDS.filter((c) => c.type === type && c.rarity === rarity).length;
+      CORE_CARDS.filter((c) => c.type === type && c.rarity === rarity).length;
     expect([count('building', 'common'), count('building', 'uncommon'), count('building', 'rare'), count('building', 'legendary')]).toEqual([5, 4, 2, 1]);
     expect([count('unit', 'common'), count('unit', 'uncommon'), count('unit', 'rare'), count('unit', 'legendary')]).toEqual([14, 14, 9, 2]);
     expect([count('order', 'common'), count('order', 'uncommon'), count('order', 'rare'), count('order', 'legendary')]).toEqual([5, 4, 2, 1]);
@@ -71,7 +71,11 @@ describe('every card can be played', () => {
       const before = hashState(s);
       const r = apply(s, plays[0]!);
       expect(hashState(s)).toBe(before); // input untouched
-      expect(r.state.players[0].hand).toHaveLength(card.type === 'order' && card.effects.some((e) => e.do === 'draw') ? 2 : 0);
+      const draws = (card.effects ?? []).reduce(
+        (n, e) => n + (e.do === 'draw' && (e.trigger === 'onPlay' || e.trigger === 'onDeploy') ? e.count : 0),
+        0,
+      );
+      expect(r.state.players[0].hand).toHaveLength(draws);
       for (const res of RESOURCE_TYPES) {
         expect(r.state.players[0].resources[res]).toBeGreaterThanOrEqual(0);
         expect(r.state.players[0].resources[res]).toBeLessThanOrEqual(RESOURCE_CAP);

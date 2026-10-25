@@ -67,6 +67,14 @@ describe('set 1 progress against the plan', () => {
     });
   }
 
+  it('batch 1: the neutral quota is filled exactly', () => {
+    const c = counts.neutral;
+    expect(c.total).toBe(70);
+    expect(c.rarity).toEqual(RARITY_QUOTA.neutral);
+    expect(c.type).toEqual(TYPE_QUOTA.neutral);
+    expect(c.role).toEqual(ROLE_QUOTA.neutral);
+  });
+
   it('reports exactly what is still to write', () => {
     const left = remaining(WW2_CARDS);
     const missing = ALL.reduce((n, nation) => n + Object.values(left[nation]).reduce((a, b) => a + b, 0), 0);
