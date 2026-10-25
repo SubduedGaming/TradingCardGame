@@ -27,6 +27,13 @@
     "styleHash": "b697881346",
     "promptHash": "63b5e8ecf1"
   },
+  "ww2.building.anti-aircraft-battery": {
+    "variant": 0,
+    "seed": 98724847653762,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7b350ebd66"
+  },
   "ww2.building.armoury": {
     "variant": 0,
     "seed": 108465384128018,
@@ -41,12 +48,47 @@
     "styleHash": "b697881346",
     "promptHash": "390c22de3e"
   },
+  "ww2.building.atlantic-wall-battery": {
+    "variant": 0,
+    "seed": 217443608796158,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5ab72b8b22"
+  },
+  "ww2.building.autobahn-network": {
+    "variant": 0,
+    "seed": 86207755908850,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9074110125"
+  },
+  "ww2.building.baku-oilfield": {
+    "variant": 0,
+    "seed": 255615669803518,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "58f2c7bcc5"
+  },
+  "ww2.building.barracks": {
+    "variant": 0,
+    "seed": 249940169006421,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2fbdd933ed"
+  },
   "ww2.building.bletchley-park": {
     "variant": 0,
     "seed": 39685249012138,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "343f238e4d"
+  },
+  "ww2.building.bunker": {
+    "variant": 0,
+    "seed": 251789085297062,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "4778c59a95"
   },
   "ww2.building.cabinet-war-rooms": {
     "variant": 0,
@@ -62,12 +104,26 @@
     "styleHash": "b697881346",
     "promptHash": "cae8072b91"
   },
+  "ww2.building.combined-fleet-headquarters": {
+    "variant": 0,
+    "seed": 127869371531877,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "135fbd40a2"
+  },
   "ww2.building.command-bunker": {
     "variant": 1,
     "seed": 21811897330655,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "7d06b83bd7"
+  },
+  "ww2.building.conscription-office": {
+    "variant": 0,
+    "seed": 141692085669786,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b9b8e518e8"
   },
   "ww2.building.detroit-tank-arsenal": {
     "variant": 1,
@@ -82,6 +138,20 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "065ab43276"
+  },
+  "ww2.building.field-hospital": {
+    "variant": 0,
+    "seed": 252554024742565,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "08c77b1a62"
+  },
+  "ww2.building.flak-nest": {
+    "variant": 1,
+    "seed": 20124578735499,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "18167af0fd"
   },
   "ww2.building.flak-tower": {
     "variant": 0,
@@ -104,12 +174,96 @@
     "styleHash": "b697881346",
     "promptHash": "bf0a50ade3"
   },
+  "ww2.building.imperial-general-headquarters": {
+    "variant": 0,
+    "seed": 83844890938986,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6046a988e9"
+  },
+  "ww2.building.kirov-plant": {
+    "variant": 0,
+    "seed": 240583782499227,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "d9936c5c7b"
+  },
+  "ww2.building.kolkhoz-farm": {
+    "variant": 0,
+    "seed": 67225713756223,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9030beae27"
+  },
+  "ww2.building.kriegsakademie": {
+    "variant": 0,
+    "seed": 115637012474517,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9e177c3719"
+  },
+  "ww2.building.krupp-works": {
+    "variant": 0,
+    "seed": 148910107840738,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8a1dec9533"
+  },
+  "ww2.building.kure-naval-arsenal": {
+    "variant": 0,
+    "seed": 250888888299486,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7e219a08f8"
+  },
+  "ww2.building.kyushu-ironworks": {
+    "variant": 0,
+    "seed": 13553868131208,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c9914616dc"
+  },
   "ww2.building.liberty-shipyard": {
     "variant": 0,
     "seed": 278455846240817,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "68ede98d66"
+  },
+  "ww2.building.luftwaffe-airfield": {
+    "variant": 0,
+    "seed": 174264594436036,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "d40c153365"
+  },
+  "ww2.building.manchurian-industrial-zone": {
+    "variant": 0,
+    "seed": 137010983583724,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7d1bae9022"
+  },
+  "ww2.building.metro-shelter": {
+    "variant": 0,
+    "seed": 74580851502878,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "4fbb678f63"
+  },
+  "ww2.building.mitsubishi-aircraft-works": {
+    "variant": 0,
+    "seed": 170109628671716,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c37eecefed"
+  },
+  "ww2.building.motor-pool": {
+    "variant": 0,
+    "seed": 52044186294743,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "97866d0038"
   },
   "ww2.building.mulberry-harbour": {
     "variant": 0,
@@ -132,12 +286,40 @@
     "styleHash": "b697881346",
     "promptHash": "d9776f59dd"
   },
+  "ww2.building.oil-derrick": {
+    "variant": 0,
+    "seed": 221822213817369,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "1a22cbbb68"
+  },
   "ww2.building.operations-room": {
     "variant": 0,
     "seed": 9033339452648,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "b8f1eecb74"
+  },
+  "ww2.building.panzer-depot": {
+    "variant": 0,
+    "seed": 220367252496055,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "cffdf8171a"
+  },
+  "ww2.building.partisan-camp": {
+    "variant": 0,
+    "seed": 66095575354191,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c366aab9ac"
+  },
+  "ww2.building.peenemunde-rocket-works": {
+    "variant": 0,
+    "seed": 277510924539998,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "29cce2e225"
   },
   "ww2.building.pentagon": {
     "variant": 0,
@@ -153,6 +335,13 @@
     "styleHash": "legacy-v1",
     "promptHash": "6cd9559ec3"
   },
+  "ww2.building.radar-station": {
+    "variant": 0,
+    "seed": 256009190648983,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c807738fcc"
+  },
   "ww2.building.rail-terminus": {
     "variant": 0,
     "seed": 137424196993653,
@@ -160,12 +349,33 @@
     "styleHash": "legacy-v1",
     "promptHash": "370b39f9fc"
   },
+  "ww2.building.rail-yard": {
+    "variant": 0,
+    "seed": 198544791841300,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2c65feb49a"
+  },
+  "ww2.building.refinery": {
+    "variant": 0,
+    "seed": 114949327821622,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fd176b76e8"
+  },
   "ww2.building.royal-ordnance-factory": {
     "variant": 0,
     "seed": 80826927214107,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "7f2d73a35a"
+  },
+  "ww2.building.ruhr-steelworks": {
+    "variant": 0,
+    "seed": 49222438678377,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f82b24f35c"
   },
   "ww2.building.sandbag-line": {
     "variant": 0,
@@ -181,6 +391,55 @@
     "styleHash": "b697881346",
     "promptHash": "3434a20192"
   },
+  "ww2.building.seaplane-base": {
+    "variant": 0,
+    "seed": 43492502445730,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a55ce2cc0d"
+  },
+  "ww2.building.stavka-headquarters": {
+    "variant": 0,
+    "seed": 234877720734978,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e0f3c1299e"
+  },
+  "ww2.building.steel-mill": {
+    "variant": 0,
+    "seed": 150668226232335,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ef4dfcc276"
+  },
+  "ww2.building.supply-depot": {
+    "variant": 0,
+    "seed": 239745154682159,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c40a52b2a4"
+  },
+  "ww2.building.synthetic-fuel-plant": {
+    "variant": 0,
+    "seed": 39096256323704,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "188f220434"
+  },
+  "ww2.building.tankograd-works": {
+    "variant": 0,
+    "seed": 118031430081495,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b77022d719"
+  },
+  "ww2.building.tractor-factory": {
+    "variant": 0,
+    "seed": 264123841164289,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "17557de494"
+  },
   "ww2.building.training-airfield": {
     "variant": 1,
     "seed": 69158543689181,
@@ -195,12 +454,68 @@
     "styleHash": "b697881346",
     "promptHash": "ab09e79c72"
   },
+  "ww2.building.trench-network": {
+    "variant": 0,
+    "seed": 272987770565275,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "1135a369ed"
+  },
+  "ww2.building.truk-lagoon-base": {
+    "variant": 0,
+    "seed": 78690852111530,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f5aa4e2472"
+  },
+  "ww2.building.tunnel-complex": {
+    "variant": 0,
+    "seed": 241710257054937,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "460bda5e6a"
+  },
+  "ww2.building.type-88-aa-post": {
+    "variant": 0,
+    "seed": 107486265963514,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "166c5f35e2"
+  },
+  "ww2.building.ural-foundry": {
+    "variant": 0,
+    "seed": 50178175406823,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2137e71acb"
+  },
+  "ww2.building.village-granary": {
+    "variant": 0,
+    "seed": 275186705686830,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fbf1097134"
+  },
+  "ww2.building.wehrmacht-high-command": {
+    "variant": 0,
+    "seed": 35660134400481,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c1870ff2e3"
+  },
   "ww2.building.welsh-colliery": {
     "variant": 0,
     "seed": 58872930491693,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "1b4078f8a2"
+  },
+  "ww2.building.westwall-bunker": {
+    "variant": 0,
+    "seed": 179394484788615,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8a135d17ff"
   },
   "ww2.building.workshop": {
     "variant": 0,
@@ -209,12 +524,47 @@
     "styleHash": "legacy-v1",
     "promptHash": "65eb188c99"
   },
+  "ww2.building.zenitka-position": {
+    "variant": 0,
+    "seed": 62049246473884,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "83b489b7ab"
+  },
+  "ww2.order.afrika-korps-offensive": {
+    "variant": 0,
+    "seed": 66805456054099,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "871fd9faff"
+  },
+  "ww2.order.air-raid": {
+    "variant": 0,
+    "seed": 275275259723368,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5aa3b471f8"
+  },
   "ww2.order.airdrop-reinforcements": {
     "variant": 0,
     "seed": 256798648394155,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "3ff0d060ac"
+  },
+  "ww2.order.arctic-convoy": {
+    "variant": 0,
+    "seed": 188971758689734,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "db3abb634a"
+  },
+  "ww2.order.ardennes-offensive": {
+    "variant": 0,
+    "seed": 152063465040326,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a9e4ce6727"
   },
   "ww2.order.armour-piercing-rounds": {
     "variant": 0,
@@ -223,12 +573,54 @@
     "styleHash": "b697881346",
     "promptHash": "8ffd4d4127"
   },
+  "ww2.order.artillery-preparation": {
+    "variant": 0,
+    "seed": 23614590628910,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ecccf8f890"
+  },
+  "ww2.order.autobahn-dash": {
+    "variant": 0,
+    "seed": 21420608988306,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "26fc02898d"
+  },
+  "ww2.order.banzai-charge": {
+    "variant": 0,
+    "seed": 111572188438513,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f55d370009"
+  },
+  "ww2.order.battle-of-midway": {
+    "variant": 0,
+    "seed": 122681489569561,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0bfc7d1a99"
+  },
+  "ww2.order.battle-of-stalingrad": {
+    "variant": 0,
+    "seed": 53216339605879,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "316d6592aa"
+  },
   "ww2.order.bazooka-ambush": {
     "variant": 0,
     "seed": 41632422798721,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "7efa0b68aa"
+  },
+  "ww2.order.blitzkrieg": {
+    "variant": 0,
+    "seed": 190654461676775,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0c82ac0933"
   },
   "ww2.order.bomber-command-offensive": {
     "variant": 0,
@@ -243,6 +635,13 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "06f875d86b"
+  },
+  "ww2.order.carrier-strike": {
+    "variant": 2,
+    "seed": 33140710046437,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fe777e8263"
   },
   "ww2.order.close-air-support": {
     "variant": 0,
@@ -265,6 +664,13 @@
     "styleHash": "b697881346",
     "promptHash": "ca8a1e5072"
   },
+  "ww2.order.conscription-drive": {
+    "variant": 0,
+    "seed": 13722541221282,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ba3d710b7b"
+  },
   "ww2.order.counter-battery-fire": {
     "variant": 0,
     "seed": 122934086040213,
@@ -286,12 +692,40 @@
     "styleHash": "b697881346",
     "promptHash": "e3e428caab"
   },
+  "ww2.order.decisive-battle-doctrine": {
+    "variant": 0,
+    "seed": 168994236230803,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9089457b0f"
+  },
+  "ww2.order.deep-battle": {
+    "variant": 0,
+    "seed": 280915204709785,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2f60bd1e31"
+  },
+  "ww2.order.demolition-charges": {
+    "variant": 0,
+    "seed": 74942121360766,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8bf51ce6c1"
+  },
   "ww2.order.dig-for-victory": {
     "variant": 0,
     "seed": 135539970186684,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "3331d07fad"
+  },
+  "ww2.order.dig-in": {
+    "variant": 0,
+    "seed": 142801836241222,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "68e9682494"
   },
   "ww2.order.draft-call-up": {
     "variant": 0,
@@ -307,12 +741,61 @@
     "styleHash": "b697881346",
     "promptHash": "7e5e26e9ec"
   },
+  "ww2.order.emergency-rations": {
+    "variant": 0,
+    "seed": 212581028328511,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "254d3091c1"
+  },
+  "ww2.order.enigma-intercept": {
+    "variant": 0,
+    "seed": 248134322407167,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "3833d974ec"
+  },
+  "ww2.order.fall-gelb": {
+    "variant": 0,
+    "seed": 125300140793608,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "d8be433ca5"
+  },
+  "ww2.order.fall-of-singapore": {
+    "variant": 0,
+    "seed": 184152677265707,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0d1b757d39"
+  },
+  "ww2.order.forced-march": {
+    "variant": 0,
+    "seed": 196367254406169,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "92a2c1ea4a"
+  },
   "ww2.order.fuel-convoy": {
     "variant": 0,
     "seed": 140760840055148,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "b2b5172ab3"
+  },
+  "ww2.order.general-staff-planning": {
+    "variant": 0,
+    "seed": 237561608941650,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f7891d11de"
+  },
+  "ww2.order.great-patriotic-war": {
+    "variant": 5,
+    "seed": 143878393104847,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fe25d96939"
   },
   "ww2.order.hot-meal": {
     "variant": 0,
@@ -321,12 +804,40 @@
     "styleHash": "b697881346",
     "promptHash": "c5d0dabd68"
   },
+  "ww2.order.human-wave": {
+    "variant": 0,
+    "seed": 253492760181118,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bea218262a"
+  },
   "ww2.order.intelligence-report": {
     "variant": 0,
     "seed": 37363907087504,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "e7843fbef1"
+  },
+  "ww2.order.jungle-ambush": {
+    "variant": 0,
+    "seed": 42396960489550,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "afb74dfcea"
+  },
+  "ww2.order.jungle-offensive": {
+    "variant": 0,
+    "seed": 101596733145085,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b64a2f8154"
+  },
+  "ww2.order.lend-lease": {
+    "variant": 0,
+    "seed": 140720819472688,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8866209e83"
   },
   "ww2.order.make-do-and-mend": {
     "variant": 0,
@@ -356,12 +867,40 @@
     "styleHash": "b697881346",
     "promptHash": "96385565cd"
   },
+  "ww2.order.molotov-cocktails": {
+    "variant": 0,
+    "seed": 85485940699859,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a3e31b82c1"
+  },
+  "ww2.order.mortar-barrage": {
+    "variant": 0,
+    "seed": 51836401377645,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "91663c1f2d"
+  },
   "ww2.order.napalm-strike": {
     "variant": 0,
     "seed": 213579043735993,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "deb8773099"
+  },
+  "ww2.order.naval-bombardment": {
+    "variant": 0,
+    "seed": 125229915549172,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ae1fd8a9a1"
+  },
+  "ww2.order.operation-bagration": {
+    "variant": 0,
+    "seed": 258136208321870,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "eb8ca597a1"
   },
   "ww2.order.operation-cobra": {
     "variant": 0,
@@ -377,6 +916,76 @@
     "styleHash": "b697881346",
     "promptHash": "a6768f973b"
   },
+  "ww2.order.operation-overlord": {
+    "variant": 0,
+    "seed": 149732928375488,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a8772189cc"
+  },
+  "ww2.order.operation-uranus": {
+    "variant": 0,
+    "seed": 11449834216896,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0f1bc48a13"
+  },
+  "ww2.order.operation-z": {
+    "variant": 0,
+    "seed": 143474208351179,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "53ccac0752"
+  },
+  "ww2.order.panzer-recovery": {
+    "variant": 0,
+    "seed": 274190211193202,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "114a9033f8"
+  },
+  "ww2.order.panzerfaust-volley": {
+    "variant": 0,
+    "seed": 246485932509500,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "de580d701c"
+  },
+  "ww2.order.paratroop-drop": {
+    "variant": 0,
+    "seed": 49460016215149,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e1a4ab0f06"
+  },
+  "ww2.order.partisan-sabotage": {
+    "variant": 0,
+    "seed": 49556997816410,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "125cf2292f"
+  },
+  "ww2.order.pincer-encirclement": {
+    "variant": 1,
+    "seed": 8256803317535,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "003ac68d4f"
+  },
+  "ww2.order.radio-intercept": {
+    "variant": 0,
+    "seed": 246100442866237,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bcfec2a6a8"
+  },
+  "ww2.order.raid-on-the-depot": {
+    "variant": 0,
+    "seed": 7919577040765,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8f8961a12a"
+  },
   "ww2.order.rally-the-troops": {
     "variant": 0,
     "seed": 20123895821121,
@@ -391,12 +1000,68 @@
     "styleHash": "legacy-v1",
     "promptHash": "24f3dd3eaf"
   },
+  "ww2.order.rasputitsa": {
+    "variant": 0,
+    "seed": 196102407385449,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ca2ec6b2e8"
+  },
+  "ww2.order.reinforcements": {
+    "variant": 3,
+    "seed": 272284417122298,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "59cbebf53c"
+  },
+  "ww2.order.rocket-salvo": {
+    "variant": 0,
+    "seed": 175224069329674,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "645b8d9bbd"
+  },
+  "ww2.order.sabotage": {
+    "variant": 0,
+    "seed": 51926031477386,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b2e29cfc8c"
+  },
   "ww2.order.sandbagging": {
     "variant": 0,
     "seed": 17893695397088,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "b2f9213e65"
+  },
+  "ww2.order.scavenged-supplies": {
+    "variant": 0,
+    "seed": 278607340547719,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "95f6a38c38"
+  },
+  "ww2.order.schwerpunkt": {
+    "variant": 0,
+    "seed": 58868534016466,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b0aa1d2b59"
+  },
+  "ww2.order.scorched-earth": {
+    "variant": 0,
+    "seed": 266883815422828,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0463c0d6c0"
+  },
+  "ww2.order.scrap-drive": {
+    "variant": 0,
+    "seed": 56074421828892,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "092a9f4841"
   },
   "ww2.order.second-alamein": {
     "variant": 0,
@@ -412,12 +1077,54 @@
     "styleHash": "b697881346",
     "promptHash": "f3381cf94d"
   },
+  "ww2.order.smoke-screen": {
+    "variant": 0,
+    "seed": 114574693291739,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "820ec89f61"
+  },
+  "ww2.order.special-naval-landing": {
+    "variant": 0,
+    "seed": 170010675006716,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "d6b2bc8adb"
+  },
+  "ww2.order.stuka-strike": {
+    "variant": 0,
+    "seed": 200710368279625,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "05466849fe"
+  },
+  "ww2.order.synthetic-fuel-ration": {
+    "variant": 0,
+    "seed": 203695959680477,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "408535794c"
+  },
   "ww2.order.their-finest-hour": {
     "variant": 0,
     "seed": 132860993715712,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "65567f5f05"
+  },
+  "ww2.order.torpedo-run": {
+    "variant": 0,
+    "seed": 242779515305529,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "217950ddba"
+  },
+  "ww2.order.tunnel-warfare": {
+    "variant": 0,
+    "seed": 93169752564336,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "3acd0eb4e4"
   },
   "ww2.order.typhoon-rocket-strike": {
     "variant": 0,
@@ -433,12 +1140,47 @@
     "styleHash": "b697881346",
     "promptHash": "72657a34b5"
   },
+  "ww2.order.v1-flying-bomb": {
+    "variant": 2,
+    "seed": 122410971789355,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5313bf523e"
+  },
+  "ww2.order.winter-offensive": {
+    "variant": 0,
+    "seed": 95799350062210,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8bc4413050"
+  },
+  "ww2.order.wunderwaffe-programme": {
+    "variant": 0,
+    "seed": 93904288812724,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8c45deb3c8"
+  },
+  "ww2.unit.105mm-howitzer": {
+    "variant": 0,
+    "seed": 94821796277077,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "cae38875a0"
+  },
   "ww2.unit.17-pounder": {
     "variant": 0,
     "seed": 263437835465295,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "deebf339c0"
+  },
+  "ww2.unit.25-pounder": {
+    "variant": 0,
+    "seed": 231572997150149,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "06121e4f0e"
   },
   "ww2.unit.3-7-inch-aa-gun": {
     "variant": 0,
@@ -454,6 +1196,13 @@
     "styleHash": "b697881346",
     "promptHash": "1c41b2fc35"
   },
+  "ww2.unit.45mm-at-gun": {
+    "variant": 0,
+    "seed": 78257900778902,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c016c26da5"
+  },
   "ww2.unit.6-pounder": {
     "variant": 0,
     "seed": 264803481026526,
@@ -461,12 +1210,54 @@
     "styleHash": "b697881346",
     "promptHash": "8a590b32a4"
   },
+  "ww2.unit.76mm-regimental-gun": {
+    "variant": 0,
+    "seed": 163058814889647,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5e3cfd5e49"
+  },
+  "ww2.unit.82mm-mortar": {
+    "variant": 0,
+    "seed": 246579991035586,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8210b8c29a"
+  },
+  "ww2.unit.88mm-flak": {
+    "variant": 0,
+    "seed": 9447625240751,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "89b85eb148"
+  },
+  "ww2.unit.a6m-zero": {
+    "variant": 0,
+    "seed": 120898847472725,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "dc1601bc6d"
+  },
+  "ww2.unit.abwehr-agent": {
+    "variant": 0,
+    "seed": 195653884475864,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "916284d535"
+  },
   "ww2.unit.air-raid-warden": {
     "variant": 0,
     "seed": 163744724187212,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "5916ad7261"
+  },
+  "ww2.unit.anti-tank-gun": {
+    "variant": 0,
+    "seed": 6860319557731,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "d3c881128d"
   },
   "ww2.unit.armoured-car": {
     "variant": 0,
@@ -503,12 +1294,33 @@
     "styleHash": "b697881346",
     "promptHash": "25d5df6ef9"
   },
+  "ww2.unit.b-17-flying-fortress": {
+    "variant": 0,
+    "seed": 30217534614266,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c9829e1d04"
+  },
   "ww2.unit.b-24-liberator": {
     "variant": 0,
     "seed": 150888486714525,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "720f8f69d0"
+  },
+  "ww2.unit.b5n-kate": {
+    "variant": 0,
+    "seed": 279624220817834,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "faace05f5f"
+  },
+  "ww2.unit.bamboo-spear-militia": {
+    "variant": 0,
+    "seed": 197766475190569,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "164de6db1c"
   },
   "ww2.unit.bar-team": {
     "variant": 0,
@@ -524,6 +1336,20 @@
     "styleHash": "legacy-v1",
     "promptHash": "8bc1e00f9c"
   },
+  "ww2.unit.bf-109": {
+    "variant": 0,
+    "seed": 61682073272817,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bf93ab7ce1"
+  },
+  "ww2.unit.bf-110": {
+    "variant": 0,
+    "seed": 128766280611297,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b283fe2481"
+  },
   "ww2.unit.big-red-one": {
     "variant": 1,
     "seed": 55377053463327,
@@ -537,6 +1363,13 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "9eb0b40980"
+  },
+  "ww2.unit.bm-31": {
+    "variant": 0,
+    "seed": 227522350515139,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b45174824c"
   },
   "ww2.unit.bofors-40mm": {
     "variant": 0,
@@ -552,12 +1385,33 @@
     "styleHash": "b697881346",
     "promptHash": "01a86a7e3e"
   },
+  "ww2.unit.bt-7": {
+    "variant": 0,
+    "seed": 21256532285281,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "103ea851fd"
+  },
+  "ww2.unit.churchill": {
+    "variant": 0,
+    "seed": 208674439419883,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b643db2f36"
+  },
   "ww2.unit.churchill-crocodile": {
     "variant": 0,
     "seed": 105322785139386,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "3f477fdf88"
+  },
+  "ww2.unit.combat-engineer": {
+    "variant": 0,
+    "seed": 216578855197787,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "4a3ff94794"
   },
   "ww2.unit.combat-surgeon": {
     "variant": 0,
@@ -573,12 +1427,33 @@
     "styleHash": "legacy-v1",
     "promptHash": "87b22e1c9d"
   },
+  "ww2.unit.commissar": {
+    "variant": 0,
+    "seed": 190312777901109,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2cd828749a"
+  },
+  "ww2.unit.conscript-platoon": {
+    "variant": 0,
+    "seed": 196071581524738,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "70708a7abb"
+  },
   "ww2.unit.cromwell": {
     "variant": 0,
     "seed": 94929018759002,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "1248f4f89e"
+  },
+  "ww2.unit.d3a-val": {
+    "variant": 0,
+    "seed": 238606572982657,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6e7a0f63e0"
   },
   "ww2.unit.daimler-dingo": {
     "variant": 0,
@@ -608,6 +1483,13 @@
     "styleHash": "b697881346",
     "promptHash": "bc8d6879b9"
   },
+  "ww2.unit.engineer-pioneers": {
+    "variant": 0,
+    "seed": 156883323687616,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a12f279792"
+  },
   "ww2.unit.f4f-wildcat": {
     "variant": 1,
     "seed": 74698080929044,
@@ -622,6 +1504,20 @@
     "styleHash": "b697881346",
     "promptHash": "0e282fa365"
   },
+  "ww2.unit.fallschirmjager": {
+    "variant": 0,
+    "seed": 21231058510934,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "65ce7128fe"
+  },
+  "ww2.unit.feldkuche": {
+    "variant": 0,
+    "seed": 219296250422295,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "4bf58da20c"
+  },
   "ww2.unit.field-gun": {
     "variant": 0,
     "seed": 203400332723011,
@@ -635,6 +1531,34 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "legacy-v1",
     "promptHash": "664602e1f0"
+  },
+  "ww2.unit.field-medic": {
+    "variant": 0,
+    "seed": 103159522135664,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e16b3fa6a5"
+  },
+  "ww2.unit.field-nurse": {
+    "variant": 0,
+    "seed": 178586993340864,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0d242386b1"
+  },
+  "ww2.unit.field-radio-operator": {
+    "variant": 0,
+    "seed": 198991007905239,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6ac0b12a29"
+  },
+  "ww2.unit.fieseler-storch": {
+    "variant": 2,
+    "seed": 28578354604190,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9503e02b65"
   },
   "ww2.unit.fighter-bomber": {
     "variant": 1,
@@ -657,6 +1581,13 @@
     "styleHash": "legacy-v1",
     "promptHash": "24c232a52a"
   },
+  "ww2.unit.flakvierling": {
+    "variant": 0,
+    "seed": 343853655402,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b7dc475c8e"
+  },
   "ww2.unit.flame-tank": {
     "variant": 0,
     "seed": 123519942266438,
@@ -671,12 +1602,61 @@
     "styleHash": "legacy-v1",
     "promptHash": "531f0a80d5"
   },
+  "ww2.unit.fuel-bowser-crew": {
+    "variant": 0,
+    "seed": 154081373508076,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "23e66ad1b2"
+  },
+  "ww2.unit.fw-190": {
+    "variant": 1,
+    "seed": 145164270418135,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "94005aa86c"
+  },
+  "ww2.unit.gebirgsjager": {
+    "variant": 0,
+    "seed": 203471618027444,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a296d0b1cf"
+  },
+  "ww2.unit.gi-rifle-squad": {
+    "variant": 0,
+    "seed": 80644258327348,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0539c7de1b"
+  },
   "ww2.unit.gloster-meteor": {
     "variant": 2,
     "seed": 6651299942238,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "dc00d7bb1b"
+  },
+  "ww2.unit.grenadier-squad": {
+    "variant": 0,
+    "seed": 74201323008279,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a3c45c7d84"
+  },
+  "ww2.unit.grossdeutschland-division": {
+    "variant": 0,
+    "seed": 11525249461282,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ab33e5026c"
+  },
+  "ww2.unit.guards-rifle-division": {
+    "variant": 0,
+    "seed": 189971901230886,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e550f7db2b"
   },
   "ww2.unit.gurkha-riflemen": {
     "variant": 0,
@@ -705,6 +1685,13 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "d1b9cf8338"
+  },
+  "ww2.unit.he-111": {
+    "variant": 3,
+    "seed": 106262406278915,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "709c5ab454"
   },
   "ww2.unit.heavy-bomber": {
     "variant": 0,
@@ -748,6 +1735,48 @@
     "styleHash": "b697881346",
     "promptHash": "2d70e69c19"
   },
+  "ww2.unit.horse-cart-train": {
+    "variant": 0,
+    "seed": 67005491607712,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6ca5e83e70"
+  },
+  "ww2.unit.hummel": {
+    "variant": 0,
+    "seed": 1056466777357,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "2fb4c8ebdc"
+  },
+  "ww2.unit.i-16": {
+    "variant": 0,
+    "seed": 204122231567952,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "987f484a57"
+  },
+  "ww2.unit.il-2-sturmovik": {
+    "variant": 0,
+    "seed": 21460584276141,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c19427b76e"
+  },
+  "ww2.unit.imperial-guards": {
+    "variant": 0,
+    "seed": 116497476886565,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bd0c1ee98d"
+  },
+  "ww2.unit.imperial-infantry": {
+    "variant": 0,
+    "seed": 235141132413341,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "1669d918c9"
+  },
   "ww2.unit.infantry-company": {
     "variant": 0,
     "seed": 3495651438068,
@@ -755,12 +1784,152 @@
     "styleHash": "b697881346",
     "promptHash": "995008b427"
   },
+  "ww2.unit.is-2": {
+    "variant": 0,
+    "seed": 243644249599962,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bd29e1543c"
+  },
+  "ww2.unit.is-3": {
+    "variant": 0,
+    "seed": 63028942453931,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f1fe7888ff"
+  },
+  "ww2.unit.isu-152": {
+    "variant": 0,
+    "seed": 139275085934623,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c7a229b1b1"
+  },
+  "ww2.unit.jagdpanther": {
+    "variant": 0,
+    "seed": 84885529119584,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "897fdc3250"
+  },
+  "ww2.unit.ju-88": {
+    "variant": 2,
+    "seed": 272687591502738,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "55ddd8a298"
+  },
+  "ww2.unit.jungle-fighters": {
+    "variant": 0,
+    "seed": 259897544716894,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8024b66211"
+  },
+  "ww2.unit.jungle-sniper": {
+    "variant": 0,
+    "seed": 74033162499669,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "901fd30c08"
+  },
+  "ww2.unit.karl-gerat": {
+    "variant": 0,
+    "seed": 109812066916200,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "14873c2ef5"
+  },
+  "ww2.unit.katyusha": {
+    "variant": 0,
+    "seed": 261129087350857,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "578d694bc0"
+  },
+  "ww2.unit.kempeitai-agent": {
+    "variant": 0,
+    "seed": 258217926123462,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "36b9ec48ae"
+  },
+  "ww2.unit.ki-27-nate": {
+    "variant": 3,
+    "seed": 115156296935654,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "cdb36b61c4"
+  },
+  "ww2.unit.ki-43-hayabusa": {
+    "variant": 2,
+    "seed": 157452211006284,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "733a7a0eef"
+  },
+  "ww2.unit.ki-51-sonia": {
+    "variant": 0,
+    "seed": 227235123906052,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a705c018c6"
+  },
+  "ww2.unit.kido-butai-strike-wing": {
+    "variant": 0,
+    "seed": 241752122787269,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5191da5ff1"
+  },
+  "ww2.unit.kradschutzen": {
+    "variant": 0,
+    "seed": 128910508990529,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "357c3ce987"
+  },
+  "ww2.unit.kriegsberichter": {
+    "variant": 0,
+    "seed": 143462795330173,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c9ea58a28b"
+  },
+  "ww2.unit.kv-1": {
+    "variant": 0,
+    "seed": 195370425645845,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f94c4a24ab"
+  },
+  "ww2.unit.kv-2": {
+    "variant": 0,
+    "seed": 160577188493569,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "96fbfa652f"
+  },
+  "ww2.unit.kwantung-army-regiment": {
+    "variant": 0,
+    "seed": 114152980179690,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6c99966735"
+  },
   "ww2.unit.l-4-grasshopper": {
     "variant": 0,
     "seed": 16894631848318,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "51eef57a6f"
+  },
+  "ww2.unit.la-5": {
+    "variant": 6,
+    "seed": 233721539371346,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7ef5282628"
   },
   "ww2.unit.land-girls": {
     "variant": 0,
@@ -776,6 +1945,20 @@
     "styleHash": "b697881346",
     "promptHash": "be8ea262c0"
   },
+  "ww2.unit.landser-squad": {
+    "variant": 0,
+    "seed": 24909842608645,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "090db7dd47"
+  },
+  "ww2.unit.lefh-18": {
+    "variant": 0,
+    "seed": 235015781628541,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "43ceb7b533"
+  },
   "ww2.unit.light-aa-gun": {
     "variant": 0,
     "seed": 255470237802421,
@@ -789,6 +1972,20 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "f0ff50e7b0"
+  },
+  "ww2.unit.light-tank": {
+    "variant": 0,
+    "seed": 244422011525842,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5f55b53490"
+  },
+  "ww2.unit.m10-wolverine": {
+    "variant": 0,
+    "seed": 110332764809163,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "dac7db4dbc"
   },
   "ww2.unit.m12-gmc": {
     "variant": 0,
@@ -832,6 +2029,13 @@
     "styleHash": "b697881346",
     "promptHash": "17c2ae8c59"
   },
+  "ww2.unit.m4-sherman": {
+    "variant": 0,
+    "seed": 236292573443804,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fa312a1120"
+  },
   "ww2.unit.m4a3e8-easy-eight": {
     "variant": 0,
     "seed": 260305609867391,
@@ -874,12 +2078,40 @@
     "styleHash": "b697881346",
     "promptHash": "e7e9e541b3"
   },
+  "ww2.unit.marksman": {
+    "variant": 0,
+    "seed": 122029732933939,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c994d93060"
+  },
   "ww2.unit.matilda-ii": {
     "variant": 0,
     "seed": 42589979952420,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "8874b55dad"
+  },
+  "ww2.unit.maus": {
+    "variant": 0,
+    "seed": 145885480030710,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "59024bb6fc"
+  },
+  "ww2.unit.maxim-quad": {
+    "variant": 0,
+    "seed": 145430333168113,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c43248feb6"
+  },
+  "ww2.unit.me-262": {
+    "variant": 0,
+    "seed": 185618979625218,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "14abcdc1f4"
   },
   "ww2.unit.mechanic": {
     "variant": 0,
@@ -895,12 +2127,33 @@
     "styleHash": "b697881346",
     "promptHash": "e3f62e1238"
   },
+  "ww2.unit.mg-42-team": {
+    "variant": 0,
+    "seed": 79117658338922,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ba3f916be4"
+  },
   "ww2.unit.militia": {
     "variant": 0,
     "seed": 169986423662296,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "fe1954ee51"
+  },
+  "ww2.unit.militia-brigade": {
+    "variant": 0,
+    "seed": 221769136914132,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ae43d2cbad"
+  },
+  "ww2.unit.mortar-team": {
+    "variant": 0,
+    "seed": 149892891780894,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8d25b97248"
   },
   "ww2.unit.mosquito": {
     "variant": 2,
@@ -916,12 +2169,40 @@
     "styleHash": "legacy-v1",
     "promptHash": "f5b9f465ad"
   },
+  "ww2.unit.n1k-shiden": {
+    "variant": 2,
+    "seed": 195027371482207,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bb1f4745d9"
+  },
   "ww2.unit.national-guard": {
     "variant": 0,
     "seed": 59027147652442,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "c9b92af4da"
+  },
+  "ww2.unit.naval-infantry": {
+    "variant": 0,
+    "seed": 213628487659169,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a30704e7e2"
+  },
+  "ww2.unit.naval-landing-force": {
+    "variant": 0,
+    "seed": 107217867558858,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b8024d5b8d"
+  },
+  "ww2.unit.nebelwerfer-section": {
+    "variant": 0,
+    "seed": 41294465393132,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "295e1136fd"
   },
   "ww2.unit.night-fighter": {
     "variant": 0,
@@ -944,12 +2225,26 @@
     "styleHash": "b697881346",
     "promptHash": "63ebdbb0c0"
   },
+  "ww2.unit.p-51-mustang": {
+    "variant": 0,
+    "seed": 267320748378979,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a051b3d840"
+  },
   "ww2.unit.pack-howitzer": {
     "variant": 0,
     "seed": 237756099846508,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "49a6c1e4fc"
+  },
+  "ww2.unit.pak-38": {
+    "variant": 0,
+    "seed": 227042854005666,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ea4e49e7de"
   },
   "ww2.unit.pals-battalion": {
     "variant": 0,
@@ -958,12 +2253,89 @@
     "styleHash": "b697881346",
     "promptHash": "9bc849683c"
   },
+  "ww2.unit.panther": {
+    "variant": 0,
+    "seed": 263403082426968,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0cc45f8b36"
+  },
+  "ww2.unit.panzer-38t": {
+    "variant": 0,
+    "seed": 275167467444056,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8f0e504597"
+  },
+  "ww2.unit.panzer-ii": {
+    "variant": 0,
+    "seed": 221183110144311,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "1ac3858166"
+  },
+  "ww2.unit.panzer-iii": {
+    "variant": 0,
+    "seed": 156732015039173,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b985871c8f"
+  },
+  "ww2.unit.panzer-iv": {
+    "variant": 0,
+    "seed": 75613193814048,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ab5b1bc28e"
+  },
+  "ww2.unit.paratroopers": {
+    "variant": 0,
+    "seed": 202252482660779,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0d1a8bf415"
+  },
+  "ww2.unit.partisan-radio-operator": {
+    "variant": 0,
+    "seed": 189996662429696,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6a430cf64a"
+  },
+  "ww2.unit.pavlovs-house": {
+    "variant": 0,
+    "seed": 31515930139562,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f4d1bf8cc0"
+  },
+  "ww2.unit.pe-2": {
+    "variant": 0,
+    "seed": 16577625524617,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c07120ddee"
+  },
   "ww2.unit.pioneers": {
     "variant": 2,
     "seed": 56654707128243,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "cde3333cc3"
+  },
+  "ww2.unit.pionier-squad": {
+    "variant": 0,
+    "seed": 228070608490349,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "706da171a1"
+  },
+  "ww2.unit.po-2": {
+    "variant": 0,
+    "seed": 6054691625370,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "7a5bce74c0"
   },
   "ww2.unit.quad-fifty": {
     "variant": 0,
@@ -979,6 +2351,13 @@
     "styleHash": "b697881346",
     "promptHash": "6627d3cf4e"
   },
+  "ww2.unit.radio-technician": {
+    "variant": 0,
+    "seed": 25893238992238,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a07198c7a3"
+  },
   "ww2.unit.radio-truck": {
     "variant": 0,
     "seed": 246714494435485,
@@ -992,6 +2371,13 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "legacy-v1",
     "promptHash": "60f216169d"
+  },
+  "ww2.unit.railway-troops": {
+    "variant": 0,
+    "seed": 232117159548922,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b381ac61bd"
   },
   "ww2.unit.ranger-battalion": {
     "variant": 0,
@@ -1021,6 +2407,27 @@
     "styleHash": "b697881346",
     "promptHash": "14672b95f3"
   },
+  "ww2.unit.reservists": {
+    "variant": 0,
+    "seed": 132845074783110,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ce3e495f90"
+  },
+  "ww2.unit.rice-carriers": {
+    "variant": 0,
+    "seed": 280162623007764,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0d04371b61"
+  },
+  "ww2.unit.rifle-squad": {
+    "variant": 0,
+    "seed": 197174054164779,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "36c38344e2"
+  },
   "ww2.unit.rocket-launcher": {
     "variant": 0,
     "seed": 49509347816202,
@@ -1042,6 +2449,27 @@
     "styleHash": "b697881346",
     "promptHash": "a351cfc765"
   },
+  "ww2.unit.sanitar": {
+    "variant": 0,
+    "seed": 177831462290670,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c413f1ee2a"
+  },
+  "ww2.unit.sanitater": {
+    "variant": 0,
+    "seed": 59458203142523,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "fb46c98faf"
+  },
+  "ww2.unit.sapper-battalion": {
+    "variant": 0,
+    "seed": 256876967784903,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f50cd7b6d6"
+  },
   "ww2.unit.sbd-dauntless": {
     "variant": 0,
     "seed": 34887263772417,
@@ -1049,12 +2477,26 @@
     "styleHash": "b697881346",
     "promptHash": "989c9b350a"
   },
+  "ww2.unit.scharfschutze": {
+    "variant": 0,
+    "seed": 423393372366,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "6130083478"
+  },
   "ww2.unit.scout-patrol": {
     "variant": 0,
     "seed": 274097568179832,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "legacy-v1",
     "promptHash": "8e90855af3"
+  },
+  "ww2.unit.sdkfz-222": {
+    "variant": 0,
+    "seed": 273000955301074,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8fd3b6a445"
   },
   "ww2.unit.seabees": {
     "variant": 0,
@@ -1091,6 +2533,34 @@
     "styleHash": "b697881346",
     "promptHash": "43ac9bbaed"
   },
+  "ww2.unit.shock-regiment": {
+    "variant": 0,
+    "seed": 258563465803095,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "1309418460"
+  },
+  "ww2.unit.shock-troops": {
+    "variant": 0,
+    "seed": 97604248564305,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a9263ecb19"
+  },
+  "ww2.unit.siberian-division": {
+    "variant": 0,
+    "seed": 254089924708380,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b6547629c8"
+  },
+  "ww2.unit.siberian-rifles": {
+    "variant": 0,
+    "seed": 279092242313068,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "43afe34341"
+  },
   "ww2.unit.siege-howitzer": {
     "variant": 0,
     "seed": 58615335998837,
@@ -1104,6 +2574,13 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "4f2805b0a5"
+  },
+  "ww2.unit.smg-company": {
+    "variant": 0,
+    "seed": 214599428482808,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e7303e3c18"
   },
   "ww2.unit.smoke-mortar-team": {
     "variant": 0,
@@ -1126,6 +2603,13 @@
     "styleHash": "b697881346",
     "promptHash": "1e5ddd5b6f"
   },
+  "ww2.unit.spitfire": {
+    "variant": 3,
+    "seed": 262224818361881,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "42a0e9e754"
+  },
   "ww2.unit.spy-network": {
     "variant": 0,
     "seed": 81335684805257,
@@ -1140,6 +2624,27 @@
     "styleHash": "b697881346",
     "promptHash": "369eda6f8a"
   },
+  "ww2.unit.stug-iii": {
+    "variant": 0,
+    "seed": 104504629913125,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "b00f21fd72"
+  },
+  "ww2.unit.stuka": {
+    "variant": 0,
+    "seed": 58029566048000,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "94f2172142"
+  },
+  "ww2.unit.su-76": {
+    "variant": 0,
+    "seed": 236807959242136,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f91b9e9530"
+  },
   "ww2.unit.supply-truck": {
     "variant": 0,
     "seed": 129193388202850,
@@ -1147,12 +2652,222 @@
     "styleHash": "legacy-v1",
     "promptHash": "6139e4a413"
   },
+  "ww2.unit.t-26": {
+    "variant": 0,
+    "seed": 150077977923157,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "8c5f953318"
+  },
+  "ww2.unit.t-34": {
+    "variant": 0,
+    "seed": 274044318798413,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "47bfda730d"
+  },
+  "ww2.unit.t-34-85": {
+    "variant": 0,
+    "seed": 278169665014569,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "f0082438e4"
+  },
+  "ww2.unit.t-60": {
+    "variant": 0,
+    "seed": 251398701516717,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "29ff2f9b32"
+  },
   "ww2.unit.tankette": {
     "variant": 0,
     "seed": 187207068805881,
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "legacy-v1",
     "promptHash": "11b920e340"
+  },
+  "ww2.unit.tiger-i": {
+    "variant": 0,
+    "seed": 69335467777571,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "1b1a28c614"
+  },
+  "ww2.unit.tiger-ii": {
+    "variant": 0,
+    "seed": 187034884948964,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ea550166b3"
+  },
+  "ww2.unit.tommy-section": {
+    "variant": 0,
+    "seed": 70844705318102,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "cf181f06de"
+  },
+  "ww2.unit.tu-2": {
+    "variant": 1,
+    "seed": 173982128896526,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "3f2d3d94a9"
+  },
+  "ww2.unit.tunnel-defenders": {
+    "variant": 0,
+    "seed": 197734622751383,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "acd8168479"
+  },
+  "ww2.unit.type-1-47mm-at-gun": {
+    "variant": 0,
+    "seed": 17712449361383,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "79a642e8e4"
+  },
+  "ww2.unit.type-1-chi-he": {
+    "variant": 0,
+    "seed": 142320355658378,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "42a934e3c0"
+  },
+  "ww2.unit.type-1-ho-ni": {
+    "variant": 0,
+    "seed": 222359871683701,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5d7fa56fec"
+  },
+  "ww2.unit.type-2-ka-mi": {
+    "variant": 0,
+    "seed": 16157062704841,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a2c63572b3"
+  },
+  "ww2.unit.type-3-chi-nu": {
+    "variant": 0,
+    "seed": 250299280774696,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "83aecfb04a"
+  },
+  "ww2.unit.type-38-rifle-squad": {
+    "variant": 0,
+    "seed": 216719266979596,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "be5409eaca"
+  },
+  "ww2.unit.type-4-20cm-rocket": {
+    "variant": 0,
+    "seed": 200219833059109,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "c966436a9d"
+  },
+  "ww2.unit.type-4-chi-to": {
+    "variant": 0,
+    "seed": 257600784698833,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a71f026fff"
+  },
+  "ww2.unit.type-45-coastal-gun": {
+    "variant": 0,
+    "seed": 112569761597543,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "14cc650432"
+  },
+  "ww2.unit.type-89-i-go": {
+    "variant": 0,
+    "seed": 39539138543808,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "0c2fd3af8a"
+  },
+  "ww2.unit.type-92-infantry-gun": {
+    "variant": 3,
+    "seed": 243204963300927,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "3d031d7bc4"
+  },
+  "ww2.unit.type-94-tankette": {
+    "variant": 0,
+    "seed": 93443676715782,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "32ee11c509"
+  },
+  "ww2.unit.type-95-ha-go": {
+    "variant": 0,
+    "seed": 76872316746538,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "4b3ea95753"
+  },
+  "ww2.unit.type-96-15cm-howitzer": {
+    "variant": 0,
+    "seed": 15791206502034,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "71de610409"
+  },
+  "ww2.unit.type-96-aa-gun": {
+    "variant": 0,
+    "seed": 219695677121489,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "e2546d21c3"
+  },
+  "ww2.unit.type-97-chi-ha": {
+    "variant": 0,
+    "seed": 106478902519978,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "734d6e936c"
+  },
+  "ww2.unit.type-97-mortar": {
+    "variant": 0,
+    "seed": 217223900840337,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "ed1ad61d4c"
+  },
+  "ww2.unit.type-98-20mm-aa": {
+    "variant": 0,
+    "seed": 117734479203725,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "bc3a096bc2"
+  },
+  "ww2.unit.type-98-ke-ni": {
+    "variant": 0,
+    "seed": 211731736737820,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "a7b2833b54"
+  },
+  "ww2.unit.type-99-lmg-team": {
+    "variant": 0,
+    "seed": 212461638271124,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "495bc175fa"
+  },
+  "ww2.unit.universal-carrier": {
+    "variant": 0,
+    "seed": 270427423546721,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9d7ad74f7d"
   },
   "ww2.unit.valentine": {
     "variant": 0,
@@ -1167,6 +2882,13 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "3995a1d25e"
+  },
+  "ww2.unit.volksgrenadiers": {
+    "variant": 0,
+    "seed": 115308047516659,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "de9caf6458"
   },
   "ww2.unit.war-correspondent": {
     "variant": 1,
@@ -1188,5 +2910,33 @@
     "model": "z_image_turbo_bf16.safetensors",
     "styleHash": "b697881346",
     "promptHash": "eecde55f62"
+  },
+  "ww2.unit.yak-1": {
+    "variant": 5,
+    "seed": 67478569293122,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "5318340056"
+  },
+  "ww2.unit.yak-3": {
+    "variant": 2,
+    "seed": 70804629898137,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "4541201a39"
+  },
+  "ww2.unit.zaitsev-sniper": {
+    "variant": 0,
+    "seed": 181302569224586,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "9680272e77"
+  },
+  "ww2.unit.zis-3": {
+    "variant": 0,
+    "seed": 124838540794608,
+    "model": "z_image_turbo_bf16.safetensors",
+    "styleHash": "b697881346",
+    "promptHash": "3a4c288dac"
   }
 }

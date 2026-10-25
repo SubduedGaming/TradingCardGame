@@ -64,9 +64,9 @@ Cards are written and checked in batches by nation, so each batch is small enoug
 | 1 | Neutral | 50 | 20 | **Done** (`src/cards/ww2-neutral.ts`; quota filled exactly) |
 | 2 | USA | 59 | 11 | **Done** (`src/cards/ww2-usa.ts`; quota filled exactly; art generated) |
 | 3 | UK | 61 | 9 | **Done** (`src/cards/ww2-uk.ts`; quota filled exactly; art generated) |
-| 4 | USSR | 60 | 10 | Not started |
-| 5 | Germany | 62 | 8 | Not started |
-| 6 | Japan | 65 | 5 | Not started |
+| 4 | USSR | 60 | 10 | **Done** (`src/cards/ww2-ussr.ts`; quota filled exactly; art generated) |
+| 5 | Germany | 62 | 8 | **Done** (`src/cards/ww2-germany.ts`; quota filled exactly; art generated) |
+| 6 | Japan | 65 | 5 | **Done** (`src/cards/ww2-japan.ts`; quota filled exactly; art generated) |
 
 Per batch:
 1. Check the remaining quota per tier, type and role (`remaining()` in `plan.ts`).
@@ -77,7 +77,7 @@ Per batch:
 
 ## 7. What is not covered yet
 
-- **Art for later batches.** Batch 1 art is generated (section 8). Each later batch needs its prompts written and run the same way.
+- **Card text and art are complete for set 1** (420 cards, 420 images). Later sets repeat the same process.
 - **Art.** 420 cards means 420 pieces of art per set. This is not needed for the engine, but it is the largest cost of the project once the UI starts, so decide the art pipeline before the UI.
 - **Matchup balance.** The budget only keeps cards cost-efficient. Balance between nations and roles needs the AI and the simulator.
 - **Collection size.** A full 420-card collection takes thousands of packs. The economy (docs/04) leans on the NPC buyback and the player market for this; tune with telemetry.
@@ -90,15 +90,17 @@ Art is generated locally on a ComfyUI server (the project's machine at 192.168.1
 - `art/<set>-<scope>-prompts.json` maps each card id to a short description of the scene.
 - `tools/generate-art.mjs` sends each prompt to ComfyUI, downloads the result, trims any white border (`tools/trim_border.py`), converts it to WebP (about 100 KB) and saves `assets/<set>/<card id>.webp`. Existing files are skipped unless `--force` is passed. Each card has a fixed seed derived from its id; `--variant N` re-rolls it.
 - `art/provenance.json` records the variant, seed, model and style/prompt hashes of every image. Images made with the original style wording are marked `legacy-v1`: regenerating them with the current style gives a different picture.
-- `npm run art:neutral`, `npm run art:usa` and `npm run art:uk` run each batch.
+- `npm run art:neutral`, `art:usa`, `art:uk`, `art:ussr`, `art:germany` and `art:japan` run each batch; `npm run art:core` covers the 63 launch-core cards that predate the batches.
 - `src/cards/art.test.ts` checks that every card in the batch has a prompt and an image, that every prompt belongs to a real card, that prompts and style avoid unwanted content, and that provenance is complete.
 
 **Lessons from batch 1 (all 50 images were reviewed by eye on contact sheets):**
 1. The model ignores negative prompts. Writing "no roundels, no crosses" in the style made it draw crosses and roundels on most images, so the style is now written only in positive terms (a test enforces this).
 2. Even so, about a quarter of first results carried a stray marking (a tail roundel, a letter, a shoulder patch, a small flag) or a white border. Every batch needs a visual review, and bad results are re-rolled with `--variant`.
-3. Ten of the 50 neutral images needed a second or third attempt; batch 2 needed 8 of 59 (plus one trimmed); batch 3 needed 5 of 61, all aircraft.
+3. Ten of the 50 neutral images needed a second or third attempt; batch 2 needed 8 of 59 (plus one trimmed); batch 3 needed 5 of 61, all aircraft; batch 4 needed 5 of 60, batch 5 needed 7 of 62 and batch 6 needed 5 of 65, mostly aircraft.
 4. Aircraft attract tail and fuselage markings. When re-rolling does not help, change the composition: a head-on view of a bomber hides the sides and the tail, and gave a clean image after three markings-laden side views.
 5. Aircraft drew biplanes, propellers on a jet, tail roundels and wing dots in side views. Head-on views with the paint described as plain fixed all but the Lysander, which remains a biplane (accepted compromise, as the P-38 is twin-engine).
-6. The trimmer found a cream gradient border on one image that a white-only check missed. It now detects any pale, low-saturation border that ends in a sharp edge, and was tested on synthetic white, cream and pale-sky images so that it never cuts real content.
+6. Words in a prompt leak into the picture: "banners of smoke" produced banners, and "pincers" produced giant pincers. Describe the scene, not the metaphor.
+7. Accepted compromises: the Lysander, Fieseler Storch and Carrier Strike planes are biplanes, the He 111 and Tu-2 show extra engines, and the Operation Z formation includes a bomber.
+8. The trimmer found a cream gradient border on one image that a white-only check missed. It now detects any pale, low-saturation border that ends in a sharp edge, and was tested on synthetic white, cream and pale-sky images so that it never cuts real content.
 
 Generated images are committed (WebP at about 100 KB, so roughly 40 MB for a 420-card set).

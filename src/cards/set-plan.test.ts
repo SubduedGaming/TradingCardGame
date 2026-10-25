@@ -91,6 +91,36 @@ describe('set 1 progress against the plan', () => {
     expect(c.role).toEqual(ROLE_QUOTA.nation);
   });
 
+  it('batch 4: the USSR quota is filled exactly', () => {
+    const c = counts.ussr;
+    expect(c.total).toBe(70);
+    expect(c.rarity).toEqual(RARITY_QUOTA.nation);
+    expect(c.type).toEqual(TYPE_QUOTA.nation);
+    expect(c.role).toEqual(ROLE_QUOTA.nation);
+  });
+
+  it('batch 5: the Germany quota is filled exactly', () => {
+    const c = counts.germany;
+    expect(c.total).toBe(70);
+    expect(c.rarity).toEqual(RARITY_QUOTA.nation);
+    expect(c.type).toEqual(TYPE_QUOTA.nation);
+    expect(c.role).toEqual(ROLE_QUOTA.nation);
+  });
+
+  it('batch 6: the Japan quota is filled exactly', () => {
+    const c = counts.japan;
+    expect(c.total).toBe(70);
+    expect(c.rarity).toEqual(RARITY_QUOTA.nation);
+    expect(c.type).toEqual(TYPE_QUOTA.nation);
+    expect(c.role).toEqual(ROLE_QUOTA.nation);
+  });
+
+  it('the whole set is exactly the planned size', () => {
+    expect(WW2_CARDS.length).toBe(SET_SIZE);
+    expect(new Set(WW2_CARDS.map((c) => c.id)).size).toBe(SET_SIZE);
+    expect(new Set(WW2_CARDS.map((c) => c.name)).size).toBe(SET_SIZE);
+  });
+
   it('reports exactly what is still to write', () => {
     const left = remaining(WW2_CARDS);
     const missing = ALL.reduce((n, nation) => n + Object.values(left[nation]).reduce((a, b) => a + b, 0), 0);

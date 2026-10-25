@@ -4,7 +4,10 @@ import { join } from 'node:path';
 import { NEUTRAL_CARDS } from './ww2-neutral';
 import { USA_CARDS } from './ww2-usa';
 import { UK_CARDS } from './ww2-uk';
-import { WW2_CARDS } from './ww2';
+import { USSR_CARDS } from './ww2-ussr';
+import { GERMANY_CARDS } from './ww2-germany';
+import { JAPAN_CARDS } from './ww2-japan';
+import { CORE_CARDS, WW2_CARDS } from './ww2';
 import type { Card } from '../engine/types';
 
 const root = join(__dirname, '..', '..');
@@ -12,9 +15,13 @@ const read = <T>(file: string): T => JSON.parse(readFileSync(join(root, file), '
 
 /** One entry per art batch: the cards and the prompts file that describes their pictures. */
 const BATCHES: { name: string; cards: Card[]; promptsFile: string }[] = [
+  { name: 'core', cards: CORE_CARDS, promptsFile: 'art/ww2-core-prompts.json' },
   { name: 'neutral', cards: NEUTRAL_CARDS, promptsFile: 'art/ww2-neutral-prompts.json' },
   { name: 'USA', cards: USA_CARDS, promptsFile: 'art/ww2-usa-prompts.json' },
   { name: 'UK', cards: UK_CARDS, promptsFile: 'art/ww2-uk-prompts.json' },
+  { name: 'USSR', cards: USSR_CARDS, promptsFile: 'art/ww2-ussr-prompts.json' },
+  { name: 'Germany', cards: GERMANY_CARDS, promptsFile: 'art/ww2-germany-prompts.json' },
+  { name: 'Japan', cards: JAPAN_CARDS, promptsFile: 'art/ww2-japan-prompts.json' },
 ];
 
 const style = read<{ prefix: string; suffix: string }>('art/style.json');
