@@ -7,7 +7,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "art:neutral": "node tools/generate-art.mjs art/ww2-neutral-prompts.json",
-    "art:usa": "node tools/generate-art.mjs art/ww2-usa-prompts.json"
+    "art:usa": "node tools/generate-art.mjs art/ww2-usa-prompts.json",
+    "art:uk": "node tools/generate-art.mjs art/ww2-uk-prompts.json"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

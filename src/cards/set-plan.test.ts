@@ -83,6 +83,14 @@ describe('set 1 progress against the plan', () => {
     expect(c.role).toEqual(ROLE_QUOTA.nation);
   });
 
+  it('batch 3: the UK quota is filled exactly', () => {
+    const c = counts.uk;
+    expect(c.total).toBe(70);
+    expect(c.rarity).toEqual(RARITY_QUOTA.nation);
+    expect(c.type).toEqual(TYPE_QUOTA.nation);
+    expect(c.role).toEqual(ROLE_QUOTA.nation);
+  });
+
   it('reports exactly what is still to write', () => {
     const left = remaining(WW2_CARDS);
     const missing = ALL.reduce((n, nation) => n + Object.values(left[nation]).reduce((a, b) => a + b, 0), 0);

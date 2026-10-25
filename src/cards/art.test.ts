@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { NEUTRAL_CARDS } from './ww2-neutral';
 import { USA_CARDS } from './ww2-usa';
+import { UK_CARDS } from './ww2-uk';
 import { WW2_CARDS } from './ww2';
 import type { Card } from '../engine/types';
 
@@ -13,6 +14,7 @@ const read = <T>(file: string): T => JSON.parse(readFileSync(join(root, file), '
 const BATCHES: { name: string; cards: Card[]; promptsFile: string }[] = [
   { name: 'neutral', cards: NEUTRAL_CARDS, promptsFile: 'art/ww2-neutral-prompts.json' },
   { name: 'USA', cards: USA_CARDS, promptsFile: 'art/ww2-usa-prompts.json' },
+  { name: 'UK', cards: UK_CARDS, promptsFile: 'art/ww2-uk-prompts.json' },
 ];
 
 const style = read<{ prefix: string; suffix: string }>('art/style.json');

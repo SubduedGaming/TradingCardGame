@@ -74,17 +74,21 @@ const UPKEEP_PENALTY = 1;
 /** Value of a single effect, per use (triggers that repeat every turn count for several turns). */
 export function effectPower(effect: Effect): number {
   const repeat = effect.trigger === 'startOfTurn' || effect.trigger === 'endOfTurn' ? 3 : 1;
+  return repeat * singleUsePower(effect);
+}
+
+function singleUsePower(effect: Effect): number {
   switch (effect.do) {
     case 'damage': {
       const wide = effect.target.kind === 'allEnemyFrontUnits' ? 2.5 : effect.target.kind === 'chosen' && effect.target.of === 'enemyLane' ? 2 : 1;
-      return effect.amount * 1.1 * wide * repeat;
+      return effect.amount * 1.1 * wide;
     }
     case 'heal':
-      return effect.amount * 0.8 * repeat;
+      return effect.amount * 0.8;
     case 'draw':
       return effect.count * 1.7;
     case 'gain':
-      return effect.amount * 0.9 * repeat;
+      return effect.amount * 0.9;
     case 'gainChosen':
       return effect.amount * 1.0;
     case 'addMaxHp':
