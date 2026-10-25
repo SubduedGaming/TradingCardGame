@@ -102,3 +102,12 @@ Status: draft v0.2. Desktop-first web; layouts must degrade to tablet/phone land
 - Three tutorial matches (doc 05 §10) with guided prompts.
 - Contextual tooltips on first encounters with a mechanic (Guard, Upkeep, Breakthrough).
 - In-game rulebook screen with searchable keywords, auto-generated from keyword data so it never goes stale.
+
+## Implemented (v0.1, `src/web`)
+
+A framework-free TypeScript client (Vite) that runs the engine and the AI in the browser. Run it with `npm run dev`; `npm run build` type-checks and builds to `dist/`.
+
+- **Menu:** pick a starter army (one per nation) or a saved army, an opponent nation (or random) and a difficulty (Recruit or Veteran).
+- **Match:** the layout from section 3. Playable hand cards are outlined and unaffordable ones are dimmed, with the reason on hover. Select a unit card and click a highlighted slot to deploy it. Orders, buildings and units with chosen targets ask for confirmation, listing each legal target choice. Select a ready unit in Combat to see its legal targets, or in Main to redeploy it. The side panel shows the hovered card's full rules text and a battle log built from the engine's events. Mulligan, discard, concede and a speed toggle are included.
+- **Army builder:** a filterable collection of all 420 cards, a deck panel that follows the deck rules from docs/02 section 5 (cards, points, buildings, orders, copy limits) with live doctrine detection, named armies saved in the browser (`localStorage`), and an Auto-fill that builds a random legal army for a nation.
+- **Not built yet:** pack shop, collection ownership and War Bonds, results rewards, sound, and event-by-event animation (hits and new units flash; AI actions are paced, not animated).
