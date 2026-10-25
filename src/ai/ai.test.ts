@@ -6,6 +6,7 @@ import { chooseDoctrine } from '../engine/doctrine';
 import { NATIONS } from '../cards/plan';
 import { recruitAgent, veteranAgent } from './agents';
 import { commanderAgent } from './commander';
+import { determinize, marshalAgent } from './marshal';
 import { evaluate } from './evaluate';
 import { buildNationDeck } from './decks';
 import { actingSeat, playMatch, playSeries } from './sim';
@@ -13,7 +14,7 @@ import { actingSeat, playMatch, playSeries } from './sim';
 const starter = () => buildStarterDeck();
 
 describe('agents', () => {
-  for (const agent of [recruitAgent(), veteranAgent(), commanderAgent()]) {
+  for (const agent of [recruitAgent(), veteranAgent(), commanderAgent(), marshalAgent({ worlds: 3, candidates: 3 })]) {
     it(`${agent.name} only ever chooses legal actions and finishes the game`, () => {
       for (let seed = 1; seed <= 6; seed++) {
         let s = createGame({ seed, decks: [starter(), starter()] });
@@ -92,4 +93,25 @@ describe('AI decks', () => {
       }
     });
   }
+});
+
+describe('marshal', () => {
+  it('determinize keeps hand and deck sizes, keeps my own hand, and does not copy the true opponent cards', () => {
+    const decks = [buildNationDeck('usa', { rng: 5 }), buildNationDeck('germany', { rng: 6 })] as [ReturnType<typeof buildNationDeck>, ReturnType<typeof buildNationDeck>];
+    const s = createGame({ seed: 3, decks });
+    const w = determinize(s, 0, { rng: 99 });
+    expect(w.players[1].hand).toHaveLength(s.players[1].hand.length);
+    expect(w.players[1].deck).toHaveLength(s.players[1].deck.length);
+    expect(w.players[0].hand).toEqual(s.players[0].hand);
+    expect([...w.players[0].deck].map((c) => c.id).sort()).toEqual([...s.players[0].deck].map((c) => c.id).sort());
+    // the true hidden cards are not what the world contains (sampled afresh)
+    expect(w.players[1].hand.map((c) => c.id)).not.toEqual(s.players[1].hand.map((c) => c.id));
+  });
+
+  it('is deterministic for a seed', () => {
+    const run = () => playMatch(11, [{ deck: starter(), agent: marshalAgent({ worlds: 3, candidates: 3 }) }, { deck: starter(), agent: veteranAgent() }]);
+    const a = run();
+    const b = run();
+    expect([a.winner, a.turns, a.actions]).toEqual([b.winner, b.turns, b.actions]);
+  });
 });

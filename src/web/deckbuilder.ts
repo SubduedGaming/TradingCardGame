@@ -4,7 +4,15 @@ import { BUILDINGS_MAX, BUILDINGS_MIN, COPY_LIMIT_BY_RARITY, DECK_MAX, DECK_MIN,
 import { chooseDoctrine, nationCounts, DOCTRINE_MIN_CARDS } from '../engine/doctrine';
 import { WW2_CARDS } from '../cards/ww2';
 import { buildNationDeck } from '../ai/decks';
-import { CARD_BY_ID, deleteDeck, loadDecks, loadProfile, resolveDeck, saveDeck, type SavedDeck } from './storage';
+import { CARD_BY_ID } from './storage';
+import { api, session } from './api';
+
+interface SavedDeck {
+  id: string;
+  name: string;
+  cardIds: string[];
+}
+const loadDecks = (): SavedDeck[] => session.me?.decks ?? [];
 import { costPips, inspectOnHover, inspector } from './cardview';
 import { clear, h } from './dom';
 import { DOCTRINE_INFO, NATION_LABEL, RARITY_LABEL, artUrl, cardTypeLine } from './text';
@@ -26,7 +34,7 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
       a.name.localeCompare(b.name),
   );
 
-  const collection = loadProfile()?.collection ?? {};
+  const collection = session.me?.profile.collection ?? {};
   const ownedOf = (c: Card) => collection[c.id] ?? 0;
   let deckId = startId ?? newId();
   const existing = loadDecks().find((d) => d.id === deckId);
@@ -182,13 +190,15 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
     renderDeck();
   }
 
-  function save(): void {
+  async function save(): Promise<void> {
     const ids = deckCards().map((c) => c.id);
-    const deck: SavedDeck = { id: deckId, name: deckName.trim() || 'Unnamed army', cardIds: ids };
-    saveDeck(deck);
-    dirty = false;
-    const errors = validateDeck(resolveDeck(ids));
-    message = errors.length > 0 ? 'Saved, but the army is not legal yet, so it cannot be used in a match.' : 'Saved.';
+    try {
+      const r = await api.saveDeck(deckId, deckName.trim() || 'Unnamed army', ids);
+      dirty = false;
+      message = r.problems.length > 0 ? 'Saved, but this army cannot be used in a match yet. See the problems listed.' : 'Saved.';
+    } catch (e) {
+      message = e instanceof Error ? e.message : String(e);
+    }
     renderDeck();
     renderSaved();
   }
@@ -210,9 +220,15 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
             {
               class: 'chip-x',
               title: 'Delete',
-              onclick: () => {
+              onclick: async () => {
                 if (!confirm(`Delete "${d.name}"?`)) return;
-                deleteDeck(d.id);
+                try {
+                  await api.deleteDeck(d.id);
+                } catch (e) {
+                  message = e instanceof Error ? e.message : String(e);
+                  renderDeck();
+                  return;
+                }
                 if (d.id === deckId) reset();
                 renderSaved();
               },
@@ -285,7 +301,7 @@ export function mountDeckBuilder(root: HTMLElement, onExit: () => void, startId?
   const actions = h(
     'div',
     { class: 'row wrap' },
-    h('button', { class: 'btn primary', onclick: save }, 'Save'),
+    h('button', { class: 'btn primary', onclick: () => void save() }, 'Save'),
     h('button', { class: 'btn', onclick: () => { if (!dirty || confirm('Discard this army and start a new one?')) reset(); } }, 'New'),
     h('button', { class: 'btn', onclick: () => { counts.clear(); dirty = true; refresh(); } }, 'Clear'),
     nationSelect,

@@ -103,13 +103,16 @@ Status: draft v0.2. Desktop-first web; layouts must degrade to tablet/phone land
 - Contextual tooltips on first encounters with a mechanic (Guard, Upkeep, Breakthrough).
 - In-game rulebook screen with searchable keywords, auto-generated from keyword data so it never goes stale.
 
-## Implemented (v0.1, `src/web`)
+## Implemented (`src/web`)
 
-A framework-free TypeScript client (Vite) that runs the engine and the AI in the browser. Run it with `npm run dev`; `npm run build` type-checks and builds to `dist/`.
+A framework-free TypeScript client (Vite). It no longer runs the rules itself: it talks to the game server over HTTP (`/api`) and a WebSocket (`/ws`) and draws what the server sends (see docs/09 to run it).
 
-- **Menu:** pick a saved army, an opponent nation (or random) and a difficulty (Recruit, Veteran or Commander).
-- **Match:** the layout from section 3. Playable hand cards are outlined and unaffordable ones are dimmed, with the reason on hover. Select a unit card and click a highlighted slot to deploy it. Orders, buildings and units with chosen targets ask for confirmation, listing each legal target choice. Select a ready unit in Combat to see its legal targets, or in Main to redeploy it. The side panel shows the hovered card's full rules text and a battle log built from the engine's events. Mulligan, discard, concede and a speed toggle are included.
-- **Army builder:** a filterable collection of all 420 cards, a deck panel that follows the deck rules from docs/02 section 5 (cards, points, buildings, orders, copy limits) with live doctrine detection, named armies saved in the browser (`localStorage`), and an Auto-fill that builds a random legal army for a nation.
-- **Economy screens:** a first-run nation choice (starter army), a Shop (pack opening with new-card tags, the daily market, selling cards), ownership limits in the army builder, War Bonds shown on the menu and rewards on the result screen (docs/04 section 12).
-- **Difficulty:** Recruit, Veteran and Commander.
-- **Not built yet:** sound and event-by-event animation (hits and new units flash; AI actions are paced, not animated).
+- **Accounts:** register (name, password, starter nation) or sign in; the session token is kept in `localStorage` and the socket reconnects by itself.
+- **Menu:** wallet, rating, daily login bonus, army choice (with ownership and deck-rule problems listed), opponent nation, difficulty (Recruit, Veteran, Commander, Marshal), Play vs AI, Play online (PvP, with a searching overlay and Cancel), Armies, Shop, sound toggle, sign out.
+- **Match:** the layout from section 3, driven by the server's observation and event stream. Playable hand cards are outlined and unaffordable ones dimmed with the reason on hover. Orders, buildings and units with chosen targets ask for confirmation. The side panel shows the hovered card and a battle log from the events. Mulligan, discard and concede are included. After a reconnect the server re-sends the match in progress.
+- **Event-by-event animation:** units lunge when they attack, tiles flash on hits, floating damage/heal numbers appear over the target, destroyed units fade out as ghosts, and the HQ shakes when hit. `prefers-reduced-motion` turns these off.
+- **Sound:** synthesised with the Web Audio API (no audio files): deploy, construct, order, attack, hit, HQ hit, destroy, tenacity, turn start, draw, win, lose, click, coin, pack. One toggle on the menu and in the match.
+- **Army builder:** filterable collection, the deck rules from docs/02 section 5 with live doctrine detection, armies stored on the server (so they follow the account), Auto-fill.
+- **Shop:** pack opening with NEW tags, the traders' daily stock, the player market (list a spare card, cancel, buy), sell one card or all extras.
+- **Error reporting:** uncaught client errors are sent to the server (`/api/admin/errors`).
+- **Not built yet:** tutorial matches, daily contracts, the in-game rulebook screen, keyboard-only play, an animation speed setting, ghost-army opponents.

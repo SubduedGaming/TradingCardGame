@@ -159,3 +159,13 @@ Implemented in `src/engine/`: `types.ts` (state, actions, events), `game.ts` (`c
 Deviations from §3.2: `construct` takes no slot (buildings occupy the next free slot); `Action` carries a `player` field; `deploy` carries `targets` for onDeploy effects; a `discard` action and a `discard` phase handle the hand limit.
 
 All 63 set 1 cards are playable. The only rules not implemented are the ones docs/01 §14 defers on purpose: Reaction Orders. Effects that reveal hidden information to one player are also not supported (Enigma Intercept was changed to a random discard for this reason).
+
+## 12. Server (implemented, `src/server`)
+
+One Node process (Node 22+; developed on 26) serves the built client, a JSON API under `/api`, and a WebSocket at `/ws`. Storage is SQLite via `node:sqlite` (accounts, sessions, profiles, decks, listings, matches, client errors). Everything is configured through environment variables (`src/server/config.ts`); logs are JSON lines on stdout.
+
+- **Accounts:** scrypt password hashes, random bearer tokens (30 days), rate limits on register/login and on the API.
+- **Matches:** each match is a `Room` holding the authoritative `GameState`. Clients send actions; the server checks them with the engine, applies them and sends each seat its own `observation` plus its legal actions and the events (opponent card draws are hidden). Turn timers act for an idle player, a disconnected seat is taken over by an AI after a grace period, and a reconnecting client is sent the match again.
+- **Settlement:** rewards, rating and the match record (seed and action log; replaying it reproduces the result) are written in one transaction.
+- **Admin API** (needs `ADMIN_TOKEN`, header `x-admin-token`): stats, recent errors, match list and detail, account view, grant War Bonds, reset daily flags.
+- **Known limits:** Commander and Marshal think on the main thread, so a very busy server will stall during their turns; a single process and a single SQLite file; no email or password reset.

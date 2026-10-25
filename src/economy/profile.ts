@@ -95,12 +95,18 @@ export function claimDaily(profile: Profile, now: number): { profile: Profile; a
   return { profile: p, amount: DAILY_LOGIN_REWARD };
 }
 
-export function recordMatch(profile: Profile, result: MatchResult, level: AiLevel, now: number): { profile: Profile; reward: Reward } {
+export function recordMatch(
+  profile: Profile,
+  result: MatchResult,
+  level: AiLevel | 'pvp',
+  now: number,
+  ratingGap = 0,
+): { profile: Profile; reward: Reward } {
   const p = structuredClone(profile);
-  const reward = matchReward({ result, level, now, recentAiWins: p.aiWins, wonToday: p.lastWinDay === dayKey(now) });
+  const reward = matchReward({ result, level, ratingGap, now, recentAiWins: p.aiWins, wonToday: p.lastWinDay === dayKey(now) });
   p.wb += reward.total;
   if (result === 'win') {
-    p.aiWins = [...p.aiWins.filter((t) => now - t < 3_600_000), now];
+    if (level !== 'pvp') p.aiWins = [...p.aiWins.filter((t) => now - t < 3_600_000), now];
     p.lastWinDay = dayKey(now);
   }
   log(p, { t: now, kind: 'match', wb: reward.total, note: `${result} vs ${level}` });

@@ -1,15 +1,18 @@
 import './style.css';
-import { h } from './dom';
-import { mountMenu } from './menu';
-import { mountMatch, type MatchConfig } from './match';
+import type { ClientMsg } from '../shared/protocol';
+import { api, auth, session } from './api';
 import { mountDeckBuilder } from './deckbuilder';
+import { h } from './dom';
+import { mountLogin } from './login';
+import { mountMatch } from './match';
+import { mountMenu } from './menu';
+import { connection } from './net';
 import { mountShop } from './shop';
-import { mountWelcome } from './welcome';
-import { loadProfile, saveProfile } from './storage';
-import { recordMatch } from '../economy/profile';
 
 const app = document.getElementById('app')!;
 let dispose: (() => void) | null = null;
+let lastQueue: ClientMsg | null = null;
+let activeMatch: string | null = null;
 
 function show(mount: (root: HTMLElement) => (() => void) | void): void {
   dispose?.();
@@ -19,12 +22,40 @@ function show(mount: (root: HTMLElement) => (() => void) | void): void {
   dispose = mount(root) ?? null;
 }
 
-function menu(): void {
-  if (!loadProfile()) {
-    show((root) => mountWelcome(root, menu));
+function login(notice = ''): void {
+  activeMatch = null;
+  connection.stop();
+  session.me = null;
+  show((root) => mountLogin(root, () => void enter(), notice));
+}
+
+/** Loads the account, opens the game socket and shows the menu. */
+async function enter(): Promise<void> {
+  try {
+    await api.me();
+  } catch {
+    login();
     return;
   }
-  show((root) => mountMenu(root, { play: startMatch, army, shop }));
+  connection.start();
+  menu();
+}
+
+function menu(): void {
+  activeMatch = null;
+  show((root) =>
+    mountMenu(root, {
+      queue: (msg) => {
+        lastQueue = msg;
+        connection.send(msg);
+      },
+      army,
+      shop,
+      signOut: () => {
+        void api.logout().finally(() => login());
+      },
+    }),
+  );
 }
 
 function army(deckId?: string): void {
@@ -35,19 +66,34 @@ function shop(): void {
   show((root) => mountShop(root, menu));
 }
 
-/** Pays the match reward exactly once and returns the lines the result screen shows. */
-function settle(result: 'win' | 'loss' | 'draw', level: MatchConfig['level']): string[] {
-  const profile = loadProfile();
-  if (!profile) return [];
-  const { profile: next, reward } = recordMatch(profile, result, level, Date.now());
-  saveProfile(next);
-  return [...reward.lines, `Total: +${reward.total} WB (now ${next.wb} WB)`];
-}
-
-function startMatch(cfg: MatchConfig): void {
+// The server starts matches (including one resumed after a reconnect); the screen follows.
+connection.on((msg) => {
+  if (msg.type !== 'matchStart' || msg.matchId === activeMatch) return;
+  activeMatch = msg.matchId;
   show((root) =>
-    mountMatch(root, cfg, menu, () => startMatch({ ...cfg, seed: (Math.random() * 2 ** 31) | 0 }), (result) => settle(result, cfg.level)),
+    mountMatch(root, {
+      matchId: msg.matchId,
+      seat: msg.seat,
+      opponent: msg.opponent,
+      rated: msg.rated,
+      onExit: () => void api.me().catch(() => undefined).finally(menu),
+      onRematch: () => {
+        // rewards and rating changed: refresh the wallet, then queue the same kind of game again
+        activeMatch = null;
+        void api.me().catch(() => undefined).finally(() => {
+          if (lastQueue) connection.send(lastQueue);
+        });
+      },
+    }),
   );
-}
+});
 
-menu();
+auth.onLost = () => login('Your session expired. Please sign in again.');
+
+window.addEventListener('error', (e) => api.reportError(e.message, e.error instanceof Error ? e.error.stack : undefined));
+window.addEventListener('unhandledrejection', (e) =>
+  api.reportError(String(e.reason instanceof Error ? e.reason.message : e.reason), e.reason instanceof Error ? e.reason.stack : undefined),
+);
+
+if (auth.token) void enter();
+else login();

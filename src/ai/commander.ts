@@ -64,53 +64,71 @@ function respond(state: GameState, me: PlayerId): number {
   return evaluate(s, me);
 }
 
+export interface TurnPlan {
+  actions: Action[];
+  /** Value of the position after the opponent's on-board counter-attack, from the planner's view. */
+  value: number;
+}
+
 /**
- * Commander: beam search over whole-turn action sequences. Leaves are scored after the opponent's
- * best on-board counter-attack, so it avoids leaving itself open to lethal (docs/05 section 5).
- * The plan for a turn is computed once and then replayed; it replans if the state ever differs.
+ * Beam search over whole-turn action sequences for `me`. Leaves are scored after the opponent's best
+ * on-board counter-attack, so plans that leave the HQ open to lethal rank low. Returns the `keep` best
+ * distinct finished plans, best first.
+ */
+export function planTurns(start: GameState, me: PlayerId, beamWidth: number, maxDepth: number, keep = 1): TurnPlan[] {
+  let layer: Node[] = [{ state: start, actions: [], score: evaluate(start, me) }];
+  const finished = new Map<string, TurnPlan>();
+
+  for (let depth = 0; depth < maxDepth && layer.length > 0; depth++) {
+    const seen = new Set<string>();
+    const next: Node[] = [];
+    for (const node of layer) {
+      const forced = node.state.phase === 'discard' ? forcedChoice(node.state, me) : null;
+      const options = forced ? [forced] : legalActions(node.state, me);
+      for (const action of options) {
+        if (action.type === 'concede') continue;
+        const state = apply(node.state, action).state;
+        const actions = [...node.actions, action];
+        if (turnOver(state, me)) {
+          const key = hashState(state);
+          const value = respond(state, me);
+          const prior = finished.get(key);
+          if (!prior || value > prior.value) finished.set(key, { actions, value });
+          continue;
+        }
+        const key = hashState(state);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        next.push({ state, actions, score: evaluate(state, me) });
+      }
+    }
+    next.sort((a, b) => b.score - a.score);
+    layer = next.slice(0, beamWidth);
+  }
+  return [...finished.values()].sort((a, b) => b.value - a.value).slice(0, keep);
+}
+
+/** Records the state each action of a plan starts from, so the plan can be replayed and checked. */
+export function annotate(start: GameState, actions: Action[]): Step[] {
+  const out: Step[] = [];
+  let s = start;
+  for (const action of actions) {
+    out.push({ action, before: hashState(s) });
+    s = apply(s, action).state;
+  }
+  return out;
+}
+
+export type { Step };
+
+/**
+ * Commander: the best plan from `planTurns`, computed once per turn and then replayed; it replans if
+ * the state ever differs from what the plan expected (docs/05 section 5).
  */
 export function commanderAgent(options: CommanderOptions = {}): Agent {
   const beamWidth = options.beamWidth ?? 10;
   const maxDepth = options.maxDepth ?? 40;
   let plan: Step[] = [];
-
-  function search(start: GameState, me: PlayerId): Step[] {
-    let layer: Node[] = [{ state: start, actions: [], score: evaluate(start, me) }];
-    let best: { actions: Action[]; value: number } | null = null;
-
-    for (let depth = 0; depth < maxDepth && layer.length > 0; depth++) {
-      const seen = new Set<string>();
-      const next: Node[] = [];
-      for (const node of layer) {
-        const forced = node.state.phase === 'discard' ? forcedChoice(node.state, me) : null;
-        const options = forced ? [forced] : legalActions(node.state, me);
-        for (const action of options) {
-          if (action.type === 'concede') continue;
-          const state = apply(node.state, action).state;
-          const actions = [...node.actions, action];
-          if (turnOver(state, me)) {
-            const value = respond(state, me);
-            if (!best || value > best.value) best = { actions, value };
-            continue;
-          }
-          const key = hashState(state);
-          if (seen.has(key)) continue;
-          seen.add(key);
-          next.push({ state, actions, score: evaluate(state, me) });
-        }
-      }
-      next.sort((a, b) => b.score - a.score);
-      layer = next.slice(0, beamWidth);
-    }
-
-    const out: Step[] = [];
-    let s = start;
-    for (const action of best?.actions ?? []) {
-      out.push({ action, before: hashState(s) });
-      s = apply(s, action).state;
-    }
-    return out;
-  }
 
   return {
     name: 'commander',
@@ -118,7 +136,7 @@ export function commanderAgent(options: CommanderOptions = {}): Agent {
       const forced = forcedChoice(state, player);
       if (forced) return forced;
       const here = hashState(state);
-      if (plan.length === 0 || plan[0]!.before !== here) plan = search(state, player);
+      if (plan.length === 0 || plan[0]!.before !== here) plan = annotate(state, planTurns(state, player, beamWidth, maxDepth)[0]?.actions ?? []);
       const step = plan.shift();
       if (step) return step.action;
       // The depth cap ended the search without finishing a turn: end the phase cleanly.

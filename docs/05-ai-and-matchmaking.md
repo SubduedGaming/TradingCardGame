@@ -18,7 +18,7 @@ The AI has three jobs: (1) the single-player opponent, (2) the "seat filler" for
 | **Recruit** (Easy) | Random legal action with a priority bias (build economy early, then deploy affordable units, attack when it deals damage without dying). 15% chance to make a deliberate "mistake" (skip an attack, play a worse card). | Starter wins ~70% |
 | **Veteran** (Normal) | Greedy 1-ply: scores every legal action by the evaluation function (§4) and picks the best, sequencing a full turn. Remembers opponent's played nations. | Starter wins ~45% |
 | **Commander** (Hard) | Beam search over whole-turn action sequences, evaluating resulting states plus a 1-turn opponent response by sampling plausible plays (determinised). | Starter wins ~15% |
-| **Marshal** (later) | MCTS with learned or tuned rollouts (ISMCTS). Optional, post-launch. | n/a |
+| **Marshal** | Determinised Monte-Carlo (PIMC) over Commander's best turn plans, rolled out with Veteran agents (§9.6). | n/a |
 
 Each difficulty also uses a different **deck** (§6) so tiers feel distinct, not just smarter.
 
@@ -72,6 +72,9 @@ A **ghost** is a snapshot of a real player's saved deck (and optionally their pl
 Glicko-2 per player, separate ratings for PvE-ladder (vs AI) and PvP. New players start at 1500 with high deviation.
 
 ### 8.2 Queue algorithm
+
+*Implemented (v1):* a single rating (Elo, K=32, start 1000, shown on the menu), a rating window that widens with waiting time, and after `QUEUE_FILL_MS` (10 s) an AI of the chosen tier fills the seat. Filler games are unrated and the seat is labelled as an AI. Ghost armies are not built. Matches are stored with seed and action log and can be replayed.
+
 1. Player enters the queue with a deck.
 2. Server looks for human opponents within a rating window starting at ±100 and expanding by +50 every 3 seconds, up to ±400.
 3. If no human match is found within **10 seconds**, the server assigns a **filler**:
@@ -108,7 +111,7 @@ Glicko-2 per player, separate ratings for PvE-ladder (vs AI) and PvP. New player
 
 ### 9.4 Implemented (v0.1)
 
-- **Agents** (`src/ai/agents.ts`): Recruit (random legal play with a bias and 15% mistakes) and Veteran (greedy 1-ply by `src/ai/evaluate.ts`). Both read only their own hand and public state. Commander and Marshal are not built yet.
+- **Agents** (`src/ai/agents.ts`): Recruit (random legal play with a bias and 15% mistakes) and Veteran (greedy 1-ply by `src/ai/evaluate.ts`). Both read only their own hand and public state. Commander and Marshal are described in §9.5 and §9.6.
 - **Simulator** (`src/ai/sim.ts`): `playMatch`, `playSeries` (seats alternate), deterministic per seed. **Decks** (`src/ai/decks.ts`): legal single-nation decks that reach the doctrine threshold.
 - **Harness** (`src/ai/balance.ts`): `npm run balance` (`GAMES=300` per pair, `NODOCTRINE=1`, `NATIONS=japan,...` for card outliers).
 - **Findings and changes.** The first sweep showed doctrines as a large imbalance source (Japan +9.6 points). Tuned: UK Resolve only at HQ 14 or less, Germany Combined Arms also covers Air, Japan Tenacity only for the first Infantry costing 2 or less each turn; nerfs to Pavlov's House, Siberian Division, Shock Regiment, Kwantung Army Regiment, Jungle Fighters and Type 99 LMG Team; buffs to Panzer II and Kradschuetzen.
@@ -123,7 +126,18 @@ Glicko-2 per player, separate ratings for PvE-ladder (vs AI) and PvP. New player
 - Commander sweep (1500 games, before the third tuning pass): USA 50.7, UK 44.5, USSR 53.8, Germany 48.2, Japan 52.8, first player 49.0%, turn-limit rate 18.9%.
 - Third tuning pass (from the Commander sweep): UK Resolve now applies at HQ 16 or less; Vickers Light Tank, Valentine, Royal Engineers and the 25-pounder gained a point of HP or ATK; Shock Regiment, Naval Landing Force and Kwantung Army Regiment lost a point.
 - After the third pass (1500 games): USA 51.0, UK 45.4, USSR 53.6, Germany 48.1, Japan 51.9, first player 49.0%, turn-limit rate 19.4%. All five nations are inside the 45-55% target; UK and USSR sit at its edges and each has one lopsided matchup (UK loses 38% to USSR).
-- Known gap: turn-limit rate stays near 19-20%, above the 15% target, so games are slightly too grindy. Marshal (ISMCTS) is not built.
+- Known gap: turn-limit rate stays near 19-20%, above the 15% target, so games are slightly too grindy. 
+
+### 9.6 Marshal (implemented)
+
+`src/ai/marshal.ts`: **perfect-information Monte-Carlo over whole-turn plans** (PIMC), not full ISMCTS.
+
+1. Commander's beam search (`planTurns`, width 8) proposes its 4 best distinct turn plans.
+2. Six worlds are sampled that are consistent with what the Marshal can see: the opponent's hand and deck are re-drawn from a plausible deck of their nation (their doctrine, else the commonest nation among cards seen) minus the cards already on their board or in their discard pile, and the order of the Marshal's own deck is reshuffled. The true hidden cards are never read.
+3. Each plan is played in each world (as far as it stays legal) and then rolled out two more turns with Veteran agents in both seats; the position is scored by `evaluate`, or +/-1000 on a win or loss.
+4. The plan with the best mean is played.
+
+Limits, stated plainly: it does not model what the opponent knows about us, rollouts are greedy, and the opponent's nation is a guess on turn 1. Measured over 40 games against Commander with random nation decks and alternating seats: Marshal won 30, lost 10. It takes about 1.5 s per match headless; on the server it runs on the main thread (moving it to a worker is future work).
 
 ## 10. Tutorial AI
 Three scripted opponents that teach: (1) economy and deploying, (2) lanes and combat/Armour, (3) Orders and Air. They play deliberately weak, fixed lines and explain each step in on-screen prompts.
