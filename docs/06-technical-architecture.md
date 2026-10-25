@@ -169,3 +169,7 @@ One Node process (Node 22+; developed on 26) serves the built client, a JSON API
 - **Settlement:** rewards, rating and the match record (seed and action log; replaying it reproduces the result) are written in one transaction.
 - **Admin API** (needs `ADMIN_TOKEN`, header `x-admin-token`): stats, recent errors, match list and detail, account view, grant War Bonds, reset daily flags.
 - **Known limits:** Commander and Marshal think on the main thread, so a very busy server will stall during their turns; a single process and a single SQLite file; no email or password reset.
+
+## 13. Desktop host (`electron/`)
+
+An Electron app wraps the server for people who want to host from a Windows PC without a command line. The main process runs the bundled server (`dist-server/main.cjs`) as a child utility process with the same environment variables as section 12, restarts it if it crashes (up to three times), reports "port already in use" and similar start-up failures, keeps a rolling log file, and shows a control window plus a tray icon. The control window embeds the server's own `/admin` page, signed in with the generated admin token, so the same admin screen also works in any browser. Settings live in `settings.json` in the app's data folder. `electron-builder` packages it as an NSIS installer (`npm run dist:win`, or the *Windows installer* GitHub workflow). Native modules are not used; the server needs `node:sqlite`, which Electron's Node provides.

@@ -152,6 +152,17 @@ export class Store {
   accountById(id: number): AccountRow | undefined {
     return this.db.prepare('SELECT * FROM accounts WHERE id = ?').get(id) as AccountRow | undefined;
   }
+  listAccounts(search: string, limit: number): AccountRow[] {
+    return this.db.prepare("SELECT * FROM accounts WHERE name LIKE ? ESCAPE '\\' ORDER BY created DESC LIMIT ?").all(`%${search.replace(/[\\%_]/g, (c) => `\\${c}`)}%`, limit) as unknown as AccountRow[];
+  }
+  setPassword(id: number, hash: string, salt: string): void {
+    this.db.prepare('UPDATE accounts SET pass_hash = ?, salt = ? WHERE id = ?').run(hash, salt, id);
+    this.db.prepare('DELETE FROM sessions WHERE account_id = ?').run(id);
+  }
+  /** Writes a consistent copy of the whole database to `file` (which must not exist). */
+  backupTo(file: string): void {
+    this.db.prepare('VACUUM INTO ?').run(file);
+  }
   setRating(id: number, rating: number): void {
     this.db.prepare('UPDATE accounts SET rating = ?, rated_games = rated_games + 1 WHERE id = ?').run(rating, id);
   }

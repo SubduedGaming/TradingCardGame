@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Front Line Server</title>
+<style>
+:root { --bg:#14170f; --panel:#1d2216; --line:#343c27; --text:#e6e3d3; --muted:#9a9a86; --accent:#c9a74a; --good:#8fbf5a; --bad:#d9694f; --warn:#e0b34f; }
+* { box-sizing: border-box; }
+html, body { height:100%; margin:0; }
+body { background:var(--bg); color:var(--text); font:15px/1.45 "Segoe UI",system-ui,sans-serif; display:flex; flex-direction:column; }
+header { display:flex; gap:16px; align-items:center; padding:12px 20px; border-bottom:1px solid var(--line); }
+h1 { margin:0; font:20px Georgia,serif; color:var(--accent); }
+.pill { display:inline-flex; align-items:center; gap:8px; padding:4px 12px; border-radius:99px; background:#2a3120; border:1px solid var(--line); }
+.dot { width:10px; height:10px; border-radius:50%; background:var(--muted); }
+.running .dot { background:var(--good); } .starting .dot, .stopping .dot { background:var(--warn); } .failed .dot { background:var(--bad); }
+nav { margin-left:auto; display:flex; gap:6px; }
+button, input { font:inherit; color:var(--text); background:#2a3120; border:1px solid var(--line); border-radius:6px; padding:7px 14px; }
+button { cursor:pointer; } button:hover:not(:disabled) { border-color:var(--accent); } button:disabled { opacity:.45; cursor:default; }
+button.on { background:#3b4528; border-color:var(--accent); }
+button.primary { background:#4a5c2a; border-color:var(--accent); font-weight:600; }
+button.big { padding:12px 22px; font-size:16px; }
+main { flex:1; overflow:auto; padding:20px; }
+section.page { display:none; max-width:900px; margin:0 auto; } section.page.show { display:block; }
+#admin { padding:0; max-width:none; margin:0; height:100%; } #admin iframe { width:100%; height:100%; border:0; background:var(--bg); }
+.box { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px 18px; margin-bottom:16px; }
+h2 { margin:0 0 10px; font-size:16px; }
+.row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:8px 0; }
+.muted { color:var(--muted); font-size:14px; } .bad { color:var(--bad); } .good { color:var(--good); }
+label.check { display:flex; gap:10px; align-items:flex-start; margin:10px 0; cursor:pointer; } label.check input { margin-top:5px; }
+code { font:14px Consolas,monospace; background:#0e110a; padding:2px 8px; border-radius:4px; }
+pre { background:#0e110a; border:1px solid var(--line); border-radius:6px; padding:10px; max-height:260px; overflow:auto; font:12.5px Consolas,monospace; white-space:pre-wrap; word-break:break-all; margin:8px 0 0; }
+.banner { padding:12px 16px; border-radius:8px; margin-bottom:16px; border:1px solid var(--warn); background:#2c2813; }
+.banner.err { border-color:var(--bad); background:#2e1a14; }
+input[type=number], input[type=text], input[type=password] { width:140px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Front Line Server</h1>
+  <span id="pill" class="pill"><span class="dot"></span><span id="statusText">…</span></span>
+  <nav id="tabs"></nav>
+</header>
+<main>
+  <section class="page show" id="server"></section>
+  <section class="page" id="admin"></section>
+</main>
+<script>
+(function () {
+  var host = window.host, st = null, tab = 'server', typing = false;
+  var elServer = document.getElementById('server'), elAdmin = document.getElementById('admin');
+
+  function el(tag, attrs) {
+    var e = document.createElement(tag);
+    for (var k in (attrs || {})) { if (k === 'class') e.className = attrs[k]; else if (k.slice(0, 2) === 'on') e[k] = attrs[k]; else if (k === 'checked' || k === 'disabled' || k === 'value') e[k] = attrs[k]; else e.setAttribute(k, attrs[k]); }
+    for (var i = 2; i < arguments.length; i++) { var c = arguments[i]; if (c == null || c === false) continue; e.appendChild(typeof c === 'object' ? c : document.createTextNode(String(c))); }
+    return e;
+  }
+  function tabs() {
+    var nav = document.getElementById('tabs'); nav.textContent = '';
+    [['server', 'Server'], ['admin', 'Admin console']].forEach(function (t) {
+      nav.appendChild(el('button', { class: tab === t[0] ? 'on' : '', onclick: function () { tab = t[0]; show(); } }, t[1]));
+    });
+  }
+  function show() {
+    elServer.className = 'page' + (tab === 'server' ? ' show' : ''); elAdmin.className = 'page' + (tab === 'admin' ? ' show' : '');
+    document.querySelector('main').style.padding = tab === 'admin' ? '0' : '20px';
+    tabs();
+    if (tab === 'admin') loadAdmin();
+  }
+  var adminLoaded = '';
+  function loadAdmin() {
+    if (!st) return;
+    if (st.status !== 'running') { adminLoaded = ''; elAdmin.textContent = ''; elAdmin.appendChild(el('div', { style: 'padding:30px' }, el('p', { class: 'muted' }, 'The admin console is available while the server is running. Start it on the Server tab.'))); return; }
+    if (adminLoaded === st.adminUrl) return;
+    adminLoaded = st.adminUrl; elAdmin.textContent = '';
+    elAdmin.appendChild(el('iframe', { src: st.adminUrl }));
+  }
+
+  function act(fn) { return function () { fn(); setTimeout(refresh, 200); }; }
+  function save(patch, msg) {
+    host.saveSettings(patch).then(function (r) { if (!r.ok) alert(r.error); else if (msg && r.restarted) { /* state refresh shows the restart */ } refresh(); });
+  }
+
+  function render() {
+    if (!st) return;
+    var pill = document.getElementById('pill'); pill.className = 'pill ' + st.status;
+    document.getElementById('statusText').textContent = st.statusText;
+    if (typing && document.activeElement && document.activeElement.tagName === 'INPUT' && tab === 'server') return;
+    var running = st.status === 'running', busy = st.status === 'starting' || st.status === 'stopping';
+    elServer.textContent = '';
+
+    if (st.status === 'failed' || (st.problem && st.status === 'starting')) {
+      elServer.appendChild(el('div', { class: 'banner err' }, el('b', {}, 'Problem: '), st.problem || 'The server could not start. See the details at the bottom.'));
+    }
+
+    var main = el('div', { class: 'box' }, el('h2', {}, running ? 'Your server is online' : 'Your server is ' + st.statusText.replace('Server is ', '')));
+    var row = el('div', { class: 'row' },
+      el('button', { class: 'primary big', disabled: !running, onclick: act(host.openGame) }, 'Play in my browser'),
+      running || st.status === 'starting' ? el('button', { class: 'big', disabled: busy && st.status === 'stopping', onclick: act(host.stop) }, 'Stop server') : el('button', { class: 'big', disabled: busy, onclick: act(host.start) }, 'Start server'),
+      el('button', { class: 'big', disabled: busy || (!running && st.status !== 'failed'), onclick: act(host.restart) }, 'Restart'));
+    main.appendChild(row);
+    if (running) {
+      main.appendChild(el('p', { class: 'muted' }, 'Players open one of these addresses in their web browser:'));
+      st.addresses.forEach(function (a, i) {
+        main.appendChild(el('div', { class: 'row' }, el('code', {}, a), el('button', { onclick: function () { host.copy(a); this.textContent = 'Copied'; } }, 'Copy'),
+          el('span', { class: 'muted' }, i === 0 ? 'this computer' : 'other devices on your home network')));
+      });
+      if (st.settings.lan) main.appendChild(el('p', { class: 'muted' }, 'Friends outside your home need your router to forward port ' + st.settings.port + ' to this computer, then they use your public address.'));
+    }
+    if (st.firstRun && running) main.appendChild(el('div', { class: 'banner' }, el('b', {}, 'First time? '), 'Press "Play in my browser", create an account and follow the new-player steps. Use the Admin console tab to see players, give War Bonds and read the logs.'));
+    elServer.appendChild(main);
+
+    var s = st.settings;
+    var port = el('input', { type: 'number', id: 'port', value: s.port, min: 1, max: 65535 });
+    port.onfocus = function () { typing = true; }; port.onblur = function () { typing = false; };
+    var settings = el('div', { class: 'box' }, el('h2', {}, 'Settings'),
+      el('div', { class: 'row' }, el('label', { for: 'port' }, 'Port'), port, el('button', { onclick: function () { typing = false; save({ port: Number(port.value) }, true); } }, 'Apply'), el('span', { class: 'muted' }, 'Changing it restarts the server.')),
+      el('label', { class: 'check' }, el('input', { type: 'checkbox', checked: s.lan, onchange: function () { save({ lan: this.checked }, true); } }), el('span', {}, el('b', {}, 'Let other devices connect'), el('br'), el('span', { class: 'muted' }, 'Turn off to play only on this computer.'))),
+      el('label', { class: 'check' }, el('input', { type: 'checkbox', checked: s.autoStartServer, onchange: function () { save({ autoStartServer: this.checked }); } }), el('span', {}, el('b', {}, 'Start the server when this app opens'))),
+      el('label', { class: 'check' }, el('input', { type: 'checkbox', checked: s.startWithWindows, onchange: function () { save({ startWithWindows: this.checked }); } }), el('span', {}, el('b', {}, 'Open this app when I sign in to Windows'), el('br'), el('span', { class: 'muted' }, 'It starts in the system tray and starts the server.'))));
+    if (st.platform === 'win32') {
+      settings.appendChild(el('div', { class: 'row' }, el('button', { onclick: function () { host.firewall().then(function (r) { alert(r.ok ? 'Windows Firewall now allows connections to port ' + s.port + '.' : r.error); }); } }, 'Allow through Windows Firewall'),
+        el('span', { class: 'muted' }, 'Needed once so other devices can connect (Windows asks for permission).')));
+    }
+    elServer.appendChild(settings);
+
+    var data = el('div', { class: 'box' }, el('h2', {}, 'Your data'),
+      el('p', { class: 'muted' }, 'Accounts, collections and matches are stored in ' + s.dataDir + '. Use "Back up the database" in the Admin console to save a copy.'),
+      el('div', { class: 'row' }, el('button', { onclick: function () { host.openFolder('data'); } }, 'Open data folder'), el('button', { onclick: function () { host.openFolder('backups'); } }, 'Open backups'), el('button', { onclick: function () { host.openFolder('logs'); } }, 'Open log folder')));
+    var tokenShown = false;
+    var tokenBox = el('code', {}, '••••••••••••');
+    data.appendChild(el('div', { class: 'row' }, el('span', { class: 'muted' }, 'Admin token (sign-in for the admin page in a browser):'), tokenBox,
+      el('button', { onclick: function () { tokenShown = !tokenShown; tokenBox.textContent = tokenShown ? s.adminToken : '••••••••••••'; this.textContent = tokenShown ? 'Hide' : 'Show'; } }, 'Show'),
+      el('button', { onclick: function () { host.copy(s.adminToken); } }, 'Copy')));
+    elServer.appendChild(data);
+
+    var details = el('div', { class: 'box' }, el('h2', {}, 'Server messages'), el('pre', { id: 'logs' }, 'Loading…'));
+    elServer.appendChild(details);
+    host.logs().then(function (lines) {
+      var pre = document.getElementById('logs'); if (!pre) return;
+      pre.textContent = lines.slice(-60).map(function (l) {
+        try { var o = JSON.parse(l); var r = Object.assign({}, o); delete r.ts; delete r.level; delete r.msg; return o.ts.slice(11, 19) + ' ' + o.level + ' ' + o.msg + (Object.keys(r).length ? ' ' + JSON.stringify(r) : ''); } catch (e) { return l; }
+      }).join('\n') || 'Nothing yet.';
+      pre.scrollTop = pre.scrollHeight;
+    });
+    if (tab === 'admin') loadAdmin();
+  }
+
+  function refresh() { host.state().then(function (s) { st = s; render(); if (tab === 'admin') loadAdmin(); }); }
+  host.onChange(refresh);
+  setInterval(refresh, 3000);
+  tabs(); refresh();
+})();
+</script>
+</body>
+</html>

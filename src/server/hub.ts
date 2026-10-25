@@ -37,6 +37,10 @@ export class Hub {
     this.tick.unref();
   }
 
+  isOnline(accountId: number): boolean {
+    return this.connOf.has(accountId);
+  }
+
   stats(): { rooms: number; queued: number; connections: number; roomList: Array<{ id: string; kind: string; seats: string[]; turn: number; actions: number }> } {
     return {
       rooms: this.rooms.size,

@@ -324,6 +324,16 @@ export class GameService {
     this.store.withProfile(a.id, (p) => ({ profile: { ...p, lastLoginDay: '', lastWinDay: '' }, result: null }));
   }
 
+  /** Admin only: sets a new password (the player is signed out everywhere). */
+  async adminSetPassword(name: string, password: string): Promise<void> {
+    const a = this.store.accountByName(name);
+    if (!a) throw new ApiError(404, 'No such account');
+    if (typeof password !== 'string' || password.length < 8 || password.length > 128) throw new ApiError(400, 'Passwords need 8-128 characters');
+    const salt = randomBytes(16).toString('hex');
+    this.store.setPassword(a.id, (await scryptAsync(password, salt)).toString('hex'), salt);
+    this.log.warn('admin set password', { accountId: a.id, name: a.name });
+  }
+
   today(): string {
     return dayKey(this.now());
   }

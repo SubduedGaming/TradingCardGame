@@ -14,4 +14,4 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/dist-server ./dist-server
 VOLUME /data
 EXPOSE 3000
-CMD ["node", "dist-server/main.js"]
+CMD ["node", "dist-server/main.cjs"]

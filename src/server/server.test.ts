@@ -426,4 +426,29 @@ describe('matches over WebSocket', () => {
     const errors = (await call('GET', '/api/admin/errors', undefined, undefined, { 'x-admin-token': 'secret' })).json.client;
     expect(errors[0].message).toBe('boom');
   });
+
+  it('serves the admin screen and its player, log and password tools', async () => {
+    const admin = { 'x-admin-token': 'secret' };
+    const page = await fetch(`${base}/admin`);
+    expect(page.status).toBe(200);
+    expect(await page.text()).toContain('Server admin');
+
+    const p = await newPlayer('usa', 'Alice');
+    await newPlayer('uk', 'Bob');
+    const all = (await call('GET', '/api/admin/accounts', undefined, undefined, admin)).json.accounts;
+    expect(all.map((a: any) => a.name).sort()).toEqual(['Alice', 'Bob']);
+    const found = (await call('GET', '/api/admin/accounts?q=ali', undefined, undefined, admin)).json.accounts;
+    expect(found).toHaveLength(1);
+    expect(found[0].wb).toBe(200);
+    expect((await call('GET', '/api/admin/accounts', undefined, undefined)).status).toBe(404);
+
+    expect((await call('GET', '/api/admin/logs', undefined, undefined, admin)).json.lines).toBeInstanceOf(Array);
+    expect((await call('GET', '/api/admin/stats', undefined, undefined, admin)).json.addresses[0]).toMatch(/^http:\/\/localhost:\d+$/);
+
+    expect((await call('POST', '/api/admin/set-password', { name: 'Alice', password: 'short' }, undefined, admin)).status).toBe(400);
+    expect((await call('POST', '/api/admin/set-password', { name: 'Alice', password: 'a brand new pass' }, undefined, admin)).status).toBe(200);
+    expect((await call('GET', '/api/me', undefined, p.token)).status).toBe(401);
+    expect((await call('POST', '/api/login', { name: 'Alice', password: 'correct horse' })).status).toBe(401);
+    expect((await call('POST', '/api/login', { name: 'Alice', password: 'a brand new pass' })).status).toBe(200);
+  });
 });

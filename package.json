@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p electron",
     "test": "vitest run",
     "balance": "BALANCE=1 vitest run src/ai/balance.report.test.ts",
     "art:core": "node tools/generate-art.mjs art/ww2-core-prompts.json",
@@ -18,21 +18,74 @@
     "build": "tsc --noEmit && vite build && npm run build:server",
     "preview": "vite preview",
     "build:client": "tsc --noEmit && vite build",
-    "build:server": "esbuild src/server/main.ts --bundle --platform=node --target=node22 --format=esm --external:node:sqlite --external:ws --outfile=dist-server/main.js --banner:js=\"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);\"",
-    "start": "node dist-server/main.js",
+    "build:server": "esbuild src/server/main.ts --bundle --platform=node --target=node22 --format=cjs --external:bufferutil --external:utf-8-validate --outfile=dist-server/main.cjs",
+    "start": "node dist-server/main.cjs",
     "dev:server": "ADMIN_TOKEN=${ADMIN_TOKEN:-dev} LOG_LEVEL=${LOG_LEVEL:-debug} STATIC_DIR= PORT=3000 tsx watch src/server/main.ts",
-    "serve": "npm run build && ADMIN_TOKEN=${ADMIN_TOKEN:-dev} npm start"
+    "serve": "npm run build && ADMIN_TOKEN=${ADMIN_TOKEN:-dev} npm start",
+    "build:desktop": "esbuild electron/main.ts electron/preload.ts --bundle --platform=node --format=cjs --external:electron --out-extension:.js=.cjs --outdir=electron-dist && cp electron/control.html electron-dist/control.html",
+    "desktop": "npm run build && npm run build:desktop && electron .",
+    "dist:win": "npm run build && npm run build:desktop && electron-builder --win --x64 --publish never"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
     "@types/ws": "^8.18.2",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
     "esbuild": "^0.21.5",
     "tsx": "^4.23.15",
     "typescript": "^5.6.0",
     "vite": "^5.4.21",
-    "vitest": "^2.1.0"
-  },
-  "dependencies": {
+    "vitest": "^2.1.0",
     "ws": "^8.22.0"
+  },
+  "main": "electron-dist/main.cjs",
+  "description": "Front Line \u2014 WW2 trading card game server and desktop host",
+  "author": "Front Line",
+  "build": {
+    "appId": "com.frontline.server",
+    "productName": "Front Line Server",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron-dist/**",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist",
+        "to": "client"
+      },
+      {
+        "from": "dist-server/main.cjs",
+        "to": "server/main.cjs"
+      },
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true,
+      "shortcutName": "Front Line Server",
+      "deleteAppDataOnUninstall": false
+    },
+    "artifactName": "Front-Line-Server-Setup-${version}.${ext}"
   }
 }

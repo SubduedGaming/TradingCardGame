@@ -1,6 +1,25 @@
 # 09 — Running, testing and debugging
 
-## 1. Requirements
+## 0. Windows desktop app (no command line)
+
+**Get the installer.** On GitHub open the repository's *Actions* tab, choose *Windows installer*, press *Run workflow*, and when it finishes download `front-line-server-installer` (a zip containing `Front-Line-Server-Setup-<version>.exe`). Pushing a tag such as `v0.1.0` also publishes the installer as a GitHub Release.
+
+**Install.** Double-click the installer. It installs for your user (no administrator needed), adds a desktop and Start-menu shortcut and opens the app. Windows may show a blue "unknown publisher" SmartScreen box because the installer is not code-signed: choose *More info* then *Run anyway*.
+
+**Use it.** The *Front Line Server* window has:
+- **Server tab:** a status light, *Play in my browser*, *Stop server*, *Restart*, the addresses to give players, settings (port, let other devices connect, start the server when the app opens, open the app when you sign in to Windows), your data folder and the admin token.
+- **Admin console tab:** the live admin screen: Overview (players online, matches, the addresses), Players (search, give War Bonds, reset daily bonuses, set a password), Matches, Logs, Problems (server and browser errors) and *Back up the database now*.
+- Closing the window keeps the server running in the system tray (next to the clock). Right-click the tray icon to open, stop or quit.
+
+**Let friends in.** On your home network they open the second address shown (for example `http://192.168.1.20:3000`). The first time, Windows Firewall may ask; allow it, or press *Allow through Windows Firewall* in Settings. For friends outside your home, forward the port on your router to this computer and share your public address (the app cannot do that for you).
+
+**Where things live.** Data (accounts, the database, backups) is in `%APPDATA%\Front Line Server\data`, logs in `%APPDATA%\Front Line Server\logs`; the buttons in the app open these folders. Uninstalling keeps your data.
+
+**Not verified yet.** The desktop app was exercised on macOS (server start/stop/restart, port change, port-in-use message, admin console, backup). The Windows installer, firewall button, tray and start-with-Windows are built from the same code but have not been run on Windows by the author.
+
+## 1. Running from source (developers)
+
+### Requirements
 Node 22.5 or newer (developed on 26; `node:sqlite` is built in). `npm install` once.
 
 ## 2. Ways to run

@@ -1,7 +1,7 @@
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http';
 import { randomBytes } from 'node:crypto';
-import { existsSync, readFileSync, statSync } from 'node:fs';
-import { extname, join, normalize, resolve, sep } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs';
+import { dirname, extname, join, normalize, resolve, sep } from 'node:path';
 import { WebSocketServer, type WebSocket } from 'ws';
 import type { ClientMsg } from '../shared/protocol';
 import type { Config } from './config';
@@ -10,6 +10,8 @@ import { Logger } from './log';
 import { ApiError, GameService } from './service';
 import { Store, type AccountRow } from './store';
 import type { Conn } from './rooms';
+import { ADMIN_PAGE } from './adminPage';
+import { networkInterfaces } from 'node:os';
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -125,13 +127,23 @@ export function createApp(cfg: Config, deps: { log?: Logger; store?: Store; now?
     return { ok: true };
   }, 20);
 
+  /** URLs other devices can use to reach this server. */
+  const addresses = (): string[] => {
+    const port = (server.address() as { port: number } | null)?.port ?? cfg.port;
+    const out = [`http://localhost:${port}`];
+    for (const list of Object.values(networkInterfaces())) {
+      for (const i of list ?? []) if (i.family === 'IPv4' && !i.internal) out.push(`http://${i.address}:${port}`);
+    }
+    return out;
+  };
+
   // Admin API for debugging a deployment. Disabled unless ADMIN_TOKEN is set.
   const admin = (c: Ctx) => {
     if (!cfg.adminToken || c.req.headers['x-admin-token'] !== cfg.adminToken) throw new ApiError(404, 'Not found');
   };
   route('GET', '/api/admin/stats', false, (c) => {
     admin(c);
-    return { uptimeSec: Math.round((Date.now() - startedAt) / 1000), db: store.counts(), live: hub.stats(), node: process.version, memoryMb: Math.round(process.memoryUsage().rss / 1048576) };
+    return { uptimeSec: Math.round((Date.now() - startedAt) / 1000), db: store.counts(), live: hub.stats(), node: process.version, memoryMb: Math.round(process.memoryUsage().rss / 1048576), addresses: addresses(), config: { aiDelayMs: cfg.aiDelayMs, turnTimerMs: cfg.turnTimerMs, queueFillMs: cfg.queueFillMs, awayGraceMs: cfg.awayGraceMs } };
   });
   route('GET', '/api/admin/errors', false, (c) => (admin(c), { server: log.recentErrors, client: store.recentClientErrors(50) }));
   route('GET', '/api/admin/matches', false, (c) => (admin(c), { matches: store.recentMatches(30).map(({ actions: _a, config: _c, ...m }) => m) }));
@@ -145,6 +157,27 @@ export function createApp(cfg: Config, deps: { log?: Logger; store?: Store; now?
   });
   route('POST', '/api/admin/grant', false, (c) => (admin(c), service.grant(str(c.body.name, 'name'), num(c.body.wb, 'wb'))));
   route('POST', '/api/admin/reset-daily', false, (c) => (admin(c), service.resetDaily(str(c.body.name, 'name')), { ok: true }));
+
+  route('GET', '/api/admin/accounts', false, (c) => {
+    admin(c);
+    const q = new URL(c.req.url ?? '/', 'http://x').searchParams.get('q') ?? '';
+    return {
+      accounts: store.listAccounts(q, 200).map((a) => ({
+        name: a.name, rating: a.rating, ratedGames: a.rated_games, created: a.created, online: hub.isOnline(a.id), wb: store.getProfile(a.id).wb,
+      })),
+    };
+  });
+  route('GET', '/api/admin/logs', false, (c) => (admin(c), { lines: log.recentLines.slice(-300) }));
+  route('POST', '/api/admin/set-password', false, async (c) => (admin(c), await service.adminSetPassword(str(c.body.name, 'name'), str(c.body.password, 'password')), { ok: true }));
+  route('POST', '/api/admin/backup', false, (c) => {
+    admin(c);
+    if (cfg.dbPath === ':memory:') throw new ApiError(400, 'There is no database file to back up');
+    const file = join(dirname(resolve(cfg.dbPath)), 'backups', `frontline-${new Date().toISOString().replace(/[:.]/g, '-')}.db`);
+    mkdirSync(dirname(file), { recursive: true });
+    store.backupTo(file);
+    log.info('backup written', { file });
+    return { file };
+  });
 
   const readBody = (req: IncomingMessage): Promise<Record<string, unknown>> =>
     new Promise((resolveBody, reject) => {
@@ -198,6 +231,11 @@ export function createApp(cfg: Config, deps: { log?: Logger; store?: Store; now?
     void (async () => {
       let status = 200;
       try {
+        if (path === '/admin' || path === '/admin/') {
+          res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' });
+          res.end(ADMIN_PAGE);
+          return;
+        }
         if (!path.startsWith('/api/')) {
           if (!serveStatic(req, res)) {
             status = 404;
